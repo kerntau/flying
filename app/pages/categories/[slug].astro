@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Hero from "../../components/Hero.astro";
 import PostGrid from "../../components/PostGrid.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import TaxonomyNav from "../../components/TaxonomyNav.astro";
 import { getCategories, sortPosts } from "../../lib/content";
 
 export async function getStaticPaths() {
@@ -11,6 +12,7 @@ export async function getStaticPaths() {
     params: { slug: category.slug },
     props: {
       category,
+      categories: getCategories(posts),
       posts: sortPosts(
         posts.filter((post) => post.data.category === category.name),
       ),
@@ -18,7 +20,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const { category, posts } = Astro.props;
+const { categories, category, posts } = Astro.props;
 ---
 
 <SiteLayout
@@ -27,6 +29,14 @@ const { category, posts } = Astro.props;
   bodyClass="fly-taxonomy"
 >
   <div class="fly-content-shell">
+    <TaxonomyNav
+      allHref="/"
+      ariaLabel="文章分类"
+      currentSlug={category.slug}
+      id="fly-category-detail-nav"
+      terms={categories}
+      termBasePath="/categories"
+    />
     <Hero title={category.name} description={`共 ${category.count} 篇文章。`} />
     <PostGrid posts={posts} />
   </div>

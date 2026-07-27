@@ -2,10 +2,12 @@
 import { getCollection } from "astro:content";
 import Hero from "../components/Hero.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { postUrl, sortPosts } from "../lib/content";
+import TaxonomyNav from "../components/TaxonomyNav.astro";
+import { getTags, postUrl, sortPosts } from "../lib/content";
 import { formatDate } from "../lib/date";
 
 const posts = sortPosts(await getCollection("posts"));
+const tags = getTags(posts);
 const groups = new Map<number, typeof posts>();
 for (const post of posts) {
   const year = post.data.pubDate.getFullYear();
@@ -24,8 +26,16 @@ for (const post of posts) {
       description="按时间回看所有已经发布的内容。"
       image="/assets/images/archive-hero.webp"
     />
+    <TaxonomyNav
+      allHref="/archives/"
+      allLabel="全部文章"
+      ariaLabel="文章标签"
+      id="fly-archive-nav"
+      terms={tags}
+      termBasePath="/tags"
+    />
 
-    <section class="fly-home-section">
+    <section class="fly-home-section" data-fly-feed-region>
       {
         Array.from(groups.entries()).map(([year, items]) => (
           <section class="fly-archive-year" data-fly-reveal>

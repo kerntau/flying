@@ -6,10 +6,13 @@ interface Props {
   url: string;
   date: Date;
   category?: string;
+  categorySlug?: string;
   categoryUrl?: string;
   description?: string;
   cover?: string;
   author?: string;
+  postName?: string;
+  pagedHidden?: boolean;
 }
 
 const {
@@ -17,14 +20,25 @@ const {
   url,
   date,
   category = "默认分类",
+  categorySlug = "uncategorized",
   categoryUrl = "/categories/",
   description = "",
   cover = "/assets/images/fallback-cover.svg",
   author = "Handsome",
+  postName = title,
+  pagedHidden = false,
 } = Astro.props;
 ---
 
-<article class="fly-post-card" data-fly-post-card data-fly-reveal>
+<article
+  class="fly-post-card"
+  data-fly-post-card
+  data-fly-post-name={postName}
+  data-fly-category={categorySlug}
+  data-fly-reveal
+  data-fly-paged-hidden={pagedHidden ? "true" : undefined}
+  hidden={pagedHidden}
+>
   <div class="fly-post-image-frame">
     <a class="fly-post-image-link" href={url} aria-label={`阅读：${title}`}>
       <img

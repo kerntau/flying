@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Hero from "../components/Hero.astro";
+import Icon from "../components/Icon.astro";
 import PostGrid from "../components/PostGrid.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { authors, links, site } from "../data/site";
@@ -25,14 +26,94 @@ const tags = getTags(posts);
       description="内容、路由、导航与构建全部由本地 Astro 项目管理。"
     />
 
-    <section class="fly-latest-section" aria-labelledby="fly-latest-heading">
+    <nav
+      class="fly-category-filter fly-horizontal-nav"
+      aria-label="文章分类筛选"
+      data-fly-category-filter
+    >
+      <div
+        id="fly-category-filter-rail"
+        class="fly-category-filter-rail fly-horizontal-nav-rail"
+        data-fly-category-filter-rail
+      >
+        <button
+          class="fly-filter-chip fly-horizontal-nav-item fly-is-active"
+          type="button"
+          data-fly-filter="all"
+          aria-pressed="true"
+        >
+          全部文章
+        </button>
+        {
+          categories.map((category) => (
+            <button
+              class="fly-filter-chip fly-horizontal-nav-item"
+              type="button"
+              data-fly-filter={category.slug}
+              aria-pressed="false"
+            >
+              {category.name}
+            </button>
+          ))
+        }
+      </div>
+      <button
+        class="fly-horizontal-nav-arrow fly-category-filter-arrow fly-category-filter-arrow--prev"
+        type="button"
+        aria-label="向前浏览文章分类"
+        data-fly-category-filter-prev
+        hidden
+      >
+        <Icon name="arrow-right" />
+      </button>
+      <button
+        class="fly-horizontal-nav-arrow fly-category-filter-arrow fly-category-filter-arrow--next"
+        type="button"
+        aria-label="向后浏览文章分类"
+        data-fly-category-filter-next
+        hidden
+      >
+        <Icon name="arrow-right" />
+      </button>
+    </nav>
+
+    <section
+      class="fly-latest-section"
+      aria-labelledby="fly-latest-heading"
+      data-fly-feed-region
+    >
       <header class="fly-section-heading" data-fly-reveal>
         <h2 id="fly-latest-heading">最新文章</h2>
       </header>
       <PostGrid
-        posts={posts.slice(0, 6)}
+        posts={posts}
+        initialCount={6}
         emptyText="还没有文章，写下第一篇就会出现在这里。"
       />
+      <p class="fly-empty-state" data-fly-feed-empty hidden>
+        当前分类暂无文章，试试其他分类。
+      </p>
+      <div class="fly-load-more-wrap">
+        <button
+          class="fly-load-more"
+          type="button"
+          data-fly-load-more
+          data-fly-load-local
+          data-fly-load-batch-size="6"
+          data-fly-end-text="全部文章已显示"
+          aria-busy="false"
+        >
+          <span class="fly-load-more-label" data-fly-load-label>
+            <span data-fly-load-label-copy>加载更多</span>
+          </span>
+          <span class="fly-load-more-loader" aria-hidden="true">
+            <Icon name="loader" />
+          </span>
+          <span class="fly-load-more-complete" data-fly-load-complete></span>
+        </button>
+      </div>
+      <p class="fly-load-more-state" data-fly-load-status aria-live="polite">
+      </p>
     </section>
 
     <section

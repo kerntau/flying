@@ -81,7 +81,10 @@ export function setupCategoryFilter(root) {
     }
 
     currentCards.forEach((card) => {
-      card.classList.toggle("fly-is-filtered-out", !matches(card));
+      const visible = matches(card);
+      const pagedHidden = card.dataset.flyPagedHidden === "true";
+      card.classList.toggle("fly-is-filtered-out", !visible);
+      card.hidden = !visible || (activeFilter === "all" && pagedHidden);
     });
 
     if (empty) {

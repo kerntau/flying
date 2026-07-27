@@ -1,14 +1,15 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { categoryUrl, postUrl } from "../lib/content";
+import { categoryUrl, makeSlug, postUrl } from "../lib/content";
 import PostCard from "./PostCard.astro";
 
 interface Props {
   posts: CollectionEntry<"posts">[];
   emptyText?: string;
+  initialCount?: number;
 }
 
-const { posts, emptyText = "还没有文章。" } = Astro.props;
+const { posts, emptyText = "还没有文章。", initialCount } = Astro.props;
 ---
 
 <div
@@ -18,16 +19,19 @@ const { posts, emptyText = "还没有文章。" } = Astro.props;
 >
   {
     posts.length > 0 ? (
-      posts.map((post) => (
+      posts.map((post, index) => (
         <PostCard
           title={post.data.title}
           url={postUrl(post)}
           date={post.data.pubDate}
           category={post.data.category}
+          categorySlug={makeSlug(post.data.category)}
           categoryUrl={categoryUrl(post.data.category)}
           description={post.data.description}
           cover={post.data.cover}
           author={post.data.author}
+          postName={post.id}
+          pagedHidden={initialCount !== undefined && index >= initialCount}
         />
       ))
     ) : (

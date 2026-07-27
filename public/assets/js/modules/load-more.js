@@ -122,6 +122,37 @@ export function setupLoadMore(root) {
     setLoadState("complete", endText);
   }
 
+  function loadLocalItems() {
+    const batchSize = Math.max(
+      1,
+      Number(loadLink.dataset.flyLoadBatchSize) || 6,
+    );
+    const pending = all(itemSelector, feed).filter(
+      (item) => item.dataset.flyPagedHidden === "true",
+    );
+    const nextItems = pending.slice(0, batchSize);
+
+    nextItems.forEach((item) => {
+      delete item.dataset.flyPagedHidden;
+      item.hidden = false;
+    });
+
+    if (nextItems.length > 0) {
+      feed.dispatchEvent(
+        new CustomEvent(appendEvent, {
+          bubbles: true,
+          detail: { count: nextItems.length, feed },
+        }),
+      );
+    }
+
+    if (pending.length <= nextItems.length) {
+      completeLoading();
+    } else {
+      setLoadState("ready", `已加载 ${nextItems.length} ${loadedUnit}。`);
+    }
+  }
+
   async function loadMore(event, automatic = false) {
     if (event) {
       event.preventDefault();
@@ -131,6 +162,12 @@ export function setupLoadMore(root) {
     }
 
     if (loading || (automatic && autoLoadBlocked)) {
+      return;
+    }
+
+    if (loadLink.hasAttribute("data-fly-load-local")) {
+      setLoadState("loading", loadingText);
+      window.requestAnimationFrame(loadLocalItems);
       return;
     }
 

@@ -157,7 +157,9 @@ const tags = getTags(posts);
           moments.map((moment) => (
             <article class="fly-post-card">
               <div class="fly-post-body">
-                <p class="fly-post-excerpt">{moment.data.content}</p>
+                <p class="fly-post-excerpt">
+                  <a href={`/moments/${moment.id}/`}>{moment.data.content}</a>
+                </p>
                 <footer class="fly-post-meta">
                   <time datetime={moment.data.date.toISOString()}>
                     {formatDate(moment.data.date)}

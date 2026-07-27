@@ -1,0 +1,70 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { site } from "../../data/site";
+import { formatDate } from "../../lib/date";
+
+export async function getStaticPaths() {
+  const moments = await getCollection("moments");
+  return moments.map((moment) => ({
+    params: { slug: moment.id },
+    props: { moment },
+  }));
+}
+
+const { moment } = Astro.props;
+---
+
+<SiteLayout
+  title="瞬间"
+  description={moment.data.content}
+  bodyClass="fly-moments"
+>
+  <div class="fly-content-shell fly-moment-detail-shell">
+    <article
+      class="fly-moment-detail"
+      data-fly-moment-detail
+      data-fly-moment-name={moment.id}
+    >
+      <a class="fly-moment-back-link" href="/moments/"
+        ><span aria-hidden="true">←</span><span>返回瞬间</span></a
+      >
+      <div class="fly-moment-detail-panel" data-fly-reveal>
+        <h1 class="fly-sr-only">瞬间详情</h1>
+        <header class="fly-moment-author">
+          <span class="fly-moment-author-avatar"
+            ><img
+              src={site.logo}
+              alt={site.author}
+              width="48"
+              height="48"
+              loading="lazy"
+              decoding="async"
+            /></span
+          >
+          <div class="fly-moment-author-copy">
+            <strong class="fly-moment-author-name">{site.author}</strong><time
+              class="fly-moment-author-time"
+              datetime={moment.data.date.toISOString()}
+              >{formatDate(moment.data.date)}</time
+            >
+          </div>
+        </header>
+        <div class="fly-moment-detail-content" data-fly-post-content>
+          <p class="fly-moment-raw-text">{moment.data.content}</p>
+          {
+            moment.data.tags.length > 0 && (
+              <nav class="fly-moment-tags" aria-label="瞬间标签">
+                {moment.data.tags.map((tag) => (
+                  <a href={`/moments/?tag=${encodeURIComponent(tag)}`}>
+                    #{tag}
+                  </a>
+                ))}
+              </nav>
+            )
+          }
+        </div>
+      </div>
+    </article>
+  </div>
+</SiteLayout>

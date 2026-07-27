@@ -1,17 +1,24 @@
 ---
 import { getCollection } from "astro:content";
+import Icon from "../../components/Icon.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import { formatDate } from "../../lib/date";
+import { sortPhotos } from "../../lib/content";
 
 export async function getStaticPaths() {
-  const photos = await getCollection("photos");
-  return photos.map((photo) => ({
+  const photos = sortPhotos(await getCollection("photos"));
+  return photos.map((photo, index) => ({
     params: { slug: photo.id },
-    props: { photo },
+    props: {
+      next: photos[index + 1],
+      photo,
+      position: index + 1,
+      previous: photos[index - 1],
+      total: photos.length,
+    },
   }));
 }
 
-const { photo } = Astro.props;
+const { next, photo, position, previous, total } = Astro.props;
 ---
 
 <SiteLayout
@@ -20,21 +27,121 @@ const { photo } = Astro.props;
   image={photo.data.url}
   bodyClass="fly-photos"
 >
-  <article class="fly-content-shell fly-post-page">
-    <header class="fly-post-header" data-fly-reveal>
-      <span class="fly-post-chip">{photo.data.group}</span>
-      <h1>{photo.data.title}</h1>
-      {photo.data.description && <p>{photo.data.description}</p>}
-      <footer class="fly-post-meta">
-        <time datetime={photo.data.date.toISOString()}
-          >{formatDate(photo.data.date)}</time
-        >
-      </footer>
-    </header>
-    <img
-      class="fly-taxonomy-hero-image"
-      src={photo.data.url}
-      alt={photo.data.title}
-    />
-  </article>
+  <div class="fly-content-shell fly-photo-detail-shell">
+    <article
+      class="fly-photo-detail"
+      data-fly-photo-detail
+      data-fly-photo-name={photo.id}
+    >
+      <a class="fly-photo-back-link" href="/photos/">
+        <span aria-hidden="true">←</span><span>返回图库</span>
+      </a>
+      <header class="fly-photo-detail-header" data-fly-reveal>
+        <p class="fly-photo-detail-position">{position} / {total}</p>
+        <h1>{photo.data.title}</h1>
+      </header>
+      <figure
+        class="fly-photo-detail-media"
+        data-fly-post-content
+        data-fly-reveal
+      >
+        <img
+          class="fly-photo-detail-image"
+          src={photo.data.url}
+          alt={photo.data.title}
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+      {
+        photo.data.description && (
+          <div class="fly-photo-detail-copy" data-fly-reveal>
+            <p>{photo.data.description}</p>
+          </div>
+        )
+      }
+      <nav class="fly-photo-detail-navigation" aria-label="图库导航">
+        {
+          previous ? (
+            <a href={`/photos/${previous.id}/`}>
+              <>
+                <span>上一张</span>
+                <strong>{previous.data.title}</strong>
+              </>
+            </a>
+          ) : (
+            <span />
+          )
+        }
+        {
+          next ? (
+            <a href={`/photos/${next.id}/`}>
+              <>
+                <span>下一张</span>
+                <strong>{next.data.title}</strong>
+              </>
+            </a>
+          ) : (
+            <span />
+          )
+        }
+      </nav>
+
+      <dialog
+        class="fly-post-lightbox"
+        data-fly-post-lightbox
+        data-fly-open="false"
+        data-fly-zoomed="false"
+        aria-label="图片预览"
+      >
+        <div class="fly-post-lightbox-shell">
+          <div class="fly-post-lightbox-stage" data-fly-post-lightbox-stage>
+            <img src="" alt="" draggable="false" data-fly-post-lightbox-image />
+          </div>
+          <button
+            class="fly-post-lightbox-control fly-post-lightbox-zoom"
+            type="button"
+            aria-label="放大图片"
+            aria-pressed="false"
+            data-fly-post-lightbox-zoom
+          >
+            <Icon
+              name="zoom-in"
+              class="fly-post-lightbox-zoom-icon fly-post-lightbox-zoom-icon--in"
+            />
+            <Icon
+              name="zoom-out"
+              class="fly-post-lightbox-zoom-icon fly-post-lightbox-zoom-icon--out"
+            />
+          </button>
+          <button
+            class="fly-post-lightbox-control fly-post-lightbox-close"
+            type="button"
+            aria-label="关闭图片预览"
+            data-fly-post-lightbox-close><Icon name="close" /></button
+          >
+          <button
+            class="fly-post-lightbox-control fly-post-lightbox-arrow fly-post-lightbox-arrow--prev"
+            type="button"
+            aria-label="查看上一张图片"
+            data-fly-post-lightbox-prev
+            ><span class="fly-post-lightbox-chevron" aria-hidden="true"
+            ></span></button
+          >
+          <button
+            class="fly-post-lightbox-control fly-post-lightbox-arrow fly-post-lightbox-arrow--next"
+            type="button"
+            aria-label="查看下一张图片"
+            data-fly-post-lightbox-next
+            ><span class="fly-post-lightbox-chevron" aria-hidden="true"
+            ></span></button
+          >
+          <output
+            class="fly-post-lightbox-counter"
+            aria-live="polite"
+            data-fly-post-lightbox-counter></output>
+        </div>
+      </dialog>
+    </article>
+  </div>
 </SiteLayout>

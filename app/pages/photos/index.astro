@@ -6,6 +6,13 @@ import { sortPhotos } from "../../lib/content";
 import { formatDate } from "../../lib/date";
 
 const photos = sortPhotos(await getCollection("photos"));
+const groups = Array.from(
+  photos.reduce((result, photo) => {
+    const group = photo.data.group;
+    result.set(group, (result.get(group) || 0) + 1);
+    return result;
+  }, new Map<string, number>()),
+);
 ---
 
 <SiteLayout
@@ -18,10 +25,43 @@ const photos = sortPhotos(await getCollection("photos"));
       title="图库"
       description="用影像收藏沿途所见，记录值得反复回看的片刻。"
     />
-    <div class="fly-article-grid" data-fly-reveal-group>
+    <nav
+      class="fly-photos-filter fly-horizontal-nav"
+      aria-label="图库分组"
+      data-fly-photo-filter
+      data-fly-reveal
+    >
+      <div class="fly-photos-filter-rail fly-horizontal-nav-rail">
+        <a
+          class="fly-photos-filter-item fly-horizontal-nav-item"
+          href="/photos/"
+          data-fly-photo-group
+        >
+          全部
+        </a>
+        {
+          groups.map(([group, count]) => (
+            <a
+              class="fly-photos-filter-item fly-horizontal-nav-item"
+              href={`/photos/?group=${encodeURIComponent(group)}`}
+              data-fly-photo-group={group}
+            >
+              <span>{group}</span>
+              <small>{count}</small>
+            </a>
+          ))
+        }
+      </div>
+    </nav>
+    <div class="fly-article-grid" data-fly-photo-feed data-fly-reveal-group>
       {
         photos.map((photo) => (
-          <article class="fly-post-card">
+          <article
+            class="fly-post-card"
+            data-fly-photo-card
+            data-fly-photo-name={photo.id}
+            data-fly-photo-group={photo.data.group}
+          >
             <div class="fly-post-image-frame">
               <a class="fly-post-image-link" href={`/photos/${photo.id}/`}>
                 <img

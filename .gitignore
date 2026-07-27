@@ -1,5 +1,9 @@
 # build output
 dist/
+.next/
+out/
+tsconfig.tsbuildinfo
+next-env.d.ts
 
 # local research and design references
 /docs/
@@ -19,10 +23,10 @@ yarn-error.log*
 pnpm-debug.log*
 astro-preview.log
 
-
 # environment variables
 .env
 .env.production
+.env.local
 
 # macOS-specific files
 .DS_Store

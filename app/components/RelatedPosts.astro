@@ -1,0 +1,119 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { site } from "../data/site";
+import { postUrl } from "../lib/content";
+import { formatDate } from "../lib/date";
+import Icon from "./Icon.astro";
+
+interface Props {
+  currentPost: CollectionEntry<"posts">;
+  posts: CollectionEntry<"posts">[];
+}
+
+const { currentPost, posts } = Astro.props;
+const relatedByCategory = posts.filter(
+  (post) =>
+    post.id !== currentPost.id &&
+    post.data.category === currentPost.data.category,
+);
+const relatedByTag = posts.filter(
+  (post) =>
+    post.id !== currentPost.id &&
+    post.data.tags.some((tag) => currentPost.data.tags.includes(tag)),
+);
+const relatedSource =
+  relatedByCategory.length > 0
+    ? relatedByCategory
+    : relatedByTag.length > 0
+      ? relatedByTag
+      : posts.filter((post) => post.id !== currentPost.id);
+const relatedPosts = relatedSource.slice(0, 10);
+---
+
+{
+  relatedPosts.length > 0 && (
+    <section
+      class="fly-post-related"
+      data-fly-carousel
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="推荐阅读"
+      tabindex="0"
+    >
+      <h2>推荐阅读</h2>
+      <div class="fly-post-related-track">
+        <div
+          id="fly-post-related-rail"
+          class="fly-post-related-rail"
+          data-fly-carousel-rail
+        >
+          {relatedPosts.map((post) => (
+            <article class="fly-post-related-card" data-fly-carousel-item>
+              <a
+                class="fly-post-related-media"
+                href={postUrl(post)}
+                aria-label={`阅读：${post.data.title}`}
+              >
+                <img
+                  class="fly-post-related-image"
+                  src={post.data.cover || "/assets/images/fallback-cover.svg"}
+                  alt={post.data.title}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="fly-post-related-read">阅读</span>
+              </a>
+              <div class="fly-post-related-summary">
+                <a
+                  class="fly-post-related-avatar"
+                  href="/authors/kerntau/"
+                  aria-label={post.data.author}
+                >
+                  <img
+                    src={site.logo}
+                    alt=""
+                    width="36"
+                    height="36"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+                <div>
+                  <h3>
+                    <a href={postUrl(post)}>{post.data.title}</a>
+                  </h3>
+                  <p>{post.data.author}</p>
+                  <p class="fly-post-related-meta">
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {formatDate(post.data.pubDate)}
+                    </time>
+                    <span aria-hidden="true">•</span>
+                    <span>{post.data.category}</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <button
+          class="fly-post-related-arrow fly-post-related-arrow--prev"
+          type="button"
+          data-fly-carousel-prev
+          aria-label="上一篇文章"
+          aria-controls="fly-post-related-rail"
+        >
+          <Icon name="arrow-right" />
+        </button>
+        <button
+          class="fly-post-related-arrow fly-post-related-arrow--next"
+          type="button"
+          data-fly-carousel-next
+          aria-label="下一篇文章"
+          aria-controls="fly-post-related-rail"
+        >
+          <Icon name="arrow-right" />
+        </button>
+      </div>
+    </section>
+  )
+}

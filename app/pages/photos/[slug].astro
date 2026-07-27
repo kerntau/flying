@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { formatDate } from "../../lib/date";
+
+export async function getStaticPaths() {
+  const photos = await getCollection("photos");
+  return photos.map((photo) => ({
+    params: { slug: photo.id },
+    props: { photo },
+  }));
+}
+
+const { photo } = Astro.props;
+---
+
+<SiteLayout
+  title={photo.data.title}
+  description={photo.data.description}
+  image={photo.data.url}
+  bodyClass="fly-photos"
+>
+  <article class="fly-content-shell fly-post-page">
+    <header class="fly-post-header" data-fly-reveal>
+      <span class="fly-post-chip">{photo.data.group}</span>
+      <h1>{photo.data.title}</h1>
+      {photo.data.description && <p>{photo.data.description}</p>}
+      <footer class="fly-post-meta">
+        <time datetime={photo.data.date.toISOString()}
+          >{formatDate(photo.data.date)}</time
+        >
+      </footer>
+    </header>
+    <img
+      class="fly-taxonomy-hero-image"
+      src={photo.data.url}
+      alt={photo.data.title}
+    />
+  </article>
+</SiteLayout>

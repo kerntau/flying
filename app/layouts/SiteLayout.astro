@@ -1,0 +1,95 @@
+---
+import Footer from "../components/Footer.astro";
+import MobileHeader from "../components/MobileHeader.astro";
+import NavigationPopup from "../components/NavigationPopup.astro";
+import SearchDialog from "../components/SearchDialog.astro";
+import Sidebar from "../components/Sidebar.astro";
+import { site } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  bodyClass?: string;
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  image = site.logo,
+  bodyClass = "fly-home",
+} = Astro.props;
+
+const pageTitle =
+  title === site.title ? site.title : `${title} - ${site.title}`;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+---
+
+<!doctype html>
+<html
+  lang="zh-CN"
+  data-theme="light"
+  data-color-scheme="light"
+  style="--fly-primary-color:#000000;--fly-secondary-color:#ededed;--fly-primary-color-dark:#ffffff;--fly-secondary-color-dark:#ededed;"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, site.url).toString()} />
+    <link rel="stylesheet" href="/assets/css/uno.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <script is:inline>
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem("flying-theme");
+        } catch (error) {
+          stored = null;
+        }
+        var prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var themePreference =
+          stored === "dark" || stored === "light" || stored === "system"
+            ? stored
+            : "system";
+        var resolvedTheme =
+          themePreference === "system"
+            ? prefersDark
+              ? "dark"
+              : "light"
+            : themePreference;
+        document.documentElement.dataset.theme = resolvedTheme;
+        document.documentElement.dataset.colorScheme = themePreference;
+        document.documentElement.dataset.flyHomeLayout = "grid";
+        window.flyThemeConfig = {
+          advanced: { enable_swup: false, swup_timeout: 5000 },
+        };
+      })();
+    </script>
+  </head>
+
+  <body class={bodyClass}>
+    <Sidebar />
+    <MobileHeader />
+    <NavigationPopup />
+    <SearchDialog />
+
+    <div id="swup" class="fly-site-main">
+      <main id="main-content" tabindex="-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+
+    <script is:inline type="module" src="/assets/js/script.js"></script>
+  </body>
+</html>

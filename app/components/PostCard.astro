@@ -1,0 +1,58 @@
+---
+import { formatDate } from "../lib/date";
+
+interface Props {
+  title: string;
+  url: string;
+  date: Date;
+  category?: string;
+  categoryUrl?: string;
+  description?: string;
+  cover?: string;
+  author?: string;
+}
+
+const {
+  title,
+  url,
+  date,
+  category = "默认分类",
+  categoryUrl = "/categories/",
+  description = "",
+  cover = "/assets/images/fallback-cover.svg",
+  author = "Handsome",
+} = Astro.props;
+---
+
+<article class="fly-post-card" data-fly-post-card data-fly-reveal>
+  <div class="fly-post-image-frame">
+    <a class="fly-post-image-link" href={url} aria-label={`阅读：${title}`}>
+      <img
+        class="fly-post-cover"
+        src={cover}
+        alt={title}
+        loading="lazy"
+        decoding="async"
+      />
+    </a>
+    <a class="fly-post-chip fly-post-chip--image" href={categoryUrl}
+      >{category}</a
+    >
+  </div>
+  <div class="fly-post-body">
+    <h2 class="fly-post-title">
+      <a href={url}>{title}</a>
+    </h2>
+    {description && <p class="fly-post-excerpt">{description}</p>}
+
+    <footer class="fly-post-meta">
+      <div class="fly-author-pill">
+        <span class="fly-author-name-link">
+          <span>{author}</span>
+        </span>
+      </div>
+      <span class="fly-dot" aria-hidden="true"></span>
+      <time datetime={date.toISOString()}>{formatDate(date)}</time>
+    </footer>
+  </div>
+</article>

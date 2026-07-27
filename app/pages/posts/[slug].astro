@@ -1,0 +1,67 @@
+---
+import { getCollection, render } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { categoryUrl, postUrl, tagUrl } from "../../lib/content";
+import { formatDate } from "../../lib/date";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<SiteLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.cover}
+  bodyClass="fly-post"
+>
+  <article class="fly-content-shell fly-post-page">
+    <header class="fly-post-header" data-fly-reveal>
+      <a class="fly-post-chip" href={categoryUrl(post.data.category)}
+        >{post.data.category}</a
+      >
+      <h1>{post.data.title}</h1>
+      {post.data.description && <p>{post.data.description}</p>}
+      <footer class="fly-post-meta">
+        <span>{post.data.author}</span>
+        <span class="fly-dot" aria-hidden="true"></span>
+        <time datetime={post.data.pubDate.toISOString()}
+          >{formatDate(post.data.pubDate)}</time
+        >
+      </footer>
+      {
+        post.data.cover && (
+          <img
+            class="fly-post-cover"
+            src={post.data.cover}
+            alt={post.data.title}
+            width="1600"
+            height="900"
+          />
+        )
+      }
+    </header>
+
+    <div class="fly-post-content fly-post-page-content" data-fly-post-content>
+      <Content />
+    </div>
+
+    <footer class="fly-feed-controls" aria-label="文章标签">
+      {
+        post.data.tags.map((tag) => (
+          <a class="fly-filter-pill" href={tagUrl(tag)}>
+            #{tag}
+          </a>
+        ))
+      }
+      <a class="fly-filter-pill" href={postUrl(post)}>固定链接</a>
+    </footer>
+  </article>
+</SiteLayout>

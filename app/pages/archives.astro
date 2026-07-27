@@ -1,0 +1,57 @@
+---
+import { getCollection } from "astro:content";
+import Hero from "../components/Hero.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { postUrl, sortPosts } from "../lib/content";
+import { formatDate } from "../lib/date";
+
+const posts = sortPosts(await getCollection("posts"));
+const groups = new Map<number, typeof posts>();
+for (const post of posts) {
+  const year = post.data.pubDate.getFullYear();
+  groups.set(year, [...(groups.get(year) || []), post]);
+}
+---
+
+<SiteLayout
+  title="文章归档"
+  description="按时间浏览所有文章。"
+  bodyClass="fly-archive"
+>
+  <div class="fly-content-shell">
+    <Hero
+      title="文章归档"
+      description="按时间回看所有已经发布的内容。"
+      image="/assets/images/archive-hero.webp"
+    />
+
+    <section class="fly-home-section">
+      {
+        Array.from(groups.entries()).map(([year, items]) => (
+          <section class="fly-archive-year" data-fly-reveal>
+            <h2>{year}</h2>
+            <div class="fly-article-grid">
+              {items.map((post) => (
+                <article class="fly-post-card">
+                  <div class="fly-post-body">
+                    <h2 class="fly-post-title">
+                      <a href={postUrl(post)}>{post.data.title}</a>
+                    </h2>
+                    {post.data.description && (
+                      <p class="fly-post-excerpt">{post.data.description}</p>
+                    )}
+                    <footer class="fly-post-meta">
+                      <time datetime={post.data.pubDate.toISOString()}>
+                        {formatDate(post.data.pubDate)}
+                      </time>
+                    </footer>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </section>
+  </div>
+</SiteLayout>

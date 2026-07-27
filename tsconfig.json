@@ -1,0 +1,21 @@
+{
+  "extends": "./node_modules/astro/tsconfigs/strict.json",
+  "include": [
+    ".astro/types.d.ts",
+    "app/**/*",
+    "public/assets/js/**/*.js",
+    "scripts/**/*.mjs",
+    "unocss/**/*.ts",
+    "astro.config.mjs",
+    "uno.config.ts"
+  ],
+  "exclude": ["dist", "templates", "src", "public/assets/vendor"],
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "target": "ESNext",
+    "strictNullChecks": true,
+    "jsx": "preserve",
+    "baseUrl": "."
+  }
+}

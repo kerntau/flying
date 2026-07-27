@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import Hero from "../../components/Hero.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { sortPhotos } from "../../lib/content";
+import { formatDate } from "../../lib/date";
+
+const photos = sortPhotos(await getCollection("photos"));
+---
+
+<SiteLayout
+  title="图库"
+  description="用影像收藏沿途所见。"
+  bodyClass="fly-photos"
+>
+  <div class="fly-content-shell">
+    <Hero
+      title="图库"
+      description="用影像收藏沿途所见，记录值得反复回看的片刻。"
+    />
+    <div class="fly-article-grid" data-fly-reveal-group>
+      {
+        photos.map((photo) => (
+          <article class="fly-post-card">
+            <div class="fly-post-image-frame">
+              <a class="fly-post-image-link" href={`/photos/${photo.id}/`}>
+                <img
+                  class="fly-post-cover"
+                  src={photo.data.url}
+                  alt={photo.data.title}
+                  loading="lazy"
+                />
+              </a>
+              <span class="fly-post-chip fly-post-chip--image">
+                {photo.data.group}
+              </span>
+            </div>
+            <div class="fly-post-body">
+              <h2 class="fly-post-title">
+                <a href={`/photos/${photo.id}/`}>{photo.data.title}</a>
+              </h2>
+              {photo.data.description && (
+                <p class="fly-post-excerpt">{photo.data.description}</p>
+              )}
+              <footer class="fly-post-meta">
+                <time datetime={photo.data.date.toISOString()}>
+                  {formatDate(photo.data.date)}
+                </time>
+              </footer>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</SiteLayout>

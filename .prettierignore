@@ -1,0 +1,5 @@
+# Build output is generated from app/pages and public.
+dist/
+templates/
+pnpm-lock.yaml
+pnpm-workspace.yaml

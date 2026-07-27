@@ -1,0 +1,41 @@
+{
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "lint": "prettier --check \"app/**/*.{astro,vue,ts}\" \"public/assets/js/**/*.js\" \"public/assets/css/style.css\" \"unocss/**/*.ts\" \"scripts/**/*.mjs\" astro.config.mjs uno.config.ts package.json",
+    "typecheck": "astro check",
+    "build": "node scripts/build-theme.mjs",
+    "astro": "astro",
+    "format": "prettier --write ."
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "plugins": [
+      "prettier-plugin-astro"
+    ],
+    "overrides": [
+      {
+        "files": "*.astro",
+        "options": {
+          "parser": "astro"
+        }
+      }
+    ]
+  },
+  "devDependencies": {
+    "@astrojs/vue": "^6.0.1",
+    "@astrojs/check": "^0.9.6",
+    "@iconify-json/mingcute": "^1.2.7",
+    "@iconify-json/ph": "^1.2.2",
+    "@unocss/cli": "^66.7.4",
+    "astro": "^6.4.6",
+    "prettier": "3.8.1",
+    "prettier-plugin-astro": "0.14.1",
+    "typescript": "^5.9.3",
+    "unocss": "^66.7.4",
+    "vue": "^3.5.32"
+  }
+}

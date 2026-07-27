@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import Hero from "../../components/Hero.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { getCategories } from "../../lib/content";
+
+const categories = getCategories(await getCollection("posts"));
+---
+
+<SiteLayout
+  title="分类"
+  description="按主题浏览内容。"
+  bodyClass="fly-taxonomy"
+>
+  <div class="fly-content-shell">
+    <Hero
+      title="分类"
+      description="按主题浏览内容，发现更接近当下兴趣的文章。"
+    />
+    <div class="fly-feed-controls" data-fly-reveal>
+      {
+        categories.map((category) => (
+          <a class="fly-filter-pill" href={`/categories/${category.slug}/`}>
+            {category.name} · {category.count}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</SiteLayout>

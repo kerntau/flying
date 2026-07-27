@@ -1,0 +1,43 @@
+---
+import Hero from "../../components/Hero.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { authors } from "../../data/site";
+---
+
+<SiteLayout
+  title="作者"
+  description="站点作者与创作者。"
+  bodyClass="fly-authors"
+>
+  <div class="fly-content-shell">
+    <Hero
+      title="作者"
+      description="这个独立站点背后的写作者与维护者。"
+      image="/assets/images/authors-hero.webp"
+    />
+    <div class="fly-article-grid" data-fly-reveal-group>
+      {
+        authors.map((author) => (
+          <article class="fly-post-card">
+            <div class="fly-post-image-frame">
+              <a class="fly-post-image-link" href={`/authors/${author.slug}/`}>
+                <img
+                  class="fly-post-cover"
+                  src={author.avatar}
+                  alt={author.name}
+                  loading="lazy"
+                />
+              </a>
+            </div>
+            <div class="fly-post-body">
+              <h2 class="fly-post-title">
+                <a href={`/authors/${author.slug}/`}>{author.name}</a>
+              </h2>
+              <p class="fly-post-excerpt">{author.bio}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</SiteLayout>

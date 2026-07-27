@@ -4,7 +4,7 @@ import Icon from "../../components/Icon.astro";
 import RelatedPosts from "../../components/RelatedPosts.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import { authors, site } from "../../data/site";
-import { categoryUrl, postUrl, sortPosts, tagUrl } from "../../lib/content";
+import { sortPosts, tagUrl } from "../../lib/content";
 import { formatDate } from "../../lib/date";
 
 export async function getStaticPaths() {
@@ -239,13 +239,6 @@ const allPosts = sortPosts(await getCollection("posts"));
     </div>
 
     <RelatedPosts currentPost={post} posts={allPosts} />
-
-    <footer class="fly-feed-controls" aria-label="文章信息">
-      <a class="fly-filter-pill" href={categoryUrl(post.data.category)}>
-        {post.data.category}
-      </a>
-      <a class="fly-filter-pill" href={postUrl(post)}>固定链接</a>
-    </footer>
 
     <dialog
       class="fly-post-lightbox"

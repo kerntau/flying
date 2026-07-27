@@ -1,11 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import FeaturedPosts from "../components/FeaturedPosts.astro";
-import Hero from "../components/Hero.astro";
 import Icon from "../components/Icon.astro";
 import PostGrid from "../components/PostGrid.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { authors, links, site } from "../data/site";
+import { authors, site } from "../data/site";
 import { getCategories, getTags, sortPhotos, sortPosts } from "../lib/content";
 import { formatDate } from "../lib/date";
 
@@ -22,10 +21,6 @@ const tags = getTags(posts);
   bodyClass="fly-home"
 >
   <div class="fly-content-shell fly-home-shell" data-fly-home-layout="grid">
-    <Hero
-      title="Flying 独立起航"
-      description="内容、路由、导航与构建全部由本地 Astro 项目管理。"
-    />
     <FeaturedPosts posts={posts} />
 
     <nav
@@ -226,18 +221,6 @@ const tags = getTags(posts);
           authors.map((author) => (
             <a class="fly-filter-pill" href={`/authors/${author.slug}/`}>
               {author.name}
-            </a>
-          ))
-        }
-        {
-          links.map((link) => (
-            <a
-              class="fly-filter-pill"
-              href={link.href}
-              target="_blank"
-              rel="noopener"
-            >
-              {link.title}
             </a>
           ))
         }

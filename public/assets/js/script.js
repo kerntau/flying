@@ -2,7 +2,6 @@ import { setupMenu } from "./modules/menu.js?fly=1.0.79";
 import { setupHomeLayout } from "./modules/home-layout.js?fly=1.0.126";
 import { setupCategoryFilter } from "./modules/category-filter.js?fly=1.0.103";
 import { setupContactCopy } from "./modules/contact-copy.js?fly=1.0.69";
-import { setupLinkApplication } from "./modules/link-application.js?fly=1.0.1";
 import { setupLinksGroupFilter } from "./modules/links-group-filter.js?fly=1.0.1";
 import { setupMomentPage } from "./modules/moment-page.js?fly=1.0.1";
 import { setupMomentTagFilter } from "./modules/moment-tag-filter.js?fly=1.0.1";
@@ -35,7 +34,6 @@ function boot() {
   setupTaxonomyCarousels(document);
   setupCategoryFilter(document);
   setupContactCopy(document);
-  setupLinkApplication(document);
   setupLinksGroupFilter(document);
   setupMomentPage(document);
   setupMomentTagFilter(document);
@@ -65,7 +63,6 @@ function boot() {
       setupTaxonomyCarousels(document);
       setupCategoryFilter(document);
       setupContactCopy(document);
-      setupLinkApplication(document);
       setupLinksGroupFilter(document);
       setupMomentPage(document);
       setupMomentTagFilter(document);

@@ -3,6 +3,7 @@ dist/
 
 # local research and design references
 /docs/
+/.reference-acanyo-flying/
 
 # generated types
 .astro/

@@ -2,9 +2,11 @@
 import { getCollection } from "astro:content";
 import Hero from "../../components/Hero.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import { getCategories } from "../../lib/content";
+import TaxonomySections from "../../components/TaxonomySections.astro";
+import { getCategories, sortPosts } from "../../lib/content";
 
-const categories = getCategories(await getCollection("posts"));
+const posts = sortPosts(await getCollection("posts"));
+const categories = getCategories(posts);
 ---
 
 <SiteLayout
@@ -17,14 +19,6 @@ const categories = getCategories(await getCollection("posts"));
       title="分类"
       description="按主题浏览内容，发现更接近当下兴趣的文章。"
     />
-    <div class="fly-feed-controls" data-fly-reveal>
-      {
-        categories.map((category) => (
-          <a class="fly-filter-pill" href={`/categories/${category.slug}/`}>
-            {category.name} · {category.count}
-          </a>
-        ))
-      }
-    </div>
+    <TaxonomySections posts={posts} terms={categories} />
   </div>
 </SiteLayout>

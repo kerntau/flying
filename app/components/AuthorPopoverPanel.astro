@@ -1,0 +1,85 @@
+---
+import { site } from "../data/site";
+import Icon from "./Icon.astro";
+---
+
+<div
+  id="fly-author-popover"
+  class="fly-author-popover"
+  popover="manual"
+  data-fly-author-popover
+  data-fly-author-fallback-avatar={site.logo}
+  role="group"
+  aria-label="作者联系信息"
+>
+  <a
+    class="fly-author-popover-avatar"
+    href="/authors/"
+    aria-label="查看作者主页"
+    data-fly-author-popover-profile
+  >
+    <img
+      src={site.logo}
+      alt=""
+      width="46"
+      height="46"
+      loading="lazy"
+      decoding="async"
+      data-fly-author-popover-avatar
+    />
+  </a>
+  <a
+    class="fly-author-popover-name"
+    href="/authors/"
+    data-fly-author-popover-profile
+    data-fly-author-popover-name
+  >
+    作者
+  </a>
+  <p class="fly-author-popover-bio" hidden data-fly-author-popover-bio></p>
+  <ul
+    class="fly-author-contacts fly-author-popover-contacts"
+    hidden
+    data-fly-author-popover-contacts
+  >
+    <li hidden data-fly-author-contact="qq">
+      <button
+        class="fly-author-contact-action"
+        type="button"
+        data-fly-contact-copy
+        data-fly-contact-label="QQ"
+      >
+        <Icon name="message-circle" />
+        <span class="fly-author-contact-label">QQ</span>
+      </button>
+    </li>
+    <li hidden data-fly-author-contact="wechat">
+      <button
+        class="fly-author-contact-action"
+        type="button"
+        data-fly-contact-copy
+        data-fly-contact-label="微信"
+      >
+        <Icon name="message-circle" />
+        <span class="fly-author-contact-label">微信</span>
+      </button>
+    </li>
+    <li hidden data-fly-author-contact="email">
+      <a class="fly-author-contact-action" href="mailto:">
+        <Icon name="mail" />
+        <span class="fly-author-contact-label">邮箱</span>
+      </a>
+    </li>
+    <li hidden data-fly-author-contact="website">
+      <a
+        class="fly-author-contact-action fly-author-contact-action--website"
+        href="/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="globe" />
+        <span class="fly-author-contact-label">网站</span>
+      </a>
+    </li>
+  </ul>
+</div>

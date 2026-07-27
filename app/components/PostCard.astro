@@ -1,5 +1,6 @@
 ---
 import { formatDate } from "../lib/date";
+import AuthorPopover from "./AuthorPopover.astro";
 
 interface Props {
   title: string;
@@ -61,9 +62,7 @@ const {
 
     <footer class="fly-post-meta">
       <div class="fly-author-pill">
-        <span class="fly-author-name-link">
-          <span>{author}</span>
-        </span>
+        <AuthorPopover name={author} />
       </div>
       <span class="fly-dot" aria-hidden="true"></span>
       <time datetime={date.toISOString()}>{formatDate(date)}</time>

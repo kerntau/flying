@@ -32,7 +32,7 @@ export function setupLinkApplication(root) {
           button.dataset.flyCopied = "true";
           if (label) label.textContent = "已复制";
           if (status)
-            status.textContent = "申请模板已复制，请填写后在右侧提交。";
+            status.textContent = "申请模板已复制，请通过站点联系方式提交。";
         } catch {
           button.dataset.flyCopied = "false";
           if (status) status.textContent = "复制失败，请手动选择模板内容。";

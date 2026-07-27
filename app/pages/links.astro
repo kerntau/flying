@@ -1,7 +1,7 @@
 ---
 import Hero from "../components/Hero.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { links } from "../data/site";
+import { links, site } from "../data/site";
 
 const groups = Array.from(
   links.reduce((result, link) => {
@@ -47,5 +47,63 @@ const groups = Array.from(
         ))
       }
     </div>
+    <section
+      id="fly-links-application"
+      class="fly-links-application"
+      aria-labelledby="fly-links-application-title"
+      data-fly-link-application
+    >
+      <aside class="fly-links-application-guide" data-fly-reveal>
+        <h2 id="fly-links-application-title">申请友情链接</h2>
+        <p>请先在自己的网站添加本站链接，再复制申请模板并通过邮箱联系。</p>
+        <dl class="fly-links-site-info">
+          <div>
+            <dt>本站名称</dt>
+            <dd>{site.title}</dd>
+          </div>
+          <div>
+            <dt>本站地址</dt>
+            <dd>
+              <a href={site.url} target="_blank" rel="noopener noreferrer">
+                {site.url}
+              </a>
+            </dd>
+          </div>
+        </dl>
+        <pre
+          class="fly-links-application-template"
+          data-fly-link-application-template>{`站点名称：
+站点地址：https://
+站点图标：https://
+站点简介：
+本站友链页：https://`}</pre>
+        <button
+          class="fly-links-application-copy"
+          type="button"
+          data-fly-link-application-copy
+        >
+          <span data-fly-link-application-label>复制申请模板</span>
+          <span aria-hidden="true">→</span>
+        </button>
+        <p
+          class="fly-links-application-status"
+          data-fly-link-application-status
+          role="status"
+          aria-live="polite"
+        >
+        </p>
+      </aside>
+      <div class="fly-links-application-form">
+        <header class="fly-links-application-form-heading">
+          <h3>提交申请</h3>
+          <p>请将完整模板发送至站点邮箱。</p>
+        </header>
+        <div class="fly-links-application-comment">
+          <a class="fly-taxonomy-section-button" href="mailto:coet.ink@qq.com">
+            联系站长
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
 </SiteLayout>

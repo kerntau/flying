@@ -1,6 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import { getAllTags } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "标签", description: "使用标签探索内容。", path: "/tags/" });
 
 export default function TagsPage() {
   const tags = getAllTags();

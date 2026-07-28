@@ -4,6 +4,8 @@ import Link from "next/link";
 import { getAllPhotos, getPhotoBySlug } from "@/lib/content";
 import { Icon } from "@/components/Icon";
 import { ImagePreviewButton } from "@/components/LightboxModal";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 interface PhotoDetailPageProps {
   params: Promise<{
@@ -14,6 +16,12 @@ interface PhotoDetailPageProps {
 export async function generateStaticParams() {
   const photos = getAllPhotos();
   return photos.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: PhotoDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const photo = getPhotoBySlug(slug);
+  return photo ? pageMetadata({ title: photo.title, description: photo.description, path: `/photos/${photo.slug}/`, image: photo.url }) : {};
 }
 
 export default async function PhotoDetailPage({ params }: PhotoDetailPageProps) {

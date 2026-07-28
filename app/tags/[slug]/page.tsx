@@ -4,6 +4,8 @@ import Link from "next/link";
 import { getAllTags, getAllPosts } from "@/lib/content";
 import { PostCard } from "@/components/PostCard";
 import { Icon } from "@/components/Icon";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 interface TagPageProps {
   params: Promise<{
@@ -16,6 +18,12 @@ export async function generateStaticParams() {
   return tags.map((tag) => ({
     slug: tag.slug,
   }));
+}
+
+export async function generateMetadata({ params }: TagPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const tag = decodeURIComponent(slug);
+  return pageMetadata({ title: `标签: #${tag}`, description: `浏览标签 ${tag} 下的文章。`, path: `/tags/${slug}/` });
 }
 
 export default async function TagDetailPage({ params }: TagPageProps) {

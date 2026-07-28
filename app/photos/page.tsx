@@ -1,6 +1,9 @@
 import React from "react";
 import { getAllPhotos } from "@/lib/content";
 import { PhotosClient } from "./PhotosClient";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "光影画廊", description: "记录生活中的掠影与微小浪漫。", path: "/photos/" });
 
 export default function PhotosPage() {
   const photos = getAllPhotos();

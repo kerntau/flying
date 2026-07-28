@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 import { getAllMoments, getMomentBySlug } from "@/lib/content";
 import { Icon } from "@/components/Icon";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 interface MomentDetailPageProps {
   params: Promise<{
@@ -15,6 +17,12 @@ interface MomentDetailPageProps {
 export async function generateStaticParams() {
   const moments = getAllMoments();
   return moments.map((m) => ({ slug: m.slug }));
+}
+
+export async function generateMetadata({ params }: MomentDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const moment = getMomentBySlug(slug);
+  return moment ? pageMetadata({ title: "瞬间", description: moment.content, path: `/moments/${moment.slug}/` }) : {};
 }
 
 export default async function MomentDetailPage({ params }: MomentDetailPageProps) {

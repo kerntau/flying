@@ -1,6 +1,9 @@
 import React from "react";
 import { site } from "@/data/site";
 import { Icon } from "@/components/Icon";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "关于", description: "关于 Kerntau 与序栈。", path: "/about/", image: site.logo });
 
 export default function AboutPage() {
   return (

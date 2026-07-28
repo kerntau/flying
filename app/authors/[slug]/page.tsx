@@ -4,6 +4,8 @@ import Link from "next/link";
 import { getAuthors, getAuthorBySlug, getAllPosts } from "@/lib/content";
 import { PostCard } from "@/components/PostCard";
 import { Icon } from "@/components/Icon";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 interface AuthorDetailPageProps {
   params: Promise<{
@@ -14,6 +16,12 @@ interface AuthorDetailPageProps {
 export async function generateStaticParams() {
   const authors = getAuthors();
   return authors.map((a) => ({ slug: a.slug }));
+}
+
+export async function generateMetadata({ params }: AuthorDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const author = getAuthorBySlug(slug);
+  return author ? pageMetadata({ title: author.name, description: author.bio, path: `/authors/${author.slug}/`, image: author.avatar }) : {};
 }
 
 export default async function AuthorDetailPage({ params }: AuthorDetailPageProps) {

@@ -2,6 +2,9 @@ import React from "react";
 import Link from "next/link";
 import { getAuthors } from "@/lib/content";
 import { Icon } from "@/components/Icon";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "专栏作者", description: "认识序栈的创作者。", path: "/authors/" });
 
 export default function AuthorsPage() {
   const authors = getAuthors();

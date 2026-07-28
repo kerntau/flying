@@ -1,6 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import { getAllCategories } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "分类", description: "按主题浏览内容。", path: "/categories/" });
 
 export default function CategoriesPage() {
   const categories = getAllCategories();

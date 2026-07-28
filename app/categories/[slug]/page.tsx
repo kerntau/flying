@@ -4,6 +4,8 @@ import Link from "next/link";
 import { getAllCategories, getAllPosts } from "@/lib/content";
 import { PostCard } from "@/components/PostCard";
 import { Icon } from "@/components/Icon";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 interface CategoryPageProps {
   params: Promise<{
@@ -16,6 +18,12 @@ export async function generateStaticParams() {
   return categories.map((cat) => ({
     slug: cat.slug,
   }));
+}
+
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const category = decodeURIComponent(slug);
+  return pageMetadata({ title: `分类: ${category}`, description: `浏览分类 ${category} 下的文章。`, path: `/categories/${slug}/` });
 }
 
 export default async function CategoryDetailPage({ params }: CategoryPageProps) {

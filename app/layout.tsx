@@ -10,11 +10,15 @@ import { SearchDialog } from "@/components/SearchDialog";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: {
     default: site.title,
     template: `%s - ${site.title}`,
   },
   description: site.description,
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", siteName: site.title, title: site.title, description: site.description, url: "/", images: [site.logo] },
+  twitter: { card: "summary_large_image", title: site.title, description: site.description, images: [site.logo] },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

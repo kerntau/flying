@@ -3,6 +3,9 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 import { getAllPosts } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "文章归档", description: "按时间浏览所有文章。", path: "/archives/" });
 
 export default function ArchivesPage() {
   const posts = getAllPosts();

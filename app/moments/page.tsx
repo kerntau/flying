@@ -1,6 +1,9 @@
 import React from "react";
 import { getAllMoments } from "@/lib/content";
 import { MomentsClient } from "./MomentsClient";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "闪念与动态", description: "记录想法、灵感与生活微光。", path: "/moments/" });
 
 export default function MomentsPage() {
   const moments = getAllMoments();

@@ -1,5 +1,8 @@
 import React from "react";
 import { getLinks } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "友情链接", description: "发现值得持续关注的网站与创作者。", path: "/links/" });
 import { LinksClient } from "./LinksClient";
 
 export default function LinksPage() {

@@ -11,6 +11,8 @@ import { PostCard } from "@/components/PostCard";
 import { Icon } from "@/components/Icon";
 import { ImagePreviewButton } from "@/components/LightboxModal";
 import { ShareMenu } from "@/components/ShareMenu";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 interface PostPageProps {
   params: Promise<{
@@ -23,6 +25,12 @@ export async function generateStaticParams() {
   return posts.map((post) => ({
     slug: post.slug,
   }));
+}
+
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+  return post ? pageMetadata({ title: post.title, description: post.description, path: `/posts/${post.slug}/`, image: post.cover, type: "article" }) : {};
 }
 
 export default async function PostPage({ params }: PostPageProps) {

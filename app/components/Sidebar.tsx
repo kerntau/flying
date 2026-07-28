@@ -47,52 +47,25 @@ export function Sidebar() {
         id="fly-site-sidebar"
         className={`fly-site-sidebar ${
           sidebarCollapsed ? "fly-site-sidebar--collapsed" : "fly-site-sidebar--static"
-        } fixed left-0 top-0 bottom-0 z-30 flex flex-col justify-between border-r border-[var(--line)] bg-[var(--page)] hidden md:flex`}
+        } fixed left-0 top-[var(--navbar-height)] bottom-0 z-30 flex flex-col justify-between border-r border-[var(--line)] bg-[var(--page)] hidden md:flex py-4`}
         style={{
           width: sidebarCollapsed ? "var(--sidebar-collapsed-width)" : "var(--sidebar-width)",
         }}
         aria-label="站点导航"
       >
-        <div className="fly-sidebar-inner flex flex-col gap-8">
-          <div className={`fly-sidebar-brand flex h-10 items-center ${sidebarCollapsed ? "justify-center" : "gap-3"}`}>
-            <button
-              className="fly-sidebar-toggle fly-icon-button h-9 w-9 shrink-0 rounded-lg hover:bg-[var(--page-alt)] active:scale-95 transition-all duration-200"
-              type="button"
-              onClick={toggleSidebar}
-              onMouseEnter={(e) => handleMouseEnter(e, sidebarCollapsed ? "展开侧栏" : "收缩侧栏")}
-              onMouseLeave={handleMouseLeave}
-              aria-label={sidebarCollapsed ? "展开侧栏" : "收缩侧栏"}
-              aria-expanded={!sidebarCollapsed}
-              aria-controls="fly-site-sidebar"
-              data-fly-tip={sidebarCollapsed ? "展开侧栏" : "收缩侧栏"}
-            >
-              <div className="transition-transform duration-300 hover:rotate-12">
-                <Icon name={sidebarCollapsed ? "panel-left-open" : "panel-left-close"} size={19} />
-              </div>
-            </button>
-            <div
-              className={`fly-sidebar-fade-text flex items-center origin-bottom-left ${
-                sidebarCollapsed ? "max-w-0 opacity-0 -translate-x-2 translate-y-1 scale-95 pointer-events-none" : "max-w-[200px] opacity-100 translate-x-0 translate-y-0 scale-100"
-              }`}
-            >
-              <Link className="fly-brand text-xl font-bold tracking-tight text-[var(--text)] whitespace-nowrap" href="/">
-                {site.title}
-              </Link>
-            </div>
-          </div>
-
-          <nav className="fly-sidebar-nav flex flex-col gap-2" aria-label="主导航">
+        <div className="fly-sidebar-inner flex flex-col gap-4">
+          <nav className="fly-sidebar-nav flex flex-col gap-1" aria-label="主导航">
             {navigation.map((item) => {
               const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
               return (
                 <Link
                   key={item.href}
-                  className={`fly-sidebar-link group relative flex items-center transition-colors ${
-                    sidebarCollapsed ? "justify-center !px-0 !w-[38px]" : ""
+                  className={`group relative flex items-center gap-3 transition-all duration-200 ease-out rounded-xl ${
+                    sidebarCollapsed ? "justify-center !px-0 !w-[38px] h-9" : "px-3 py-2 h-9.5"
                   } ${
                     isActive
-                      ? "bg-[var(--accent)] text-[var(--accent-contrast)]"
-                      : "text-[var(--muted)] hover:bg-[var(--page-alt)] hover:text-[var(--text)]"
+                      ? "bg-black/[0.04] dark:bg-white/[0.06] text-[var(--text)] font-semibold"
+                      : "text-[var(--muted)] hover:bg-black/[0.025] dark:hover:bg-white/[0.04] hover:text-[var(--text)] font-medium"
                   }`}
                   href={item.href}
                   aria-label={item.label}
@@ -100,12 +73,20 @@ export function Sidebar() {
                   onMouseEnter={(e) => handleMouseEnter(e, item.label)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="shrink-0 flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
-                    <Icon name={item.icon} size={18} className="fly-menu-icon" />
+                  <div
+                    className={`w-5 h-5 flex items-center justify-center shrink-0 transition-colors ${
+                      isActive
+                        ? "text-[var(--text)]"
+                        : "text-[var(--muted)] group-hover:text-[var(--text)]"
+                    }`}
+                  >
+                    <Icon name={item.icon} size={18} />
                   </div>
                   <div
                     className={`fly-sidebar-fade-text origin-bottom-left ${
-                      sidebarCollapsed ? "max-w-0 opacity-0 -translate-x-2 translate-y-1 scale-95 pointer-events-none" : "max-w-[150px] opacity-100 translate-x-0 translate-y-0 scale-100"
+                      sidebarCollapsed
+                        ? "max-w-0 opacity-0 -translate-x-2 translate-y-1 scale-95 pointer-events-none"
+                        : "max-w-[150px] opacity-100 translate-x-0 translate-y-0 scale-100"
                     }`}
                   >
                     <span className="fly-nav-label text-sm whitespace-nowrap">{item.label}</span>

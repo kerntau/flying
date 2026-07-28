@@ -15,12 +15,12 @@
   --radius-section: clamp(16px, 2vw, 30px);
   --section-gap: clamp(60px, 5.6vw, 80px);
   --page: #ffffff;
-  --page-alt: #f3f3f3;
+  --page-alt: #f8f9fa;
   --text: #000000;
   --muted: #4d4d4d;
   --faint: #757575;
   --mute: #b2b2b2;
-  --line: hsla(0, 0%, 50%, 0.2);
+  --line: hsla(0, 0%, 50%, 0.15);
   --fly-primary-color: #000000;
   --fly-secondary-color: #ededed;
   --fly-primary-color-dark: #ffffff;
@@ -28,59 +28,59 @@
   --accent: var(--fly-primary-color);
   --accent-strong: var(--fly-primary-color);
   --accent-secondary: var(--fly-secondary-color);
-  --accent-soft: color-mix(in srgb, var(--accent) 14%, var(--page));
-  --accent-soft-strong: color-mix(in srgb, var(--accent) 22%, var(--page));
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, var(--page));
+  --accent-soft-strong: color-mix(in srgb, var(--accent) 15%, var(--page));
   --accent-secondary-soft: var(--accent-secondary);
   --accent-contrast: #ffffff;
   --hover-bg-color: var(--accent-secondary-soft);
   --shadow-soft: 0 18px 38px -16px rgba(0, 0, 0, 0.35);
   --navbar-height: 58px;
+
+  /* Shadcn UI Sidebar 配色变量 */
+  --sidebar-background: #fbfbfb;
+  --sidebar-foreground: #18181b;
+  --sidebar-primary: #18181b;
+  --sidebar-primary-foreground: #fafafa;
+  --sidebar-accent: #f4f4f5;
+  --sidebar-accent-foreground: #18181b;
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: #a1a1aa;
+
   color-scheme: light;
 }
 
 [data-theme="dark"],
 .dark {
-  --page: #111317;
-  --page-alt: #1b1f25;
-  --text: #ffffff;
-  --muted: #d0d0d0;
-  --faint: #a2a2a2;
-  --mute: #747474;
-  --line: #2a3038;
-  --navigation-overlay: #212121;
+  --page: #0d0f12;
+  --page-alt: #16181d;
+  --text: #f4f4f5;
+  --muted: #a1a1aa;
+  --faint: #71717a;
+  --mute: #52525b;
+  --line: rgba(255, 255, 255, 0.08);
+  --navigation-overlay: #1c1f26;
   --accent: var(--fly-primary-color-dark);
   --accent-strong: var(--fly-primary-color-dark);
   --accent-contrast: #000000;
   --accent-secondary: var(--fly-secondary-color-dark);
-  --accent-secondary-soft: color-mix(in srgb, var(--accent-secondary) 10%, var(--page));
-  --shadow-soft: 0 18px 48px rgba(0, 0, 0, 0.34);
-  color-scheme: dark;
-}
+  --shadow-soft: 0 18px 48px rgba(0, 0, 0, 0.45);
 
-body {
-  background-color: var(--page);
-  color: var(--text);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  /* Shadcn UI Sidebar Dark 高级暗色系变量 */
+  --sidebar-background: #0d0f12;
+  --sidebar-foreground: #e4e4e7;
+  --sidebar-primary: #f4f4f5;
+  --sidebar-primary-foreground: #09090b;
+  --sidebar-accent: rgba(255, 255, 255, 0.07);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #3f3f46;
+
+  color-scheme: dark;
 }
 
 a {
   text-decoration: none;
 }
-
-/* Flying Theme Shared Utilities */
-.fly-brand {
-  display: inline-flex;
-  min-width: 0;
-  align-items: center;
-  color: var(--text);
-  font-weight: 500;
-  line-height: 1;
-}
-
 .fly-button {
   display: inline-flex;
   min-height: 2.5rem;

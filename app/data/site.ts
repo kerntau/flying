@@ -8,11 +8,11 @@ export const site = {
 };
 
 export const navigation = [
-  { label: "首页", href: "/", icon: "globe" },
-  { label: "归档", href: "/archives/", icon: "list" },
-  { label: "分类", href: "/categories/", icon: "tag" },
-  { label: "标签", href: "/tags/", icon: "fingerprint" },
-  { label: "图库", href: "/photos/", icon: "search" },
+  { label: "首页", href: "/", icon: "home" },
+  { label: "归档", href: "/archives/", icon: "archive" },
+  { label: "分类", href: "/categories/", icon: "folder" },
+  { label: "标签", href: "/tags/", icon: "hash" },
+  { label: "图库", href: "/photos/", icon: "image" },
   { label: "友链", href: "/links/", icon: "link" },
   { label: "关于", href: "/about/", icon: "user" },
 ];

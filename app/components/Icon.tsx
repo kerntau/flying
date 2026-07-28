@@ -2,12 +2,12 @@
 
 import React from "react";
 import {
-  Globe,
-  List,
-  Tag,
-  Fingerprint,
-  Search,
-  Link as LinkIcon,
+  Home,
+  Archive,
+  FolderTree,
+  Hash,
+  Image as ImageIcon,
+  Link2,
   User,
   Mail,
   Menu,
@@ -22,58 +22,82 @@ import {
   ArrowLeft,
   PanelLeftClose,
   PanelLeftOpen,
+  MessageSquare,
+  Globe,
+  List,
+  Tag,
+  Search,
 } from "lucide-react";
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: string;
   className?: string;
   size?: number;
+  strokeWidth?: number;
 }
 
-export function Icon({ name, className = "", size = 20, ...props }: IconProps) {
+export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...props }: IconProps) {
+  const iconProps = { size, strokeWidth, className, ...props };
+
   switch (name.toLowerCase()) {
-    case "globe":
-      return <Globe size={size} className={className} {...props} />;
-    case "list":
-      return <List size={size} className={className} {...props} />;
-    case "tag":
-      return <Tag size={size} className={className} {...props} />;
-    case "fingerprint":
-      return <Fingerprint size={size} className={className} {...props} />;
-    case "search":
-      return <Search size={size} className={className} {...props} />;
+    case "home":
+      return <Home {...iconProps} />;
+    case "archive":
+      return <Archive {...iconProps} />;
+    case "folder":
+    case "categories":
+      return <FolderTree {...iconProps} />;
+    case "hash":
+    case "tags":
+      return <Hash {...iconProps} />;
+    case "image":
+    case "photos":
+      return <ImageIcon {...iconProps} />;
     case "link":
-      return <LinkIcon size={size} className={className} {...props} />;
+    case "links":
+      return <Link2 {...iconProps} />;
     case "user":
-      return <User size={size} className={className} {...props} />;
+    case "about":
+      return <User {...iconProps} />;
+    case "globe":
+      return <Globe {...iconProps} />;
+    case "list":
+      return <List {...iconProps} />;
+    case "tag":
+      return <Tag {...iconProps} />;
+    case "search":
+      return <Search {...iconProps} />;
     case "mail":
-      return <Mail size={size} className={className} {...props} />;
+      return <Mail {...iconProps} />;
     case "menu":
-      return <Menu size={size} className={className} {...props} />;
+      return <Menu {...iconProps} />;
     case "moon":
-      return <Moon size={size} className={className} {...props} />;
+      return <Moon {...iconProps} />;
     case "sun":
-      return <Sun size={size} className={className} {...props} />;
+      return <Sun {...iconProps} />;
     case "x":
     case "close":
-      return <X size={size} className={className} {...props} />;
+      return <X {...iconProps} />;
     case "share":
-      return <Share2 size={size} className={className} {...props} />;
+      return <Share2 {...iconProps} />;
     case "chevron-right":
-      return <ChevronRight size={size} className={className} {...props} />;
+      return <ChevronRight {...iconProps} />;
     case "chevron-left":
-      return <ChevronLeft size={size} className={className} {...props} />;
+      return <ChevronLeft {...iconProps} />;
     case "calendar":
-      return <Calendar size={size} className={className} {...props} />;
+      return <Calendar {...iconProps} />;
     case "clock":
-      return <Clock size={size} className={className} {...props} />;
+      return <Clock {...iconProps} />;
     case "arrow-left":
-      return <ArrowLeft size={size} className={className} {...props} />;
+      return <ArrowLeft {...iconProps} />;
     case "panel-left-close":
-      return <PanelLeftClose size={size} className={className} {...props} />;
+      return <PanelLeftClose {...iconProps} />;
     case "panel-left-open":
-      return <PanelLeftOpen size={size} className={className} {...props} />;
+      return <PanelLeftOpen {...iconProps} />;
+    case "message-square":
+    case "chat":
+      return <MessageSquare {...iconProps} />;
     default:
-      return <Globe size={size} className={className} {...props} />;
+      return <Home {...iconProps} />;
   }
 }

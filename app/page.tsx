@@ -2,7 +2,6 @@ import React from "react";
 import { getAllPosts } from "@/lib/content";
 import { FeaturedPosts } from "@/components/FeaturedPosts";
 import { PostCard } from "@/components/PostCard";
-import { site } from "@/data/site";
 
 export default function HomePage() {
   const posts = getAllPosts();
@@ -11,14 +10,6 @@ export default function HomePage() {
 
   return (
     <div className="fly-home-page w-full max-w-7xl space-y-10 transition-all duration-350">
-      {/* Banner & Hero Header */}
-      <section className="fly-hero-banner py-6 flex flex-col gap-2">
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text)]">
-          {site.title}
-        </h1>
-        <p className="text-sm sm:text-base text-[var(--muted)]">{site.subtitle}</p>
-      </section>
-
       {/* Featured Posts Carousel */}
       {featuredPosts.length > 0 && <FeaturedPosts posts={featuredPosts} />}
 

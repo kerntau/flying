@@ -17,9 +17,13 @@ import {
   Share2,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
+  Lock,
   Calendar,
   Clock,
   ArrowLeft,
+  ArrowRight,
+  Video,
   PanelLeftClose,
   PanelLeftOpen,
   MessageSquare,
@@ -59,6 +63,8 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
     case "user":
     case "about":
       return <User {...iconProps} />;
+    case "lock":
+      return <Lock {...iconProps} />;
     case "globe":
       return <Globe {...iconProps} />;
     case "list":
@@ -84,12 +90,18 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
       return <ChevronRight {...iconProps} />;
     case "chevron-left":
       return <ChevronLeft {...iconProps} />;
+    case "chevron-down":
+      return <ChevronDown {...iconProps} />;
     case "calendar":
       return <Calendar {...iconProps} />;
     case "clock":
       return <Clock {...iconProps} />;
     case "arrow-left":
       return <ArrowLeft {...iconProps} />;
+    case "arrow-right":
+      return <ArrowRight {...iconProps} />;
+    case "video":
+      return <Video {...iconProps} />;
     case "panel-left-close":
       return <PanelLeftClose {...iconProps} />;
     case "panel-left-open":

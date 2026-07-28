@@ -3,7 +3,6 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 import type { Post } from "@/lib/types";
-import { AuthorPopover } from "./AuthorPopover";
 
 interface PostCardProps {
   post: Post;
@@ -15,44 +14,46 @@ export function PostCard({ post }: PostCardProps) {
     : "";
 
   return (
-    <article className="fly-post-card group flex flex-col overflow-hidden rounded-2xl bg-[var(--page-alt)] border border-[var(--line)] transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      <div className="fly-post-image-frame relative aspect-[16/9] overflow-hidden bg-[var(--page)]">
-        <Link href={`/posts/${post.slug}/`} className="block w-full h-full">
+    <article className="fly-post-card group flex flex-col min-w-0 bg-transparent">
+      {/* 16:10 封面图框 (图片左下角带玻璃分类 Pill) */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-[var(--page-alt)] shadow-xs transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md">
+        <Link href={`/posts/${post.slug}/`} className="block w-full h-full" aria-label={`阅读：${post.title}`}>
           <img
             src={post.cover || "/assets/images/fallback-cover.svg"}
             alt={post.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
             loading="lazy"
           />
         </Link>
 
+        {/* 左下角分类 Pill 标签 */}
         {post.category && (
-          <Link
-            href={`/categories/${encodeURIComponent(post.category)}/`}
-            className="absolute top-3 left-3 z-10 px-3 py-1 text-xs font-semibold rounded-full bg-black/60 text-white backdrop-blur-md hover:bg-black/80 transition-colors"
-          >
+          <span className="absolute bottom-2 left-2 z-10 inline-flex items-center px-2 py-0.5 text-[11px] font-bold rounded-md bg-white/90 dark:bg-black/90 text-black dark:text-white shadow-xs backdrop-blur-md">
             {post.category}
-          </Link>
+          </span>
         )}
       </div>
 
-      <div className="fly-post-body flex flex-col flex-1 p-5 gap-3 justify-between">
-        <div className="flex flex-col gap-2">
-          <h2 className="fly-post-title text-lg font-bold tracking-tight text-[var(--text)] group-hover:text-[var(--accent)] transition-colors line-clamp-2">
+      {/* 下方正文：左侧作者头像 + 右侧双行标题 */}
+      <div className="flex flex-col flex-1 pt-2.5 min-w-0">
+        <div className="flex items-start gap-2">
+          {/* 作者头像 */}
+          <img
+            src="/assets/images/avatar.png"
+            alt={post.author || "Kerntau"}
+            className="w-6 h-6 rounded-full object-cover shrink-0 mt-0.5 border border-black/10 dark:border-white/10"
+          />
+
+          {/* 文章标题 */}
+          <h2 className="text-xs sm:text-sm font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-snug group-hover:text-[var(--accent)] transition-colors">
             <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
           </h2>
-
-          {post.description && (
-            <p className="fly-post-excerpt text-xs text-[var(--muted)] line-clamp-2 leading-relaxed">
-              {post.description}
-            </p>
-          )}
         </div>
 
-        <footer className="fly-post-meta flex items-center justify-between pt-3 border-t border-[var(--line)]/50 text-xs text-[var(--muted)]">
-          <AuthorPopover name={post.author} />
+        {/* 底部元数据：日期 */}
+        <div className="flex items-center gap-1.5 text-[11px] text-[var(--mute)] pt-2 pl-8">
           <time dateTime={post.pubDate}>{formattedDate}</time>
-        </footer>
+        </div>
       </div>
     </article>
   );

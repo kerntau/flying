@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
+import { format } from "date-fns";
+import { zhCN } from "date-fns/locale";
 import type { Post } from "@/lib/types";
 import { Icon } from "./Icon";
-import { AuthorPopover } from "./AuthorPopover";
 
 interface FeaturedPostsProps {
   posts: Post[];
@@ -14,93 +15,111 @@ interface FeaturedPostsProps {
 export function FeaturedPosts({ posts }: FeaturedPostsProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
-  const scrollPrev = React.useCallback(() => {
+  const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
 
-  const scrollNext = React.useCallback(() => {
+  const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
   if (!posts || posts.length === 0) return null;
 
   return (
-    <section className="fly-featured-section relative w-full mb-10 overflow-hidden rounded-3xl bg-[var(--page-alt)] border border-[var(--line)] p-2 sm:p-3 shadow-xs">
+    <section className="fly-home-carousel" aria-label="精选文章">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {posts.map((post) => (
-            <div key={post.slug} className="flex-[0_0_100%] min-w-0">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center bg-[var(--page)] border border-[var(--line)] rounded-2xl p-3 sm:p-5 shadow-xs group transition-all duration-300">
-                {/* 左侧 (7列)：无黑色渐变遮罩的高清原图展示区 */}
-                <div className="md:col-span-7 aspect-[16/9] sm:aspect-[16/10] overflow-hidden rounded-xl bg-[var(--page-alt)] relative">
-                  <img
-                    src={post.cover || "/assets/images/fallback-cover.svg"}
-                    alt={post.title}
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  />
-                </div>
+          {posts.map((post) => {
+            const formattedDate = post.pubDate
+              ? format(new Date(post.pubDate), "yyyy年MM月dd日", { locale: zhCN })
+              : "";
 
-                {/* 右侧 (5列)：精细文本与元数据信息区 */}
-                <div className="md:col-span-5 flex flex-col justify-between gap-3 py-1 px-1 min-w-0">
-                  <div className="flex flex-col gap-2.5">
-                    {post.category && (
-                      <span className="self-start px-2.5 py-1 text-xs font-semibold rounded-md bg-[var(--accent-soft)] text-[var(--text)] border border-[var(--line)]">
-                        {post.category}
-                      </span>
-                    )}
-                    <h2 className="text-base sm:text-lg md:text-xl font-bold tracking-tight text-[var(--text)] group-hover:text-[var(--accent)] transition-colors line-clamp-2 leading-snug">
-                      <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
-                    </h2>
-                    {post.description && (
-                      <p className="text-xs sm:text-sm text-[var(--muted)] line-clamp-3 leading-relaxed">
-                        {post.description}
-                      </p>
-                    )}
-                  </div>
+            return (
+              <div key={post.slug} className="flex-[0_0_100%] min-w-0">
+                <article className="fly-home-carousel-card">
+                  {/* 左侧 Copy 区域 */}
+                  <div className="fly-home-carousel-copy">
+                    <div className="flex flex-col items-start gap-2 w-full">
+                      {/* 作者头像 */}
+                      <div className="fly-home-carousel-avatars">
+                        <img
+                          src="/assets/images/avatar.png"
+                          alt={post.author || "Kerntau"}
+                          className="w-10 h-10 rounded-full object-cover border-2 border-[var(--page-alt)] bg-[var(--page)] shadow-xs"
+                        />
+                      </div>
 
-                  <div className="flex items-center justify-between text-xs text-[var(--mute)] pt-3 border-t border-[var(--line)] mt-2">
-                    <div className="flex items-center gap-2">
-                      <AuthorPopover name={post.author} />
-                      <span>•</span>
-                      <span>{new Date(post.pubDate).toLocaleDateString("zh-CN")}</span>
+                      {/* 分类 / 路径 */}
+                      <div className="fly-home-carousel-terms">
+                        <span>{post.category || "精选推荐"}</span>
+                      </div>
+
+                      {/* 文章标题 */}
+                      <h2>
+                        <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
+                      </h2>
+
+                      {/* 描述摘要 */}
+                      {post.description && <p>{post.description}</p>}
                     </div>
 
-                    <Link
-                      href={`/posts/${post.slug}/`}
-                      className="inline-flex items-center gap-1 font-semibold text-xs text-[var(--text)] hover:translate-x-0.5 transition-transform"
-                    >
-                      阅读全文
-                      <Icon name="chevron-right" size={14} />
-                    </Link>
+                    {/* 底部阅读全文与切换控制按键 */}
+                    <div className="fly-home-carousel-actions">
+                      <Link href={`/posts/${post.slug}/`} className="fly-home-carousel-read">
+                        <span>阅读全文</span>
+                        <Icon name="arrow-right" size={14} />
+                      </Link>
+
+                      {posts.length > 1 && (
+                        <div className="flex items-center gap-3 text-[var(--text)]">
+                          <button
+                            type="button"
+                            onClick={scrollPrev}
+                            className="p-1 hover:opacity-60 active:scale-90 transition-all"
+                            aria-label="上一页"
+                          >
+                            <Icon name="arrow-left" size={18} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={scrollNext}
+                            className="p-1 hover:opacity-60 active:scale-90 transition-all"
+                            aria-label="下一页"
+                          >
+                            <Icon name="arrow-right" size={18} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+
+                  {/* 右侧 Media 区域 (比例 8/5，右下角 2 个磨砂标签) */}
+                  <div className="fly-home-carousel-media">
+                    <Link href={`/posts/${post.slug}/`} className="block w-full h-full">
+                      <img
+                        src={post.cover || "/assets/images/fallback-cover.svg"}
+                        alt={post.title}
+                        className="fly-home-carousel-image"
+                      />
+                    </Link>
+
+                    {/* 右上角 Icon Badge */}
+                    <div className="absolute top-3 right-3 p-1.5 rounded-lg bg-black/40 backdrop-blur-md text-white border border-white/10 shadow-xs">
+                      <Icon name="video" size={13} />
+                    </div>
+
+                    {/* 右下角日期与阅读数 */}
+                    <div className="fly-home-carousel-media-meta">
+                      <span>{formattedDate}</span>
+                      <span>294 次阅读</span>
+                    </div>
+                  </div>
+                </article>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
-
-      {/* 底部翻页控制器 */}
-      {posts.length > 1 && (
-        <div className="flex items-center justify-end gap-2 pt-3 px-3">
-          <button
-            type="button"
-            onClick={scrollPrev}
-            className="p-1.5 rounded-full border border-[var(--line)] bg-[var(--page)] text-[var(--text)] hover:bg-[var(--page-alt)] transition-colors shadow-xs"
-            aria-label="上一页"
-          >
-            <Icon name="chevron-left" size={16} />
-          </button>
-          <button
-            type="button"
-            onClick={scrollNext}
-            className="p-1.5 rounded-full border border-[var(--line)] bg-[var(--page)] text-[var(--text)] hover:bg-[var(--page-alt)] transition-colors shadow-xs"
-            aria-label="下一页"
-          >
-            <Icon name="chevron-right" size={16} />
-          </button>
-        </div>
-      )}
     </section>
   );
 }

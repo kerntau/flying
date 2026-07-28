@@ -9,9 +9,9 @@ import { useUI } from "./UIContext";
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { sidebarCollapsed, toggleSidebar } = useUI();
+  const { sidebarCollapsed } = useUI();
 
-  // 动态 Tip 视口定位状态 (完全复刻 Legacy sidebar-tip.js 算法)
+  // 动态 Tip 视口定位状态
   const [tipState, setTipState] = useState<{
     text: string;
     visible: boolean;
@@ -24,19 +24,13 @@ export function Sidebar() {
     const rect = e.currentTarget.getBoundingClientRect();
     const left = rect.right + 10;
     const top = rect.top + rect.height / 2;
-    setTipState({
-      text,
-      visible: true,
-      top,
-      left,
-    });
+    setTipState({ text, visible: true, top, left });
   };
 
   const handleMouseLeave = () => {
     setTipState((prev) => ({ ...prev, visible: false }));
   };
 
-  // 在折叠状态改变时自动关闭 Tooltip
   useEffect(() => {
     setTipState((prev) => ({ ...prev, visible: false }));
   }, [sidebarCollapsed]);
@@ -69,17 +63,10 @@ export function Sidebar() {
                   }`}
                   href={item.href}
                   aria-label={item.label}
-                  data-fly-tip={item.label}
                   onMouseEnter={(e) => handleMouseEnter(e, item.label)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div
-                    className={`w-5 h-5 flex items-center justify-center shrink-0 transition-colors ${
-                      isActive
-                        ? "text-[var(--text)]"
-                        : "text-[var(--muted)] group-hover:text-[var(--text)]"
-                    }`}
-                  >
+                  <div className="w-5 h-5 flex items-center justify-center shrink-0">
                     <Icon name={item.icon} size={18} />
                   </div>
                   <div
@@ -107,7 +94,6 @@ export function Sidebar() {
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener" : undefined}
                 aria-label={link.label}
-                data-fly-tip={link.label}
                 onMouseEnter={(e) => handleMouseEnter(e, link.label)}
                 onMouseLeave={handleMouseLeave}
               >
@@ -127,7 +113,7 @@ export function Sidebar() {
         </footer>
       </aside>
 
-      {/* 原生 Legacy 动态定位 Tooltip 浮层 */}
+      {/* 动态定位 Tooltip 浮层 */}
       {sidebarCollapsed && (
         <div
           className={`fly-sidebar-tip fixed z-50 pointer-events-none whitespace-nowrap bg-[var(--text)] text-[var(--page)] text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-lg transition-all duration-200 ${

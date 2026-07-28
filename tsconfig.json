@@ -23,5 +23,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "uno.config.ts", "app/content.config.ts", "unocss/**/*", "scripts/**/*", "legacy-theme/**/*"]
+  "exclude": ["node_modules"]
 }

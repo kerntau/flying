@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { getAllTags } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
@@ -17,7 +16,7 @@ export default function TagsPage() {
 
       <div className="flex flex-wrap gap-3">
         {tags.map((tag) => (
-          <Link
+          <a
             key={tag.slug}
             href={`/tags/${encodeURIComponent(tag.slug)}/`}
             className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[var(--page-alt)] border border-[var(--line)] text-sm font-medium text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all"
@@ -26,7 +25,7 @@ export default function TagsPage() {
             <span className="px-2 py-0.5 text-xs rounded-full bg-[var(--page)] text-[var(--mute)]">
               {tag.count}
             </span>
-          </Link>
+          </a>
         ))}
       </div>
     </div>

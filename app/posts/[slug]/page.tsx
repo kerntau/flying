@@ -113,13 +113,13 @@ export default async function PostPage({ params }: PostPageProps) {
             <div className="mt-10 pt-6 border-t border-[var(--line)] flex flex-wrap items-center gap-2">
               <span className="text-xs text-[var(--mute)]">标签:</span>
               {post.tags.map((tag) => (
-                <Link
+                <a
                   key={tag}
                   href={`/tags/${encodeURIComponent(tag)}/`}
                   className="px-2.5 py-1 text-xs rounded-lg bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] transition-colors"
                 >
                   #{tag}
-                </Link>
+                </a>
               ))}
             </div>
           )}

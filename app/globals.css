@@ -1,4 +1,13 @@
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css');
 @import "tailwindcss";
+
+.fly-brand-text {
+  font-family: "LXGW WenKai Screen", "LXGW WenKai", "PingFang SC", "Microsoft YaHei", sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 1.3rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.01em;
+}
 
 :root {
   --fly-responsive-gutter: clamp(16px, calc(11.25px + 1.25vw), 30px);

@@ -5,6 +5,7 @@ import { site } from "@/data/site";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { UIProvider } from "@/components/UIContext";
 import { AppShell } from "@/components/AppShell";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -14,8 +15,29 @@ export const metadata: Metadata = {
   },
   description: site.description,
   alternates: { canonical: "/" },
-  openGraph: { type: "website", siteName: site.title, title: site.title, description: site.description, url: "/", images: [site.logo] },
-  twitter: { card: "summary_large_image", title: site.title, description: site.description, images: [site.logo] },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  manifest: "/site.webmanifest",
+  openGraph: {
+    type: "website",
+    siteName: site.title,
+    title: site.title,
+    description: site.description,
+    url: "/",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: site.title }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.title,
+    description: site.description,
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -24,7 +46,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           <UIProvider>
-            <AppShell>{children}</AppShell>
+            <TooltipProvider delayDuration={150}>
+              <AppShell>{children}</AppShell>
+            </TooltipProvider>
           </UIProvider>
         </ThemeProvider>
       </body>

@@ -8,6 +8,8 @@ import { zhCN } from "date-fns/locale";
 import type { Post } from "@/lib/types";
 import { Icon } from "./Icon";
 
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+
 interface FeaturedPostsProps {
   posts: Post[];
 }
@@ -100,7 +102,7 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                         <img
                           src="/assets/images/avatar.png"
                           alt={post.author || "Kerntau"}
-                          className="w-10 h-10 rounded-full object-cover border-2 border-[var(--page-alt)] bg-[var(--page)] shadow-xs"
+                          className="w-10 h-10 rounded-full object-cover bg-[var(--page)]"
                         />
                       </div>
 
@@ -130,36 +132,53 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                           {/* 动态轮播 Indicator 点 */}
                           <div className="flex items-center gap-1.5 mr-2">
                             {posts.map((_, i) => (
-                              <button
-                                key={i}
-                                type="button"
-                                onClick={() => scrollTo(i)}
-                                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                                  selectedIndex === i
-                                    ? "w-5 bg-[var(--accent)]"
-                                    : "w-2 bg-[var(--muted)]/30 hover:bg-[var(--muted)]/60"
-                                }`}
-                                aria-label={`跳转至第 ${i + 1} 张精选文章`}
-                              />
+                              <Tooltip key={i}>
+                                <TooltipTrigger asChild>
+                                  <button
+                                    type="button"
+                                    onClick={() => scrollTo(i)}
+                                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer outline-none ${
+                                      selectedIndex === i
+                                        ? "w-5 bg-[var(--accent)]"
+                                        : "w-2 bg-[var(--muted)]/30 hover:bg-[var(--muted)]/60"
+                                    }`}
+                                    aria-label={`跳转至第 ${i + 1} 张精选文章`}
+                                  />
+                                </TooltipTrigger>
+                                <TooltipContent side="top">
+                                  跳转至第 {i + 1} 页
+                                </TooltipContent>
+                              </Tooltip>
                             ))}
                           </div>
 
-                          <button
-                            type="button"
-                            onClick={scrollPrev}
-                            className="p-1 hover:opacity-60 active:scale-90 transition-all cursor-pointer"
-                            aria-label="上一页"
-                          >
-                            <Icon name="arrow-left" size={18} />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={scrollNext}
-                            className="p-1 hover:opacity-60 active:scale-90 transition-all cursor-pointer"
-                            aria-label="下一页"
-                          >
-                            <Icon name="arrow-right" size={18} />
-                          </button>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button
+                                type="button"
+                                onClick={scrollPrev}
+                                className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer outline-none"
+                                aria-label="上一页"
+                              >
+                                <Icon name="arrow-left" size={18} />
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent side="top">上一篇精选</TooltipContent>
+                          </Tooltip>
+
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button
+                                type="button"
+                                onClick={scrollNext}
+                                className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer outline-none"
+                                aria-label="下一页"
+                              >
+                                <Icon name="arrow-right" size={18} />
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent side="top">下一篇精选</TooltipContent>
+                          </Tooltip>
                         </div>
                       )}
                     </div>

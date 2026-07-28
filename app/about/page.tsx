@@ -12,7 +12,7 @@ export default function AboutPage() {
         <div className="flex items-center gap-4">
           <img src={site.logo} alt={site.title} className="w-16 h-16 rounded-full object-cover border-2 border-[var(--accent)]" />
           <div>
-            <h1 className="text-3xl font-extrabold text-[var(--text)]">{site.title}</h1>
+            <h1 className="text-3xl font-extrabold text-[var(--text)] fly-brand-text">{site.title}</h1>
             <p className="text-sm text-[var(--muted)]">{site.subtitle}</p>
           </div>
         </div>

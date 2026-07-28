@@ -39,7 +39,7 @@ export function MobileHeader() {
           <Icon name="menu" size={20} />
         </button>
 
-        <Link className="fly-brand fly-brand--mobile" href="/">
+        <Link className="fly-brand fly-brand--mobile fly-brand-text" href="/">
           {site.title}
         </Link>
       </div>
@@ -66,7 +66,7 @@ export function MobileHeader() {
         <SheetContent className="fixed inset-y-0 left-0 z-[110] w-72 bg-[var(--page)] p-6 shadow-2xl flex flex-col justify-between border-r border-[var(--line)]">
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between border-b border-[var(--line)] pb-4">
-              <Link className="text-xl font-bold tracking-tight text-[var(--text)]" href="/" onClick={() => setMobileMenuOpen(false)}>
+              <Link className="text-xl font-bold tracking-tight text-[var(--text)] fly-brand-text" href="/" onClick={() => setMobileMenuOpen(false)}>
                 {site.title}
               </Link>
               <SheetClose asChild>

@@ -34,25 +34,38 @@ export function PostCard({ post }: PostCardProps) {
         )}
       </div>
 
-      {/* 下方正文：左侧作者头像 + 右侧双行标题 */}
+      {/* 下方正文：文章标题 + 底部日期 */}
       <div className="flex flex-col flex-1 pt-2.5 min-w-0">
-        <div className="flex items-start gap-2">
-          {/* 作者头像 */}
-          <img
-            src="/assets/images/avatar.png"
-            alt={post.author || "Kerntau"}
-            className="w-6 h-6 rounded-full object-cover shrink-0 mt-0.5 border border-black/10 dark:border-white/10"
-          />
+        {/* 文章标题 */}
+        <h2 className="text-xs sm:text-sm font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-snug group-hover:text-[var(--accent)] transition-colors">
+          <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
+        </h2>
 
-          {/* 文章标题 */}
-          <h2 className="text-xs sm:text-sm font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-snug group-hover:text-[var(--accent)] transition-colors">
-            <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
-          </h2>
-        </div>
+        {/* 底部元数据：文章标签 (时间左侧) + 日期 */}
+        <div className="flex items-center gap-2 text-[11px] text-[var(--mute)] pt-2 flex-wrap">
+          {/* 标签 (时间左侧) */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex items-center gap-1.5 overflow-hidden">
+              {post.tags.slice(0, 2).map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
+                  className="inline-flex items-center px-1.5 py-0.5 rounded-md bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] transition-colors font-medium max-w-[110px] truncate"
+                >
+                  #{tag}
+                </Link>
+              ))}
+            </div>
+          )}
 
-        {/* 底部元数据：日期 */}
-        <div className="flex items-center gap-1.5 text-[11px] text-[var(--mute)] pt-2 pl-8">
-          <time dateTime={post.pubDate}>{formattedDate}</time>
+          {post.tags && post.tags.length > 0 && formattedDate && (
+            <span className="text-[var(--mute)] opacity-60">•</span>
+          )}
+
+          {/* 发布时间 */}
+          <time dateTime={post.pubDate} className="whitespace-nowrap">
+            {formattedDate}
+          </time>
         </div>
       </div>
     </article>

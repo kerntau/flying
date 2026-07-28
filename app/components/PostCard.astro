@@ -61,10 +61,6 @@ const {
     {description && <p class="fly-post-excerpt">{description}</p>}
 
     <footer class="fly-post-meta">
-      <div class="fly-author-pill">
-        <AuthorPopover name={author} />
-      </div>
-      <span class="fly-dot" aria-hidden="true"></span>
       <time datetime={date.toISOString()}>{formatDate(date)}</time>
     </footer>
   </div>

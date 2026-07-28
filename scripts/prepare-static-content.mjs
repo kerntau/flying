@@ -82,6 +82,26 @@ posts.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
 await writeFile(path.join(publicRoot, "search-index.json"), JSON.stringify(posts.map(({ slug, title, category, description }) => ({ slug, title, category, description }))), "utf8");
 
 const siteUrl = "https://blog.cot.wiki";
-const items = posts.map((post) => `<item><title><![CDATA[${post.title}]]></title><link>${siteUrl}/posts/${post.slug}/</link><guid isPermaLink="true">${siteUrl}/posts/${post.slug}/</guid><description><![CDATA[${post.description || post.title}]]></description><pubDate>${post.pubDate.toUTCString()}</pubDate><category><![CDATA[${post.category}]]></category></item>`).join("");
-await writeFile(path.join(publicRoot, "rss.xml"), `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title><![CDATA[序栈]]></title><description><![CDATA[用理性梳理日常，用技术温柔时光，不慌不忙，自在生长。]]></description><link>${siteUrl}</link><language>zh-CN</language>${items}</channel></rss>`, "utf8");
+const lastBuildDate = posts.reduce((latest, post) => Math.max(latest, (post.updatedDate ?? post.pubDate).getTime()), 0);
+const items = posts.map((post) => `
+    <item>
+      <title><![CDATA[${post.title}]]></title>
+      <link>${siteUrl}/posts/${post.slug}/</link>
+      <guid isPermaLink="true">${siteUrl}/posts/${post.slug}/</guid>
+      <description><![CDATA[${post.description || post.title}]]></description>
+      <pubDate>${post.pubDate.toUTCString()}</pubDate>
+      <category><![CDATA[${post.category}]]></category>
+    </item>`).join("");
+const rss = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title><![CDATA[序栈]]></title>
+    <description><![CDATA[用理性梳理日常，用技术温柔时光，不慌不忙，自在生长。]]></description>
+    <link>${siteUrl}</link>
+    <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>zh-CN</language>
+    <lastBuildDate>${new Date(lastBuildDate).toUTCString()}</lastBuildDate>${items}
+  </channel>
+</rss>`;
+await writeFile(path.join(publicRoot, "rss.xml"), rss, "utf8");
 console.log(`Validated ${posts.length} posts and generated static search and RSS data.`);

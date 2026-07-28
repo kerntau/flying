@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2000/svg">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title><![CDATA[序栈]]></title>
     <description><![CDATA[用理性梳理日常，用技术温柔时光，不慌不忙，自在生长。]]></description>
     <link>https://blog.cot.wiki</link>
     <atom:link href="https://blog.cot.wiki/rss.xml" rel="self" type="application/rss+xml"/>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Jul 2026 00:26:40 GMT</lastBuildDate>
-    
+    <lastBuildDate>Fri, 20 Mar 2026 03:30:00 GMT</lastBuildDate>
     <item>
       <title><![CDATA[Coet 个人工作站：全栈架构设计与工程化规范白皮书]]></title>
       <link>https://blog.cot.wiki/posts/coet-architecture/</link>

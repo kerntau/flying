@@ -42,17 +42,47 @@ export function Footer() {
   return (
     <footer className="fly-site-footer w-full mt-5 border-t border-[var(--line)] text-xs text-[var(--mute)]">
       <div className="w-full px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap items-center justify-center gap-x-3.5 gap-y-2 text-center">
-        {/* 单行横向排列：版权 */}
-        <span className="font-semibold text-[var(--text)]">© {new Date().getFullYear()} {site.title}</span>
+        {/* 1. 版权 */}
+        <span className="font-semibold text-[var(--text)] fly-brand-text">© {new Date().getFullYear()} {site.title}</span>
 
+        {/* 2. ICP 备案号 */}
+        {site.icp && (
+          <>
+            <span className="text-[var(--mute)] opacity-40">•</span>
+            <a
+              href={site.icpUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline hover:text-[var(--text)] transition-colors inline-flex items-center gap-1"
+            >
+              <img src="/assets/images/icp-beian.webp" alt="ICP备案" className="w-3.5 h-3.5 object-contain" />
+              <span>{site.icp}</span>
+            </a>
+          </>
+        )}
+
+        {/* 3. 公安网安备案 */}
+        {site.gongan && (
+          <>
+            <span className="text-[var(--mute)] opacity-40">•</span>
+            <a
+              href={site.gonganUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline hover:text-[var(--text)] transition-colors inline-flex items-center gap-1"
+            >
+              <img src="/assets/images/gongan-beian.png" alt="公安备案" className="w-3.5 h-3.5 object-contain" />
+              <span>{site.gongan}</span>
+            </a>
+          </>
+        )}
+
+        {/* 4. 动态运行时间 */}
         <span className="text-[var(--mute)] opacity-40">•</span>
-
-        {/* 动态运行时间 */}
         <SiteUptime />
 
+        {/* 5. EdgeOne 驱动 */}
         <span className="text-[var(--mute)] opacity-40">•</span>
-
-        {/* EdgeOne 驱动 */}
         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20">
           <svg className="w-3.5 h-3.5 fill-current shrink-0 opacity-90" viewBox="0 0 24 24">
             <path d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 2.2L18.8 8 12 11.8 5.2 8 12 4.2zM5 9.5l6 3.3v6.7l-6-3.3V9.5zm8 10v-6.7l6-3.3v6.7l-6 3.3z" />
@@ -60,9 +90,8 @@ export function Footer() {
           <span>腾讯云 EdgeOne 驱动</span>
         </span>
 
+        {/* 6. Theme Flying 仓库 */}
         <span className="text-[var(--mute)] opacity-40">•</span>
-
-        {/* Theme Flying 仓库 */}
         <a
           href="https://github.com/kerntau/flying"
           target="_blank"

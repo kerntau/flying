@@ -6,6 +6,10 @@ export const site = {
   author: "Kerntau",
   logo: "/assets/images/avatar.png",
   siteCreatedAt: "2025-11-10T00:07:03",
+  icp: "鄂ICP备2025157857号",
+  icpUrl: "https://beian.miit.gov.cn/",
+  gongan: "鄂公网安备 42018502008592号",
+  gonganUrl: "https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42018502008592",
 };
 
 export const navigation = [

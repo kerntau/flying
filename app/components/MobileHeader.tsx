@@ -24,7 +24,11 @@ export function MobileHeader() {
           aria-expanded={!sidebarCollapsed}
           aria-controls="fly-site-sidebar"
         >
-          <Icon name="menu" size={20} />
+          {sidebarCollapsed ? (
+            <Icon name="panel-left-open" size={19} />
+          ) : (
+            <Icon name="panel-left-close" size={19} />
+          )}
         </button>
 
         {/* 移动端 <1200px：菜单打开按钮 */}

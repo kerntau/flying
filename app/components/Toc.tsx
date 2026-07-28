@@ -33,26 +33,31 @@ export function Toc({ items }: TocProps) {
   if (!items || items.length === 0) return null;
 
   return (
-    <nav className="fly-toc p-4 rounded-2xl bg-[var(--page-alt)] border border-[var(--line)] space-y-2 sticky top-20">
-      <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--mute)]">目录导航</h3>
+    <nav className="fly-toc p-4 rounded-2xl bg-[var(--page-alt)] border border-[var(--line)] space-y-3 sticky top-[calc(var(--navbar-height)+24px)] max-h-[calc(100vh-100px)] overflow-y-auto">
+      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--muted)] border-b border-[var(--line)] pb-2">
+        <span>目录导航</span>
+      </div>
       <ul className="space-y-1 text-xs">
-        {items.map((item) => (
-          <li
-            key={item.id}
-            style={{ paddingLeft: `${(item.level - 1) * 0.75}rem` }}
-          >
-            <a
-              href={`#${item.id}`}
-              className={`block py-1 hover:text-[var(--accent)] transition-colors truncate ${
-                activeId === item.id
-                  ? "font-bold text-[var(--accent)]"
-                  : "text-[var(--muted)]"
-              }`}
+        {items.map((item) => {
+          const isActive = activeId === item.id;
+          return (
+            <li
+              key={item.id}
+              style={{ paddingLeft: `${(item.level - 1) * 0.75}rem` }}
             >
-              {item.text}
-            </a>
-          </li>
-        ))}
+              <a
+                href={`#${item.id}`}
+                className={`block py-1 px-2 rounded-md transition-all truncate border-l-2 ${
+                  isActive
+                    ? "font-bold text-[var(--text)] border-[var(--accent)] bg-[var(--page)] shadow-xs"
+                    : "text-[var(--faint)] border-transparent hover:text-[var(--text)] hover:bg-[var(--page)]"
+                }`}
+              >
+                {item.text}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

@@ -9,7 +9,7 @@ export default function HomePage() {
   const recentPosts = posts.slice(0, 15);
 
   return (
-    <div className="fly-home-page w-full max-w-7xl space-y-8 transition-all duration-350">
+    <div className="fly-home-page w-full space-y-8 transition-all duration-350">
       {/* 顶部 Hero 精选推荐 Banner 卡片 */}
       {featuredPosts.length > 0 && <FeaturedPosts posts={featuredPosts} />}
 

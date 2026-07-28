@@ -10,6 +10,7 @@
     "dev": "next dev",
     "validate:content": "node scripts/prepare-static-content.mjs",
     "build": "pnpm validate:content && next build",
+    "verify:static": "pnpm build && node scripts/verify-static-output.mjs",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"

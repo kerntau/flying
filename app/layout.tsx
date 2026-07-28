@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           <UIProvider>
-            <TooltipProvider delayDuration={150}>
+            <TooltipProvider delayDuration={80} skipDelayDuration={300}>
               <AppShell>{children}</AppShell>
             </TooltipProvider>
           </UIProvider>

@@ -34,11 +34,18 @@ async function verifyAsset(value, source) {
   try { await access(path.join(publicRoot, value)); } catch { failures.push(`${source}: missing local asset ${value}`); }
 }
 
-function verifyLinks(markdown, source) {
+async function verifyLinks(markdown, source) {
   for (const match of markdown.matchAll(/!?\[[^\]]*\]\(([^\s)]+)/g)) {
     const target = match[1].replace(/["']/g, "").split(/[?#]/)[0];
-    if (!target.startsWith("/") || target.startsWith("//") || target.startsWith("/assets/")) continue;
-    if (!internalRoutes.has(normalize(target))) failures.push(`${source}: broken internal link ${target}`);
+    if (!target.startsWith("/") || target.startsWith("//")) continue;
+
+    if (target.startsWith("/assets/")) {
+      if (match[0].startsWith("!")) await verifyAsset(target, source);
+      continue;
+    }
+
+    const route = normalize(decodeURIComponent(target));
+    if (!internalRoutes.has(route)) failures.push(`${source}: broken internal link ${target}`);
   }
 }
 
@@ -53,8 +60,7 @@ for (const file of await collectionFiles("posts", ".md")) {
     const parsed = matter(await readFile(path.join(contentRoot, "posts", file.name), "utf8"));
     const data = postSchema.parse(parsed.data);
     await verifyAsset(data.cover, file.name);
-    posts.push({ slug, ...data });
-    verifyLinks(parsed.content, file.name);
+    posts.push({ slug, content: parsed.content, ...data });
   } catch (error) { failures.push(`${file.name}: ${error instanceof Error ? error.message : String(error)}`); }
 }
 
@@ -70,6 +76,15 @@ for (const [directory, schema] of [["photos", photoSchema], ["moments", momentSc
       if (directory === "photos") await verifyAsset(data.url, file.name);
     } catch (error) { failures.push(`${file.name}: ${error instanceof Error ? error.message : String(error)}`); }
   }
+}
+
+for (const post of posts) {
+  internalRoutes.add(`/categories/${post.category}/`);
+  for (const tag of post.tags) internalRoutes.add(`/tags/${tag}/`);
+}
+
+for (const post of posts) {
+  await verifyLinks(post.content, `${post.slug}.md`);
 }
 
 if (failures.length) {

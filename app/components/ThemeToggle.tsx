@@ -2,8 +2,7 @@
 
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
-
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { Button } from "@heroui/react";
 
 export function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -15,31 +14,38 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-9 h-9 rounded-full bg-[var(--page-alt)] opacity-50 justify-self-end" />
+      <div className="w-9 h-9 rounded-full bg-transparent justify-self-end" />
     );
   }
 
-  const isDark = resolvedTheme === "dark" || theme === "dark";
+  // 当前激活档位：'light' | 'dark' | 'system'
+  const currentTheme = theme || "system";
 
-  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const nextTheme = isDark ? "light" : "dark";
+  // 三档循环策略：light -> dark -> system -> light
+  const getNextTheme = (curr: string) => {
+    if (curr === "light") return "dark";
+    if (curr === "dark") return "system";
+    return "light";
+  };
 
+  const nextTheme = getNextTheme(currentTheme);
+
+  const handleToggle = (e: any) => {
     if (typeof document === "undefined") {
       setTheme(nextTheme);
       return;
     }
 
-    // 获取按钮在屏幕中的绝对中心点
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
+    // 获取按钮中心坐标以产生扩散圈效果
+    const rect = e.currentTarget?.getBoundingClientRect?.() || e.target?.getBoundingClientRect?.();
+    const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
+    const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
 
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
     );
 
-    // 检查现代浏览器 View Transitions 原生支持
     if ("startViewTransition" in document) {
       const doc = document as any;
       const transition = doc.startViewTransition(() => {
@@ -52,7 +58,6 @@ export function ThemeToggle() {
           `circle(${endRadius}px at ${x}px ${y}px)`,
         ];
 
-        // 真实网页 DOM 新视图在最顶层 (z-index: 99999) 以按钮为圆心极速全屏擦除膨胀展开
         document.documentElement.animate(
           {
             clipPath: clipPath,
@@ -69,67 +74,93 @@ export function ThemeToggle() {
     }
   };
 
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <button
-          type="button"
-          className="fly-theme-toggle-btn justify-self-end outline-none focus:outline-none"
-          onClick={handleToggle}
-          aria-label={isDark ? "切换为亮色模式" : "切换为暗色模式"}
-        >
-          <div
-            className="fly-theme-toggle-icon"
-            style={{
-              transform: isDark ? "rotate(360deg)" : "rotate(0deg)",
-            }}
+  // 根据 3 档确定描述文案与 Icon
+  const renderThemeContent = () => {
+    if (currentTheme === "light") {
+      return {
+        label: "亮色模式 (点击切换为暗色)",
+        icon: (
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            {isDark ? (
-              /* 暗色模式：极简线条月亮 */
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-              </svg>
-            ) : (
-              /* 亮色模式：极简线条太阳 */
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="12" cy="12" r="4" />
-                <path d="M12 2v2" />
-                <path d="M12 20v2" />
-                <path d="m4.93 4.93 1.41 1.41" />
-                <path d="m17.66 17.66 1.41 1.41" />
-                <path d="M2 12h2" />
-                <path d="M20 12h2" />
-                <path d="m6.34 17.66-1.41 1.41" />
-                <path d="m19.07 4.93-1.41 1.41" />
-              </svg>
-            )}
-          </div>
-        </button>
-      </TooltipTrigger>
-      <TooltipContent side="bottom">
-        {isDark ? "切换为亮色模式" : "切换为暗色模式"}
-      </TooltipContent>
-    </Tooltip>
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2" />
+            <path d="M12 20v2" />
+            <path d="m4.93 4.93 1.41 1.41" />
+            <path d="m17.66 17.66 1.41 1.41" />
+            <path d="M2 12h2" />
+            <path d="M20 12h2" />
+            <path d="m6.34 17.66-1.41 1.41" />
+            <path d="m19.07 4.93-1.41 1.41" />
+          </svg>
+        ),
+      };
+    }
+
+    if (currentTheme === "dark") {
+      return {
+        label: "暗色模式 (点击切换为跟随系统)",
+        icon: (
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+        ),
+      };
+    }
+
+    // 跟随系统 ('system')
+    return {
+      label: `跟随系统 [当前:${resolvedTheme === "dark" ? "暗色" : "亮色"}] (点击切换为亮色)`,
+      icon: (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect width="20" height="14" x="2" y="3" rx="2" />
+          <line x1="8" x2="16" y1="21" y2="21" />
+          <line x1="12" x2="12" y1="17" y2="21" />
+        </svg>
+      ),
+    };
+  };
+
+  const { label, icon } = renderThemeContent();
+
+  return (
+    <Button
+      isIconOnly
+      variant="ghost"
+      radius="full"
+      aria-label={label}
+      onClick={handleToggle as any}
+      className="fly-theme-toggle-btn justify-self-end outline-none focus:outline-none min-w-9 w-9 h-9 p-0"
+    >
+      <div className="fly-theme-toggle-icon" key={currentTheme}>
+        {icon}
+      </div>
+    </Button>
   );
 }
-
-
 

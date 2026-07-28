@@ -1,0 +1,15 @@
+---
+import { navigation, site } from "../data/site";
+---
+
+<footer class="fly-site-footer">
+  <div class="fly-footer-shell">
+    <p class="fly-footer-copyright">
+      © {new Date().getFullYear()}
+      {site.title}. 独立 Astro 站点。
+    </p>
+    <nav class="fly-footer-nav" aria-label="底部导航">
+      {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+  </div>
+</footer>

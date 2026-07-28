@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import Hero from "../../components/Hero.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import TaxonomySections from "../../components/TaxonomySections.astro";
+import { getCategories, sortPosts } from "../../lib/content";
+
+const posts = sortPosts(await getCollection("posts"));
+const categories = getCategories(posts);
+---
+
+<SiteLayout
+  title="分类"
+  description="按主题浏览内容。"
+  bodyClass="fly-taxonomy"
+>
+  <div class="fly-content-shell">
+    <Hero
+      title="分类"
+      description="按主题浏览内容，发现更接近当下兴趣的文章。"
+    />
+    <TaxonomySections posts={posts} terms={categories} />
+  </div>
+</SiteLayout>

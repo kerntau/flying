@@ -1,0 +1,90 @@
+---
+import Icon from "./Icon.astro";
+
+interface Term {
+  name: string;
+  slug: string;
+}
+
+interface Props {
+  allHref: string;
+  allLabel?: string;
+  ariaLabel: string;
+  currentSlug?: string;
+  id: string;
+  terms: Term[];
+  termBasePath: string;
+}
+
+const {
+  allHref,
+  allLabel = "全部文章",
+  ariaLabel,
+  currentSlug,
+  id,
+  terms,
+  termBasePath,
+} = Astro.props;
+---
+
+<nav
+  class="fly-taxonomy-nav fly-horizontal-nav"
+  data-fly-taxonomy-carousel
+  aria-label={ariaLabel}
+>
+  <div
+    id={`${id}-rail`}
+    class="fly-taxonomy-nav-rail fly-horizontal-nav-rail"
+    data-fly-taxonomy-carousel-rail
+  >
+    <a
+      class:list={[
+        "fly-taxonomy-nav-item",
+        "fly-horizontal-nav-item",
+        !currentSlug && "fly-is-active",
+      ]}
+      href={allHref}
+      aria-current={currentSlug ? undefined : "page"}
+      data-fly-taxonomy-carousel-item
+    >
+      {allLabel}
+    </a>
+    {
+      terms.map((term) => {
+        const active = term.slug === currentSlug;
+        return (
+          <a
+            class:list={[
+              "fly-taxonomy-nav-item",
+              "fly-horizontal-nav-item",
+              active && "fly-is-active",
+            ]}
+            href={`${termBasePath}/${term.slug}/`}
+            aria-current={active ? "page" : undefined}
+            data-fly-taxonomy-carousel-item
+          >
+            {term.name}
+          </a>
+        );
+      })
+    }
+  </div>
+  <button
+    class="fly-horizontal-nav-arrow fly-taxonomy-nav-arrow fly-taxonomy-nav-arrow--prev"
+    type="button"
+    aria-label={`向前浏览${ariaLabel}`}
+    aria-controls={`${id}-rail`}
+    data-fly-taxonomy-carousel-prev
+  >
+    <Icon name="arrow-right" />
+  </button>
+  <button
+    class="fly-horizontal-nav-arrow fly-taxonomy-nav-arrow fly-taxonomy-nav-arrow--next"
+    type="button"
+    aria-label={`向后浏览${ariaLabel}`}
+    aria-controls={`${id}-rail`}
+    data-fly-taxonomy-carousel-next
+  >
+    <Icon name="arrow-right" />
+  </button>
+</nav>

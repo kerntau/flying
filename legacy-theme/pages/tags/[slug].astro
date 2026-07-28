@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import Hero from "../../components/Hero.astro";
+import PostGrid from "../../components/PostGrid.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import TaxonomyNav from "../../components/TaxonomyNav.astro";
+import { getTags, sortPosts } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return getTags(posts).map((tag) => ({
+    params: { slug: tag.slug },
+    props: {
+      posts: sortPosts(
+        posts.filter((post) => post.data.tags.includes(tag.name)),
+      ),
+      tag,
+      tags: getTags(posts),
+    },
+  }));
+}
+
+const { posts, tag, tags } = Astro.props;
+---
+
+<SiteLayout
+  title={`#${tag.name}`}
+  description={`标签 ${tag.name} 下的文章。`}
+  bodyClass="fly-taxonomy"
+>
+  <div class="fly-content-shell">
+    <TaxonomyNav
+      allHref="/tags/"
+      ariaLabel="文章标签"
+      currentSlug={tag.slug}
+      id="fly-tag-detail-nav"
+      terms={tags}
+      termBasePath="/tags"
+    />
+    <Hero title={`#${tag.name}`} description={`共 ${tag.count} 篇文章。`} />
+    <PostGrid posts={posts} />
+  </div>
+</SiteLayout>

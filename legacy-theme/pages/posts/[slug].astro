@@ -1,0 +1,301 @@
+---
+import { getCollection, render } from "astro:content";
+import Icon from "../../components/Icon.astro";
+import RelatedPosts from "../../components/RelatedPosts.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { authors, site } from "../../data/site";
+import { sortPosts, tagUrl } from "../../lib/content";
+import { formatDate } from "../../lib/date";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const author =
+  authors.find((item) => item.name === post.data.author) || authors[0];
+const allPosts = sortPosts(await getCollection("posts"));
+---
+
+<SiteLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.cover}
+  bodyClass="fly-post"
+>
+  <article
+    class="fly-post-page fly-post-page--classic"
+    data-fly-post-page
+    data-fly-post-name={post.id}
+    data-fly-post-layout="classic"
+  >
+    <header
+      class="fly-post-page-header fly-post-page-header--classic"
+      data-fly-post-layout="classic"
+      data-fly-reveal
+    >
+      <div class="fly-post-page-header-copy">
+        {
+          post.data.tags.length > 0 && (
+            <nav class="fly-post-page-tags" aria-label="文章标签">
+              {post.data.tags.map((tag) => (
+                <a href={tagUrl(tag)}>{tag}</a>
+              ))}
+            </nav>
+          )
+        }
+        <h1 class="fly-post-page-title">{post.data.title}</h1>
+        {
+          post.data.description && (
+            <p class="fly-post-page-excerpt">{post.data.description}</p>
+          )
+        }
+        <div class="fly-post-page-header-info">
+          <ul class="fly-post-page-meta" aria-label="文章信息">
+            <li class="fly-post-page-meta-author">
+              <span class="fly-post-page-meta-avatar">
+                <img
+                  src={author?.avatar || site.logo}
+                  alt={post.data.author}
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span>作者</span>
+              <span>{post.data.author}</span>
+            </li>
+            <li class="fly-post-page-meta-date">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {formatDate(post.data.pubDate)}
+              </time>
+            </li>
+            <li class="fly-post-page-meta-separator" aria-hidden="true">•</li>
+            <li class="fly-post-page-meta-reading-time">
+              <span data-fly-reading-time>1 分钟阅读</span>
+            </li>
+          </ul>
+          <div class="fly-post-page-actions">
+            <div class="fly-post-page-share">
+              <button
+                class="fly-post-page-action"
+                type="button"
+                data-fly-share-toggle
+                data-fly-motion-button
+                aria-haspopup="menu"
+                aria-expanded="false"
+              >
+                <Icon name="share" />
+                <span class="fly-motion-label">
+                  <span class="fly-motion-label-copy">分享</span>
+                  <span class="fly-motion-label-copy" aria-hidden="true"
+                    >分享</span
+                  >
+                </span>
+              </button>
+              <div
+                class="fly-post-share-menu"
+                data-fly-share-menu
+                role="menu"
+                aria-hidden="true"
+              >
+                <button type="button" role="menuitem" data-fly-share-copy>
+                  <Icon name="link" />
+                  <span data-fly-share-copy-label>复制链接</span>
+                </button>
+                <a
+                  href="#"
+                  role="menuitem"
+                  data-fly-share-x
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="fly-post-share-letter" aria-hidden="true">X</span
+                  >
+                  <span>分享到 X</span>
+                </a>
+                <a
+                  href="#"
+                  role="menuitem"
+                  data-fly-share-facebook
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icon name="facebook" />
+                  <span>分享到 Facebook</span>
+                </a>
+                <a
+                  href="#"
+                  role="menuitem"
+                  data-fly-share-linkedin
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="fly-post-share-letter" aria-hidden="true"
+                    >in</span
+                  >
+                  <span>分享到 LinkedIn</span>
+                </a>
+                <a href="#" role="menuitem" data-fly-share-email>
+                  <Icon name="mail" />
+                  <span>邮件分享</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {
+      post.data.cover && (
+        <div class="fly-post-page-media" data-fly-reveal>
+          <figure>
+            <img
+              class="fly-post-page-cover"
+              src={post.data.cover}
+              alt={post.data.title}
+              width="1600"
+              height="900"
+              loading="eager"
+              decoding="async"
+            />
+          </figure>
+        </div>
+      )
+    }
+
+    <div class="fly-post-page-grid">
+      <div class="fly-post-page-body">
+        <section
+          class="fly-post-content fly-post-page-content"
+          data-fly-post-content
+        >
+          <Content />
+        </section>
+        <section
+          class="fly-post-author fly-post-author--compact"
+          aria-label="作者信息"
+        >
+          <a
+            class="fly-post-author-avatar"
+            href={`/authors/${author?.slug || "kerntau"}/`}
+          >
+            <img
+              src={author?.avatar || site.logo}
+              alt={post.data.author}
+              width="46"
+              height="46"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          <h2>{post.data.author}</h2>
+          {author?.bio && <p class="fly-post-author-bio">{author.bio}</p>}
+        </section>
+      </div>
+      <aside class="fly-post-page-aside">
+        <section
+          class="fly-post-author fly-post-author--desktop"
+          aria-label="作者信息"
+        >
+          <a
+            class="fly-post-author-avatar"
+            href={`/authors/${author?.slug || "kerntau"}/`}
+          >
+            <img
+              src={author?.avatar || site.logo}
+              alt={post.data.author}
+              width="46"
+              height="46"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          <h2>{post.data.author}</h2>
+          {author?.bio && <p class="fly-post-author-bio">{author.bio}</p>}
+        </section>
+        <div class="fly-post-page-aside-sticky">
+          <nav class="fly-post-toc" data-fly-post-toc aria-label="本文目录">
+            <button
+              class="fly-post-toc-toggle"
+              type="button"
+              data-fly-post-toc-toggle
+              aria-expanded="true"
+            >
+              <Icon name="list" />
+              <span>本文目录</span>
+            </button>
+            <ol class="fly-post-toc-list" data-fly-post-toc-list></ol>
+          </nav>
+        </div>
+      </aside>
+    </div>
+
+    <RelatedPosts currentPost={post} posts={allPosts} />
+
+    <dialog
+      class="fly-post-lightbox"
+      data-fly-post-lightbox
+      data-fly-open="false"
+      data-fly-zoomed="false"
+      aria-label="图片预览"
+    >
+      <div class="fly-post-lightbox-shell">
+        <div class="fly-post-lightbox-stage" data-fly-post-lightbox-stage>
+          <img src="" alt="" draggable="false" data-fly-post-lightbox-image />
+        </div>
+        <button
+          class="fly-post-lightbox-control fly-post-lightbox-zoom"
+          type="button"
+          aria-label="放大图片"
+          aria-pressed="false"
+          data-fly-post-lightbox-zoom
+        >
+          <Icon
+            name="zoom-in"
+            class="fly-post-lightbox-zoom-icon fly-post-lightbox-zoom-icon--in"
+          />
+          <Icon
+            name="zoom-out"
+            class="fly-post-lightbox-zoom-icon fly-post-lightbox-zoom-icon--out"
+          />
+        </button>
+        <button
+          class="fly-post-lightbox-control fly-post-lightbox-close"
+          type="button"
+          aria-label="关闭图片预览"
+          data-fly-post-lightbox-close
+        >
+          <Icon name="close" />
+        </button>
+        <button
+          class="fly-post-lightbox-control fly-post-lightbox-arrow fly-post-lightbox-arrow--prev"
+          type="button"
+          aria-label="查看上一张图片"
+          data-fly-post-lightbox-prev
+        >
+          <span class="fly-post-lightbox-chevron" aria-hidden="true"></span>
+        </button>
+        <button
+          class="fly-post-lightbox-control fly-post-lightbox-arrow fly-post-lightbox-arrow--next"
+          type="button"
+          aria-label="查看下一张图片"
+          data-fly-post-lightbox-next
+        >
+          <span class="fly-post-lightbox-chevron" aria-hidden="true"></span>
+        </button>
+        <output
+          class="fly-post-lightbox-counter"
+          aria-live="polite"
+          data-fly-post-lightbox-counter></output>
+      </div>
+    </dialog>
+  </article>
+</SiteLayout>

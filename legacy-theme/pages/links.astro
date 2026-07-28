@@ -1,0 +1,69 @@
+---
+import Hero from "../components/Hero.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { links } from "../data/site";
+
+const groups = Array.from(
+  links.reduce((result, link) => {
+    const group = link.group || "未分组";
+    result.set(group, [...(result.get(group) || []), link]);
+    return result;
+  }, new Map<string, (typeof links)[number][]>()),
+);
+---
+
+<SiteLayout
+  title="友情链接"
+  description="发现值得持续关注的网站与创作者。"
+  bodyClass="fly-links"
+>
+  <div class="fly-content-shell fly-links-page-shell">
+    <Hero title="友情链接" description="感谢每一位朋友的陪伴与支持。" />
+    <nav
+      class="fly-links-filter"
+      aria-label="友情链接分组"
+      data-fly-links-filter
+      data-fly-reveal
+    >
+      <a href="/links/" data-fly-links-group-filter>全部</a>
+      {
+        groups.map(([group]) => (
+          <a
+            href={`/links/?group=${encodeURIComponent(group)}`}
+            data-fly-links-group-filter={group}
+          >
+            {group}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="fly-links-groups" data-fly-reveal-group>
+      {
+        groups.map(([group, groupLinks]) => (
+          <section class="fly-links-group" data-fly-links-group={group}>
+            <div class="fly-links-group-heading">
+              <h2>{group}</h2>
+              <span>{groupLinks.length} 个站点</span>
+            </div>
+            <div class="fly-links-card-grid">
+              {groupLinks.map((link) => (
+                <a
+                  class="fly-links-card"
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={link.avatar} alt="" loading="lazy" />
+                  <span class="fly-links-card-copy">
+                    <strong>{link.title}</strong>
+                    <span>{link.description}</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</SiteLayout>

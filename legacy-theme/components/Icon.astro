@@ -1,0 +1,11 @@
+---
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className = "" } = Astro.props;
+---
+
+<span class={`fly-iconify fly-iconify--${name} ${className}`} aria-hidden="true"
+></span>

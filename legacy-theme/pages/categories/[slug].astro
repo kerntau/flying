@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import Hero from "../../components/Hero.astro";
+import PostGrid from "../../components/PostGrid.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import TaxonomyNav from "../../components/TaxonomyNav.astro";
+import { getCategories, sortPosts } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return getCategories(posts).map((category) => ({
+    params: { slug: category.slug },
+    props: {
+      category,
+      categories: getCategories(posts),
+      posts: sortPosts(
+        posts.filter((post) => post.data.category === category.name),
+      ),
+    },
+  }));
+}
+
+const { categories, category, posts } = Astro.props;
+---
+
+<SiteLayout
+  title={category.name}
+  description={`分类 ${category.name} 下的文章。`}
+  bodyClass="fly-taxonomy"
+>
+  <div class="fly-content-shell">
+    <TaxonomyNav
+      allHref="/categories/"
+      ariaLabel="文章分类"
+      currentSlug={category.slug}
+      id="fly-category-detail-nav"
+      terms={categories}
+      termBasePath="/categories"
+    />
+    <Hero title={category.name} description={`共 ${category.count} 篇文章。`} />
+    <PostGrid posts={posts} />
+  </div>
+</SiteLayout>

@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import { postUrl, sortPosts } from "../lib/content";
+
+const posts = sortPosts(await getCollection("posts")).map((post) => ({
+  category: post.data.category,
+  excerpt: post.data.description || "",
+  tags: post.data.tags.join(" "),
+  title: post.data.title,
+  url: postUrl(post),
+}));
+---
+
+<dialog
+  class="fly-search-dialog"
+  data-fly-search-dialog
+  aria-labelledby="fly-search-title"
+>
+  <div class="fly-search-dialog-panel">
+    <header class="fly-search-dialog-header">
+      <h2 id="fly-search-title">搜索文章</h2>
+      <button
+        class="fly-icon-button"
+        type="button"
+        data-fly-search-close
+        aria-label="关闭搜索"
+      >
+        <span aria-hidden="true">x</span>
+      </button>
+    </header>
+    <input
+      class="fly-search-input"
+      type="search"
+      data-fly-search-input
+      placeholder="输入标题、分类或标签"
+      autocomplete="off"
+    />
+    <p class="fly-search-status" data-fly-search-status aria-live="polite"></p>
+    <ul class="fly-search-results" data-fly-search-results>
+      {
+        posts.map((post) => (
+          <li
+            data-fly-search-item
+            data-fly-search-text={`${post.title} ${post.excerpt} ${post.category} ${post.tags}`}
+          >
+            <a href={post.url}>
+              <span>{post.title}</span>
+              <small>{post.category}</small>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</dialog>

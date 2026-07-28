@@ -1,0 +1,122 @@
+---
+import { getCollection } from "astro:content";
+import Hero from "../../components/Hero.astro";
+import Icon from "../../components/Icon.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { sortPhotos } from "../../lib/content";
+import { formatDate } from "../../lib/date";
+
+const photos = sortPhotos(await getCollection("photos"));
+const groups = Array.from(
+  photos.reduce((result, photo) => {
+    const group = photo.data.group;
+    result.set(group, (result.get(group) || 0) + 1);
+    return result;
+  }, new Map<string, number>()),
+);
+---
+
+<SiteLayout
+  title="图库"
+  description="用影像收藏沿途所见。"
+  bodyClass="fly-photos"
+>
+  <div class="fly-content-shell">
+    <Hero
+      title="图库"
+      description="用影像收藏沿途所见，记录值得反复回看的片刻。"
+    />
+    <nav
+      class="fly-photos-filter fly-horizontal-nav"
+      aria-label="图库分组"
+      data-fly-photo-filter
+      data-fly-taxonomy-carousel
+      data-fly-reveal
+    >
+      <div
+        id="fly-photos-filter-rail"
+        class="fly-photos-filter-rail fly-horizontal-nav-rail"
+        data-fly-taxonomy-carousel-rail
+      >
+        <a
+          class="fly-photos-filter-item fly-horizontal-nav-item"
+          href="/photos/"
+          data-fly-photo-group
+          data-fly-taxonomy-carousel-item
+        >
+          全部
+        </a>
+        {
+          groups.map(([group, count]) => (
+            <a
+              class="fly-photos-filter-item fly-horizontal-nav-item"
+              href={`/photos/?group=${encodeURIComponent(group)}`}
+              data-fly-photo-group={group}
+              data-fly-taxonomy-carousel-item
+            >
+              <span>{group}</span>
+              <small>{count}</small>
+            </a>
+          ))
+        }
+      </div>
+      <button
+        class="fly-horizontal-nav-arrow fly-photos-filter-arrow fly-photos-filter-arrow--prev"
+        type="button"
+        aria-label="向前浏览图库分组"
+        aria-controls="fly-photos-filter-rail"
+        data-fly-taxonomy-carousel-prev
+      >
+        <Icon name="arrow-right" />
+      </button>
+      <button
+        class="fly-horizontal-nav-arrow fly-photos-filter-arrow fly-photos-filter-arrow--next"
+        type="button"
+        aria-label="向后浏览图库分组"
+        aria-controls="fly-photos-filter-rail"
+        data-fly-taxonomy-carousel-next
+      >
+        <Icon name="arrow-right" />
+      </button>
+    </nav>
+    <div class="fly-article-grid" data-fly-photo-feed data-fly-reveal-group>
+      {
+        photos.map((photo) => (
+          <article
+            class="fly-post-card"
+            data-fly-photo-card
+            data-fly-photo-name={photo.id}
+            data-fly-photo-group={photo.data.group}
+          >
+            <div class="fly-post-image-frame">
+              <a class="fly-post-image-link" href={`/photos/${photo.id}/`}>
+                <img
+                  class="fly-post-cover"
+                  src={photo.data.url}
+                  alt={photo.data.title}
+                  loading="lazy"
+                />
+              </a>
+              <span class="fly-post-chip fly-post-chip--image">
+                {photo.data.group}
+              </span>
+            </div>
+            <div class="fly-post-body">
+              <h2 class="fly-post-title">
+                <a href={`/photos/${photo.id}/`}>{photo.data.title}</a>
+              </h2>
+              {photo.data.description && (
+                <p class="fly-post-excerpt">{photo.data.description}</p>
+              )}
+              <footer class="fly-post-meta">
+                <time datetime={photo.data.date.toISOString()}>
+                  {formatDate(photo.data.date)}
+                </time>
+              </footer>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</SiteLayout>

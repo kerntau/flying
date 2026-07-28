@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { categoryUrl, postUrl } from "../lib/content";
+import { formatDate } from "../lib/date";
+
+interface Props {
+  posts: CollectionEntry<"posts">[];
+}
+
+const { posts } = Astro.props;
+const featuredPosts = posts.slice(0, 5);
+---
+
+{
+  featuredPosts.length > 0 && (
+    <section
+      class="fly-featured-section"
+      aria-labelledby="fly-featured-heading"
+      data-fly-featured-layout="grid"
+      data-fly-reveal
+    >
+      <h1 id="fly-featured-heading" class="fly-sr-only">
+        精选文章
+      </h1>
+      <div class="fly-featured-grid">
+        {featuredPosts.map((post, index) => {
+          const href = postUrl(post);
+
+          return (
+            <article
+              class={`fly-featured-card ${index === 0 ? "fly-featured-card--lead" : "fly-featured-card--side"}`}
+              data-fly-featured
+            >
+              <a
+                class="fly-card-hit"
+                href={href}
+                aria-label={`阅读：${post.data.title}`}
+              />
+              <img
+                class="fly-featured-image"
+                src={post.data.cover || "/assets/images/fallback-cover.svg"}
+                alt={post.data.title}
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+              <div class="fly-image-shade" aria-hidden="true" />
+              <div class="fly-featured-content">
+                <a
+                  class="fly-post-chip fly-post-chip--glass"
+                  href={categoryUrl(post.data.category)}
+                >
+                  {post.data.category || "精选"}
+                </a>
+                <h2 class="fly-featured-title">
+                  <a href={href}>{post.data.title}</a>
+                </h2>
+                {post.data.description && (
+                  <p class="fly-featured-excerpt">{post.data.description}</p>
+                )}
+                <footer class="fly-post-meta fly-post-meta--light">
+                  <span class="fly-author-pill">{post.data.author}</span>
+                  <span class="fly-dot" aria-hidden="true" />
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                </footer>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  )
+}

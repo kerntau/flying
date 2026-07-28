@@ -1,0 +1,230 @@
+---
+import { getCollection } from "astro:content";
+import FeaturedPosts from "../components/FeaturedPosts.astro";
+import Icon from "../components/Icon.astro";
+import PostGrid from "../components/PostGrid.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { authors, site } from "../data/site";
+import { getCategories, getTags, sortPhotos, sortPosts } from "../lib/content";
+import { formatDate } from "../lib/date";
+
+const posts = sortPosts(await getCollection("posts"));
+const photos = sortPhotos(await getCollection("photos"));
+const moments = await getCollection("moments");
+const categories = getCategories(posts);
+const tags = getTags(posts);
+---
+
+<SiteLayout
+  title={site.title}
+  description={site.description}
+  bodyClass="fly-home"
+>
+  <div class="fly-content-shell fly-home-shell" data-fly-home-layout="grid">
+    <FeaturedPosts posts={posts} />
+
+    <nav
+      class="fly-category-filter fly-horizontal-nav"
+      aria-label="文章分类筛选"
+      data-fly-category-filter
+    >
+      <div
+        id="fly-category-filter-rail"
+        class="fly-category-filter-rail fly-horizontal-nav-rail"
+        data-fly-category-filter-rail
+      >
+        <button
+          class="fly-filter-chip fly-horizontal-nav-item fly-is-active"
+          type="button"
+          data-fly-filter="all"
+          aria-pressed="true"
+        >
+          全部文章
+        </button>
+        {
+          categories.map((category) => (
+            <button
+              class="fly-filter-chip fly-horizontal-nav-item"
+              type="button"
+              data-fly-filter={category.slug}
+              aria-pressed="false"
+            >
+              {category.name}
+            </button>
+          ))
+        }
+      </div>
+      <button
+        class="fly-horizontal-nav-arrow fly-category-filter-arrow fly-category-filter-arrow--prev"
+        type="button"
+        aria-label="向前浏览文章分类"
+        data-fly-category-filter-prev
+        hidden
+      >
+        <Icon name="arrow-right" />
+      </button>
+      <button
+        class="fly-horizontal-nav-arrow fly-category-filter-arrow fly-category-filter-arrow--next"
+        type="button"
+        aria-label="向后浏览文章分类"
+        data-fly-category-filter-next
+        hidden
+      >
+        <Icon name="arrow-right" />
+      </button>
+    </nav>
+
+    <section
+      class="fly-latest-section"
+      aria-labelledby="fly-latest-heading"
+      data-fly-feed-region
+    >
+      <header class="fly-section-heading" data-fly-reveal>
+        <h2 id="fly-latest-heading">最新文章</h2>
+      </header>
+      <PostGrid
+        posts={posts}
+        initialCount={6}
+        emptyText="还没有文章，写下第一篇就会出现在这里。"
+      />
+      <p class="fly-empty-state" data-fly-feed-empty hidden>
+        当前分类暂无文章，试试其他分类。
+      </p>
+      <div class="fly-load-more-wrap">
+        <button
+          class="fly-load-more"
+          type="button"
+          data-fly-load-more
+          data-fly-load-local
+          data-fly-load-batch-size="6"
+          data-fly-end-text="全部文章已显示"
+          aria-busy="false"
+        >
+          <span class="fly-load-more-label" data-fly-load-label>
+            <span data-fly-load-label-copy>加载更多</span>
+          </span>
+          <span class="fly-load-more-loader" aria-hidden="true">
+            <Icon name="loader" />
+          </span>
+          <span class="fly-load-more-complete" data-fly-load-complete></span>
+        </button>
+      </div>
+      <p class="fly-load-more-state" data-fly-load-status aria-live="polite">
+      </p>
+    </section>
+
+    <section
+      class="fly-home-section"
+      aria-labelledby="fly-topics-heading"
+      data-fly-reveal
+    >
+      <header class="fly-section-heading">
+        <h2 id="fly-topics-heading">内容索引</h2>
+      </header>
+      <div class="fly-feed-controls">
+        {
+          categories.map((category) => (
+            <a class="fly-filter-pill" href={`/categories/${category.slug}/`}>
+              {category.name} · {category.count}
+            </a>
+          ))
+        }
+        {
+          tags.map((tag) => (
+            <a class="fly-filter-pill" href={`/tags/${tag.slug}/`}>
+              #{tag.name}
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section
+      class="fly-home-section"
+      aria-labelledby="fly-moments-heading"
+      data-fly-reveal
+    >
+      <header class="fly-section-heading">
+        <h2 id="fly-moments-heading">瞬间</h2>
+      </header>
+      <div class="fly-article-grid">
+        {
+          moments.map((moment) => (
+            <article class="fly-post-card">
+              <div class="fly-post-body">
+                <p class="fly-post-excerpt">
+                  <a href={`/moments/${moment.id}/`}>{moment.data.content}</a>
+                </p>
+                <footer class="fly-post-meta">
+                  <time datetime={moment.data.date.toISOString()}>
+                    {formatDate(moment.data.date)}
+                  </time>
+                </footer>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section
+      class="fly-home-section"
+      aria-labelledby="fly-photos-heading"
+      data-fly-reveal
+    >
+      <header class="fly-section-heading">
+        <h2 id="fly-photos-heading">图库</h2>
+        <a class="fly-section-view-link" href="/photos/">查看全部</a>
+      </header>
+      <div class="fly-article-grid">
+        {
+          photos.slice(0, 3).map((photo) => (
+            <article class="fly-post-card">
+              <div class="fly-post-image-frame">
+                <a class="fly-post-image-link" href={`/photos/${photo.id}/`}>
+                  <img
+                    class="fly-post-cover"
+                    src={photo.data.url}
+                    alt={photo.data.title}
+                    loading="lazy"
+                  />
+                </a>
+                <span class="fly-post-chip fly-post-chip--image">
+                  {photo.data.group}
+                </span>
+              </div>
+              <div class="fly-post-body">
+                <h2 class="fly-post-title">
+                  <a href={`/photos/${photo.id}/`}>{photo.data.title}</a>
+                </h2>
+                {photo.data.description && (
+                  <p class="fly-post-excerpt">{photo.data.description}</p>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section
+      class="fly-home-section"
+      aria-labelledby="fly-authors-heading"
+      data-fly-reveal
+    >
+      <header class="fly-section-heading">
+        <h2 id="fly-authors-heading">作者</h2>
+        <a class="fly-section-view-link" href="/authors/">查看全部</a>
+      </header>
+      <div class="fly-feed-controls">
+        {
+          authors.map((author) => (
+            <a class="fly-filter-pill" href={`/authors/${author.slug}/`}>
+              {author.name}
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</SiteLayout>

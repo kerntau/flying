@@ -6,7 +6,7 @@ import { site, navigation } from "@/data/site";
 import { Icon } from "./Icon";
 import { ThemeToggle } from "./ThemeToggle";
 import { useUI } from "./UIContext";
-import * as Dialog from "@radix-ui/react-dialog";
+import { Sheet, SheetClose, SheetContent } from "./ui/sheet";
 
 export function MobileHeader() {
   const { setSearchOpen, mobileMenuOpen, setMobileMenuOpen, toggleSidebar } = useUI();
@@ -42,21 +42,18 @@ export function MobileHeader() {
         <ThemeToggle />
       </div>
 
-      {/* 移动端菜单弹窗 - 使用 Radix Dialog 原语 */}
-      <Dialog.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity" />
-          <Dialog.Content className="fixed inset-y-0 left-0 z-50 w-64 bg-[var(--page)] p-6 shadow-xl flex flex-col justify-between border-r border-[var(--line)]">
+      <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <SheetContent className="fixed inset-y-0 left-0 z-50 w-64 bg-[var(--page)] p-6 shadow-xl flex flex-col justify-between border-r border-[var(--line)]">
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between">
                 <Link className="text-xl font-bold text-[var(--text)]" href="/" onClick={() => setMobileMenuOpen(false)}>
                   {site.title}
                 </Link>
-                <Dialog.Close asChild>
+                <SheetClose asChild>
                   <button className="fly-icon-button p-1" aria-label="关闭菜单">
                     <Icon name="x" size={20} />
                   </button>
-                </Dialog.Close>
+                </SheetClose>
               </div>
 
               <nav className="flex flex-col gap-2">
@@ -77,9 +74,8 @@ export function MobileHeader() {
             <div className="text-xs text-[var(--mute)]">
               © {new Date().getFullYear()} {site.title}
             </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+          </SheetContent>
+      </Sheet>
     </header>
   );
 }

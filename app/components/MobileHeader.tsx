@@ -12,12 +12,12 @@ export function MobileHeader() {
   const { setSearchOpen, mobileMenuOpen, setMobileMenuOpen, toggleSidebar, sidebarCollapsed } = useUI();
 
   return (
-    <header className="fly-mobile-header sticky top-0 z-40 flex h-[var(--navbar-height)] items-center justify-between px-4 sm:px-6 bg-[var(--page)]/80 backdrop-blur-md border-b border-[var(--line)] w-full">
-      {/* 左侧：精确渲染单图标按钮 (桌面端为侧栏开关，移动端为菜单开关) + 品牌标题 */}
-      <div className="flex items-center gap-2 min-w-0">
+    <header className="fly-mobile-header sticky top-0 z-40 flex h-[var(--navbar-height)] items-center justify-between pl-4 pr-4 sm:pr-6 bg-[var(--page)]/80 backdrop-blur-md border-b border-[var(--line)] w-full">
+      {/* 左侧：精确渲染单图标按钮 (桌面端为侧栏开关，移动端为菜单开关) + 品牌标题 (与侧边栏纵向绝对对齐) */}
+      <div className="flex items-center gap-3 min-w-0">
         {/* 桌面端：只渲染 1 个侧栏收缩/展开图标 */}
         <button
-          className="hidden md:inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-[var(--page-alt)] text-[var(--text)] active:scale-95 transition-all duration-200"
+          className="hidden md:inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full hover:bg-[var(--page-alt)] text-[var(--text)] active:scale-95 transition-all duration-200"
           type="button"
           onClick={toggleSidebar}
           aria-label={sidebarCollapsed ? "展开侧栏" : "收缩侧栏"}
@@ -28,7 +28,7 @@ export function MobileHeader() {
 
         {/* 移动端：只渲染 1 个三条杠菜单图标 */}
         <button
-          className="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-full hover:bg-[var(--page-alt)] text-[var(--text)] active:scale-95 transition-colors"
+          className="inline-flex md:hidden h-9 w-9 shrink-0 items-center justify-center rounded-full hover:bg-[var(--page-alt)] text-[var(--text)] active:scale-95 transition-colors"
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="打开导航菜单"

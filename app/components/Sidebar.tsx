@@ -55,10 +55,10 @@ export function Sidebar() {
                 <Link
                   key={item.href}
                   className={`group relative flex items-center gap-3 transition-all duration-200 ease-out rounded-xl ${
-                    sidebarCollapsed ? "justify-center !px-0 !w-[38px] h-9" : "px-3 py-2 h-9.5"
+                    sidebarCollapsed ? "justify-center !px-0 !w-[36px] h-9" : "px-1 py-1 h-9"
                   } ${
                     isActive
-                      ? "bg-black/[0.04] dark:bg-white/[0.06] text-[var(--text)] font-semibold"
+                      ? "bg-black/[0.05] dark:bg-white/[0.08] text-[var(--text)] font-semibold"
                       : "text-[var(--muted)] hover:bg-black/[0.025] dark:hover:bg-white/[0.04] hover:text-[var(--text)] font-medium"
                   }`}
                   href={item.href}
@@ -66,7 +66,7 @@ export function Sidebar() {
                   onMouseEnter={(e) => handleMouseEnter(e, item.label)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 flex items-center justify-center shrink-0">
                     <Icon name={item.icon} size={18} />
                   </div>
                   <div

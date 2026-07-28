@@ -1,15 +1,15 @@
 ---
-title: "信息收集与目标侦察 — Nmap、Recon-ng、OSINT 技术"
-description: "渗透测试信息收集方法论，Nmap扫描技术大全、被动侦察工具链与子域名枚举实战"
-pubDate: "2026-01-11"
-cover: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&w=1200&q=80"
-category: "渗透测试"
+title: 信息收集与目标侦察 — Nmap、Recon-ng、OSINT 技术
+description: 渗透测试信息收集方法论，Nmap扫描技术大全、被动侦察工具链与子域名枚举实战
+pubDate: '2026-01-11'
+cover: /assets/images/covers/recon-techniques.svg
+category: 渗透测试
 tags:
-  - "信息收集"
-  - "Nmap"
-  - "OSINT"
-  - "侦察"
-author: "Kerntau"
+  - 信息收集
+  - Nmap
+  - OSINT
+  - 侦察
+author: Kerntau
 ---
 信息收集是渗透测试的第一阶段，也是最关键的阶段之一。充分的信息收集能够帮助渗透测试人员全面了解目标的攻击面，发现潜在的薄弱环节。正如安全圈的一句老话："知己知彼，百战不殆。"本文将系统地介绍被动信息收集与主动信息收集的方法论，并深入讲解 Nmap、Recon-ng 等核心工具的高级用法，帮助你构建完整的信息侦察能力。
 

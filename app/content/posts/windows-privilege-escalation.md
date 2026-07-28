@@ -1,15 +1,15 @@
 ---
-title: "Windows 提权技术 — UAC 绕过、令牌窃取、服务路径劫持"
-description: "Windows提权技术全景，UAC绕过、Potato系列令牌窃取、服务路径劫持与WinPEAS自动化枚举"
-pubDate: "2026-01-18"
-cover: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=1200&q=80"
-category: "渗透测试"
+title: Windows 提权技术 — UAC 绕过、令牌窃取、服务路径劫持
+description: Windows提权技术全景，UAC绕过、Potato系列令牌窃取、服务路径劫持与WinPEAS自动化枚举
+pubDate: '2026-01-18'
+cover: /assets/images/covers/windows-privilege-escalation.svg
+category: 渗透测试
 tags:
-  - "Windows"
-  - "提权"
-  - "UAC绕过"
-  - "令牌窃取"
-author: "Kerntau"
+  - Windows
+  - 提权
+  - UAC绕过
+  - 令牌窃取
+author: Kerntau
 ---
 在渗透测试中，初始访问通常只能获取普通用户权限。要进一步控制系统、访问敏感数据或进行横向移动，权限提升（Privilege Escalation）是必经之路。Windows 系统拥有复杂的权限模型，但同时也存在众多可被利用的提权向量。本文将系统讲解 Windows 提权的核心技术，从权限模型基础到 UAC 绕过、令牌操作、服务劫持等高级技术，配合自动化枚举工具的使用方法。
 

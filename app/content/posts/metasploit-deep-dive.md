@@ -1,14 +1,14 @@
 ---
-title: "Metasploit 框架深度实战 — 从扫描到 getshell"
-description: "Metasploit完整实战教程，模块架构解析、EternalBlue利用全过程、Meterpreter与MSFvenom"
-pubDate: "2026-01-15"
-cover: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80"
-category: "渗透测试"
+title: Metasploit 框架深度实战 — 从扫描到 getshell
+description: Metasploit完整实战教程，模块架构解析、EternalBlue利用全过程、Meterpreter与MSFvenom
+pubDate: '2026-01-15'
+cover: /assets/images/covers/metasploit-deep-dive.svg
+category: 渗透测试
 tags:
-  - "Metasploit"
-  - "漏洞利用"
-  - "Meterpreter"
-author: "Kerntau"
+  - Metasploit
+  - 漏洞利用
+  - Meterpreter
+author: Kerntau
 ---
 Metasploit Framework 是全球使用最广泛的渗透测试框架，由 HD Moore 于 2003 年创建，如今由 Rapid7 公司维护。它将渗透测试的各个环节——信息收集、漏洞利用、后渗透、报告生成——整合在一个统一的平台中，极大地提高了渗透测试的效率。本文将从 Metasploit 的架构设计讲起，深入探讨其核心模块、实战利用流程、Meterpreter 会话管理以及自动化攻击技术，带你完整走通一次从扫描到 getshell 的渗透测试流程。
 

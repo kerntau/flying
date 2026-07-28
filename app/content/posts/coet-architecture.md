@@ -1,16 +1,18 @@
 ---
-title: "Coet 个人工作站：全栈架构设计与工程化规范白皮书"
-description: "从内容建模、渲染管线、后台控制、部署链路到运维策略，系统拆解 Coet 个人工作站的架构边界、工程规范与演进路径，给出一套适用于个人站点长期演化的工程化蓝图。"
-pubDate: "2026-03-20"
-updatedDate: "2026-03-20T11:30:00+08:00"
-cover: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"
-category: "项目开发"
+title: Coet 个人工作站：全栈架构设计与工程化规范白皮书
+description: >-
+  从内容建模、渲染管线、后台控制、部署链路到运维策略，系统拆解 Coet
+  个人工作站的架构边界、工程规范与演进路径，给出一套适用于个人站点长期演化的工程化蓝图。
+pubDate: '2026-03-20'
+updatedDate: '2026-03-20T11:30:00+08:00'
+cover: /assets/images/covers/coet-architecture.svg
+category: 项目开发
 tags:
-  - "全栈架构"
-  - "工程化"
-  - "Next.js"
-  - "MDX"
-author: "Kerntau"
+  - 全栈架构
+  - 工程化
+  - Next.js
+  - MDX
+author: Kerntau
 ---
 > **当前版本**：v2.4.x  
 > **技术骨架**：Next.js 15 App Router、Contentlayer 2、MDX、Drizzle ORM、SQLite  

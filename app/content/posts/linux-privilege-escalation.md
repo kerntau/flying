@@ -1,15 +1,15 @@
 ---
-title: "提权技术详解 — SUID、内核漏洞、Cron 定时任务利用"
-description: "Linux提权技术全面解析，SUID/SGID利用、内核漏洞提权、Cron任务劫持与LinPEAS自动化枚举"
-pubDate: "2026-01-13"
-cover: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80"
-category: "渗透测试"
+title: 提权技术详解 — SUID、内核漏洞、Cron 定时任务利用
+description: Linux提权技术全面解析，SUID/SGID利用、内核漏洞提权、Cron任务劫持与LinPEAS自动化枚举
+pubDate: '2026-01-13'
+cover: /assets/images/covers/linux-privilege-escalation.svg
+category: 渗透测试
 tags:
-  - "Linux"
-  - "提权"
-  - "SUID"
-  - "内核漏洞"
-author: "Kerntau"
+  - Linux
+  - 提权
+  - SUID
+  - 内核漏洞
+author: Kerntau
 ---
 在渗透测试中，获取初始 Shell 往往只是一个低权限用户（如 www-data、nobody），要真正控制目标系统，我们需要进行权限提升（Privilege Escalation），将普通用户权限提升为 root。Linux 提权是一门系统化的技术，涉及文件权限、内核漏洞、系统配置缺陷等多个维度。本文将全面讲解 Linux 环境下的各种提权技术，从原理到实战，帮助你掌握从低权限到 root 的完整路径。
 

@@ -1,13 +1,13 @@
 ---
-title: "十大排序算法性能深度对比"
-description: "冒泡、选择、插入、希尔、快排、归并、堆排、计数、桶、基数排序的原理、复杂度与稳定性全面对比分析"
-pubDate: "2026-02-07"
-cover: "https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&w=1200&q=80"
-category: "算法详解"
+title: 十大排序算法性能深度对比
+description: 冒泡、选择、插入、希尔、快排、归并、堆排、计数、桶、基数排序的原理、复杂度与稳定性全面对比分析
+pubDate: '2026-02-07'
+cover: /assets/images/covers/sorting-algorithms-comparison.svg
+category: 算法详解
 tags:
-  - "排序"
-  - "性能分析"
-author: "Kerntau"
+  - 排序
+  - 性能分析
+author: Kerntau
 ---
 排序是计算机科学中最基础、最重要的算法问题之一。无论是数据库索引的构建、搜索引擎结果的呈现，还是操作系统进程的调度，排序算法都扮演着不可或缺的角色。Donald Knuth 在其经典著作《计算机程序设计艺术》中曾指出，计算机约有 25% 的运行时间花费在排序上。深入理解各种排序算法的原理、性能特征和适用场景，是每一位程序员的必修课。
 

@@ -1,13 +1,13 @@
 ---
-title: "图算法全景解析 — 从遍历到最短路径与生成树"
-description: "BFS/DFS遍历、Dijkstra/Floyd最短路径、Prim/Kruskal最小生成树、拓扑排序完整解析"
-pubDate: "2026-02-07"
-cover: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"
-category: "算法详解"
+title: 图算法全景解析 — 从遍历到最短路径与生成树
+description: BFS/DFS遍历、Dijkstra/Floyd最短路径、Prim/Kruskal最小生成树、拓扑排序完整解析
+pubDate: '2026-02-07'
+cover: /assets/images/covers/graph-algorithms.svg
+category: 算法详解
 tags:
-  - "图论"
-  - "最短路径"
-author: "Kerntau"
+  - 图论
+  - 最短路径
+author: Kerntau
 ---
 图（Graph）是计算机科学中最通用、最强大的数据结构之一。社交网络中的人际关系、互联网中的网页链接、地图中的城市与公路、编译器中的函数调用关系——这些现实世界的问题都可以自然地抽象为图模型。掌握图算法，是从"编程入门"迈向"算法进阶"的关键一步。
 

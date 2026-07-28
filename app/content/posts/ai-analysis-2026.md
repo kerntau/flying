@@ -1,14 +1,14 @@
 ---
-title: "2026 国内外 AI 大模型发展态势深度分析"
-description: "GPT-4o/Claude/Gemini vs DeepSeek/通义/文心/Kimi，技术路线、开源生态、应用落地与未来趋势全景对比"
-pubDate: "2026-02-07"
-updatedDate: "2026-03-08T12:19:25.233Z"
-cover: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80"
-category: "artificial-intelligence"
+title: 2026 国内外 AI 大模型发展态势深度分析
+description: GPT-4o/Claude/Gemini vs DeepSeek/通义/文心/Kimi，技术路线、开源生态、应用落地与未来趋势全景对比
+pubDate: '2026-02-07'
+updatedDate: '2026-03-08T12:19:25.233Z'
+cover: /assets/images/covers/ai-analysis-2026.svg
+category: artificial-intelligence
 tags:
-  - "AI分析"
-  - "深度学习"
-author: "Kerntau"
+  - AI分析
+  - 深度学习
+author: Kerntau
 ---
 截至 2026 年 2 月，人工智能大模型领域已经从"百模大战"的混沌期进入了真正的"实力定局"阶段。过去一年发生了太多足以载入史册的事件：DeepSeek R1 横空出世引发美股科技股震荡、OpenAI 从 GPT-4.5 一路迭代到 GPT-5、Anthropic 在两天前刚刚发布 Claude Opus 4.6、Google 的 Gemini 已演进至第三代、Meta Llama 4 登顶开源之巅后又被阿里 Qwen 反超下载量……
 

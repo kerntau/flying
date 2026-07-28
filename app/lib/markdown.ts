@@ -6,6 +6,8 @@ import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
+import { rehypeRemoveFirstH1 } from "./rehype-remove-first-h1";
+import { rehypeOptimization } from "./rehype-optimization";
 
 export interface TocItem {
   id: string;
@@ -19,27 +21,63 @@ export async function renderMarkdown(content: string): Promise<string> {
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
+    .use(rehypeRemoveFirstH1 as any)
+    .use(rehypeOptimization as any)
     .use(rehypeSlug)
     .use(rehypeHighlight)
-    .use(rehypeStringify)
-    .process(content);
+    .use(rehypeStringify, { allowDangerousHtml: true })
+    .process(content || "");
 
   return result.toString();
+}
+
+/**
+ * 保持与 rehype-slug (github-slugger) 100% 一致的 Slug 生成逻辑，
+ * 解决中文标点符号导致的 Heading ID 不匹配、TOC 高亮与跟随失效的问题。
+ */
+function slugify(text: string, occurrences: Record<string, number>): string {
+  const rawSlug = text
+    .toLowerCase()
+    .trim()
+    .replace(/[\s\-_]+/g, '-')
+    .replace(/[^\p{L}\p{N}-]/gu, '')
+    .replace(/^-+|-+$/g, '');
+
+  const slug = rawSlug || 'heading';
+
+  if (Object.prototype.hasOwnProperty.call(occurrences, slug)) {
+    occurrences[slug]++;
+    return `${slug}-${occurrences[slug]}`;
+  }
+
+  occurrences[slug] = 0;
+  return slug;
 }
 
 export function extractToc(content: string): TocItem[] {
   const headingRegex = /^(#{1,6})\s+(.+)$/gm;
   const toc: TocItem[] = [];
+  const occurrences: Record<string, number> = {};
   let match;
+  let isFirstH1 = true;
 
   while ((match = headingRegex.exec(content)) !== null) {
     const level = match[1].length;
-    const text = match[2].trim();
-    // 简单的 slug 生成规则
-    const id = text
-      .toLowerCase()
-      .replace(/[^\w\u4e00-\u9fa5]+/g, "-")
-      .replace(/^-+|-+$/g, "");
+
+    // 如果 Markdown 正文中第一个标题是 # (h1)，其会被 rehypeRemoveFirstH1 插件移除，TOC 也同步过滤掉
+    if (level === 1 && isFirstH1) {
+      isFirstH1 = false;
+      continue;
+    }
+    isFirstH1 = false;
+
+    // 移除 markdown 链接、粗体等行内格式，提取纯文本
+    const rawText = match[2].trim();
+    const text = rawText
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/[*_~`]/g, '');
+
+    const id = slugify(text, occurrences);
 
     toc.push({ id, text, level });
   }

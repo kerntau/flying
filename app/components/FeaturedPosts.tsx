@@ -13,7 +13,12 @@ interface FeaturedPostsProps {
 }
 
 export function FeaturedPosts({ posts }: FeaturedPostsProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    duration: 25,
+  });
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -23,11 +28,61 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
+  const scrollTo = useCallback(
+    (index: number) => {
+      if (emblaApi) emblaApi.scrollTo(index);
+    },
+    [emblaApi]
+  );
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  // 1. 监听 slide 切换状态
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+  }, [emblaApi, onSelect]);
+
+  // 2. 丝滑自动轮播 (支持鼠标悬停暂停与离开恢复)
+  useEffect(() => {
+    if (!emblaApi || posts.length <= 1) return;
+
+    let timer: NodeJS.Timeout | null = null;
+
+    const startAutoplay = () => {
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => {
+        emblaApi.scrollNext();
+      }, 4000);
+    };
+
+    const stopAutoplay = () => {
+      if (timer) clearInterval(timer);
+    };
+
+    startAutoplay();
+
+    const rootNode = emblaApi.rootNode();
+    rootNode.addEventListener("mouseenter", stopAutoplay);
+    rootNode.addEventListener("mouseleave", startAutoplay);
+
+    return () => {
+      stopAutoplay();
+      rootNode.removeEventListener("mouseenter", stopAutoplay);
+      rootNode.removeEventListener("mouseleave", startAutoplay);
+    };
+  }, [emblaApi, posts.length]);
+
   if (!posts || posts.length === 0) return null;
 
   return (
     <section className="fly-home-carousel" aria-label="精选文章">
-      <div className="overflow-hidden" ref={emblaRef}>
+      <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
         <div className="flex">
           {posts.map((post) => {
             const formattedDate = post.pubDate
@@ -72,10 +127,27 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
 
                       {posts.length > 1 && (
                         <div className="flex items-center gap-3 text-[var(--text)]">
+                          {/* 动态轮播 Indicator 点 */}
+                          <div className="flex items-center gap-1.5 mr-2">
+                            {posts.map((_, i) => (
+                              <button
+                                key={i}
+                                type="button"
+                                onClick={() => scrollTo(i)}
+                                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                                  selectedIndex === i
+                                    ? "w-5 bg-[var(--accent)]"
+                                    : "w-2 bg-[var(--muted)]/30 hover:bg-[var(--muted)]/60"
+                                }`}
+                                aria-label={`跳转至第 ${i + 1} 张精选文章`}
+                              />
+                            ))}
+                          </div>
+
                           <button
                             type="button"
                             onClick={scrollPrev}
-                            className="p-1 hover:opacity-60 active:scale-90 transition-all"
+                            className="p-1 hover:opacity-60 active:scale-90 transition-all cursor-pointer"
                             aria-label="上一页"
                           >
                             <Icon name="arrow-left" size={18} />
@@ -83,7 +155,7 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                           <button
                             type="button"
                             onClick={scrollNext}
-                            className="p-1 hover:opacity-60 active:scale-90 transition-all"
+                            className="p-1 hover:opacity-60 active:scale-90 transition-all cursor-pointer"
                             aria-label="下一页"
                           >
                             <Icon name="arrow-right" size={18} />

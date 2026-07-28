@@ -7,6 +7,7 @@ import { site, navigation, socialLinks } from "@/data/site";
 import { Icon } from "./Icon";
 import { useUI } from "./UIContext";
 
+
 export function Sidebar() {
   const pathname = usePathname();
   const { sidebarCollapsed } = useUI();
@@ -104,9 +105,6 @@ export function Sidebar() {
               </a>
             ))}
           </div>
-          <p className="fly-footer-copyright">
-            © {new Date().getFullYear()} {site.title}
-          </p>
         </footer>
       </aside>
 

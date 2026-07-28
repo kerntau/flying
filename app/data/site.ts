@@ -5,6 +5,7 @@ export const site = {
   url: "https://blog.cot.wiki",
   author: "Kerntau",
   logo: "/assets/images/avatar.png",
+  siteCreatedAt: "2025-11-10T00:07:03",
 };
 
 export const navigation = [
@@ -18,13 +19,26 @@ export const navigation = [
 ];
 
 export const socialLinks = [
-  { label: "RSS", href: "/rss.xml", icon: "globe" },
   {
-    label: "GitHub",
-    href: "https://github.com/kerntau",
-    icon: "link",
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61584118511046",
+    icon: "facebook",
   },
-  { label: "邮箱", href: "mailto:coet.ink@qq.com", icon: "mail" },
+  {
+    label: "X (Twitter)",
+    href: "https://x.com/Kerntao",
+    icon: "x",
+  },
+  {
+    label: "微软邮箱",
+    href: "mailto:kerntau@outlook.com",
+    icon: "outlook",
+  },
+  {
+    label: "Telegram",
+    href: "https://t.me/Kerntau",
+    icon: "telegram",
+  },
 ];
 
 export const links = [

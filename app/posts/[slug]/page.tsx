@@ -6,7 +6,6 @@ import { zhCN } from "date-fns/locale";
 import { getAllPosts, getPostBySlug } from "@/lib/content";
 import { renderMarkdown, extractToc } from "@/lib/markdown";
 import { AuthorPopover } from "@/components/AuthorPopover";
-import { Toc } from "@/components/Toc";
 import { PostCard } from "@/components/PostCard";
 import { Icon } from "@/components/Icon";
 import { ImagePreviewButton } from "@/components/LightboxModal";
@@ -14,6 +13,11 @@ import { ShareMenu } from "@/components/ShareMenu";
 import { ReadingProgressBar } from "@/components/ReadingProgressBar";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
+import { TocProvider } from "@/components/TocContext";
+import { FloatingToc } from "@/components/FloatingToc";
+import { PostLayoutContent } from "@/components/PostLayoutContent";
+import { HtmlMarkdownContent } from "@/components/HtmlMarkdownContent";
+import { PostCopyrightCard } from "@/components/PostCopyrightCard";
 
 interface PostPageProps {
   params: Promise<{
@@ -63,13 +67,12 @@ export default async function PostPage({ params }: PostPageProps) {
   const readTimeMin = Math.max(1, Math.ceil((post.content || "").length / 400));
 
   return (
-    <>
+    <TocProvider>
       {/* 顶部极细阅读进度指示条 */}
       <ReadingProgressBar />
 
-      <article className="fly-post-detail w-full space-y-10">
-        {/* 顶部 Header：左侧标题简介标签元数据 + 右侧封面大图 */}
-        <header className="fly-post-header border-b border-[var(--line)] pb-6 pt-1">
+      <PostLayoutContent
+        header={
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* 左侧信息大区 */}
             <div className={`space-y-4 ${post.cover ? "lg:col-span-8" : "lg:col-span-12"}`}>
@@ -132,108 +135,92 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
             </div>
 
-            {/* 右侧封面大图 (占比 4 栏，精美 16:9) */}
+            {/* 右侧封面大图 (精顺 16:9，适中尺寸) */}
             {post.cover && (
-              <div className="lg:col-span-4 w-full flex justify-end">
-                <div className="aspect-[16/9] w-full max-h-[250px] rounded-2xl overflow-hidden bg-[var(--page-alt)] border border-[var(--line)] shadow-sm">
+              <div className="lg:col-span-4 w-full flex justify-center lg:justify-end">
+                <div className="aspect-[16/9] w-full max-w-[340px] max-h-[190px] rounded-2xl overflow-hidden bg-[var(--page-alt)] border border-[var(--line)] shadow-sm">
                   <ImagePreviewButton imageUrl={post.cover} title={post.title} className="block h-full w-full cursor-zoom-in" />
                 </div>
               </div>
             )}
           </div>
-        </header>
+        }
+        toc={<FloatingToc toc={tocItems} />}
+      >
+        <div className="fly-post-detail w-full space-y-10">
 
-        {/* 正文 + 吸顶 Sidebar 双栏 */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 items-start">
-          {/* 左侧正文大区 */}
-          <div className="lg:col-span-3 min-w-0 space-y-10">
-            <div
-              className="prose prose-neutral dark:prose-invert max-w-none text-sm sm:text-base leading-relaxed space-y-6"
-              dangerouslySetInnerHTML={{ __html: htmlContent }}
-            />
+        {/* 文章正文与结尾块 */}
+        <div className="w-full min-w-0 space-y-10">
+          <HtmlMarkdownContent html={htmlContent} />
 
-            {/* 底部标签列表 */}
-            {post.tags && post.tags.length > 0 && (
-              <div className="pt-6 border-t border-[var(--line)] flex flex-wrap items-center gap-2">
-                <span className="text-xs font-semibold text-[var(--mute)]">文章标签:</span>
-                {post.tags.map((tag) => (
-                  <Link
-                    key={tag}
-                    href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
-                    className="inline-flex items-center px-1.5 py-0.5 rounded-md bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] transition-colors font-medium text-[11px]"
-                  >
-                    #{tag}
-                  </Link>
-                ))}
+          {/* 复刻 Blog 源站的精美版权与元数据卡片 */}
+          <PostCopyrightCard
+            title={post.title}
+            author={post.author}
+            pubDate={formattedDate}
+            slug={post.slug}
+          />
+
+
+
+          {/* 上一篇 / 下一篇跳转 (精美 Direction Badge 与虚线 Empty State 卡片) */}
+          <div className="flex flex-col sm:flex-row items-stretch justify-between gap-6 pt-4">
+            {prevPost ? (
+              <div className="flex flex-col space-y-2.5 w-full max-w-[260px] group">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-[var(--muted)] group-hover:text-blue-500 transition-colors">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--page-alt)] border border-[var(--line)] group-hover:border-blue-500/40 group-hover:bg-blue-500/10 transition-colors">
+                    <Icon name="arrow-left" size={11} />
+                  </span>
+                  <span>上一篇</span>
+                </div>
+                <PostCard post={prevPost} />
+              </div>
+            ) : (
+              <div className="flex flex-col space-y-2.5 w-full max-w-[260px]">
+                <div className="flex items-center gap-1.5 text-xs font-medium text-[var(--mute)]">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--page-alt)]/60 border border-[var(--line)]/60">
+                    <Icon name="arrow-left" size={11} />
+                  </span>
+                  <span>上一篇</span>
+                </div>
+                <div className="w-full h-[220px] rounded-2xl border border-dashed border-[var(--line)] bg-[var(--page-alt)]/20 p-5 flex flex-col items-center justify-center text-center space-y-2">
+                  <div className="w-7 h-7 rounded-full bg-[var(--page-alt)] border border-[var(--line)] flex items-center justify-center text-[var(--mute)]">
+                    <Icon name="check" size={13} />
+                  </div>
+                  <span className="text-xs font-medium text-[var(--muted)]">已是最新一篇文章</span>
+                </div>
               </div>
             )}
 
-            {/* 文章版权卡片 (Copyright Box) */}
-            <div className="p-5 rounded-2xl bg-[var(--page-alt)] border border-[var(--line)] space-y-2 text-xs text-[var(--muted)] relative overflow-hidden">
-              <div className="font-bold text-sm text-[var(--text)] flex items-center gap-2">
-                <Icon name="lock" size={16} />
-                <span>版权与授权声明</span>
+            {nextPost ? (
+              <div className="flex flex-col space-y-2.5 w-full max-w-[260px] items-end group">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-[var(--muted)] group-hover:text-blue-500 transition-colors">
+                  <span>下一篇</span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--page-alt)] border border-[var(--line)] group-hover:border-blue-500/40 group-hover:bg-blue-500/10 transition-colors">
+                    <Icon name="arrow-right" size={11} />
+                  </span>
+                </div>
+                <div className="w-full">
+                  <PostCard post={nextPost} />
+                </div>
               </div>
-              <p className="leading-normal">
-                本文由 <strong className="text-[var(--text)]">{post.author || "Kerntau"}</strong> 创作，采用{" "}
-                <a
-                  href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-                  target="_blank"
-                  rel="noopener"
-                  className="underline hover:text-[var(--text)]"
-                >
-                  CC BY-NC-SA 4.0
-                </a>{" "}
-                许可协议。转载请保留署名并注明出处。
-              </p>
-            </div>
-
-            {/* 上一篇 / 下一篇跳转 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-              {prevPost ? (
-                <Link
-                  href={`/posts/${prevPost.slug}/`}
-                  className="group p-4 rounded-2xl bg-[var(--page-alt)] border border-[var(--line)] hover:border-[var(--muted)] transition-all flex flex-col justify-between gap-2"
-                >
-                  <span className="text-[11px] font-semibold text-[var(--mute)] flex items-center gap-1 group-hover:text-[var(--text)] transition-colors">
-                    <Icon name="arrow-left" size={12} />
-                    <span>上一篇</span>
+            ) : (
+              <div className="flex flex-col space-y-2.5 w-full max-w-[260px] items-end">
+                <div className="flex items-center gap-1.5 text-xs font-medium text-[var(--mute)]">
+                  <span>下一篇</span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--page-alt)]/60 border border-[var(--line)]/60">
+                    <Icon name="arrow-right" size={11} />
                   </span>
-                  <span className="text-xs sm:text-sm font-bold text-[var(--text)] line-clamp-1">
-                    {prevPost.title}
-                  </span>
-                </Link>
-              ) : (
-                <div className="p-4 rounded-2xl bg-[var(--page-alt)]/50 border border-[var(--line)]/50 text-[11px] text-[var(--mute)] flex items-center">
-                  已是最新一篇文章
                 </div>
-              )}
-
-              {nextPost ? (
-                <Link
-                  href={`/posts/${nextPost.slug}/`}
-                  className="group p-4 rounded-2xl bg-[var(--page-alt)] border border-[var(--line)] hover:border-[var(--muted)] transition-all flex flex-col justify-between gap-2 text-right"
-                >
-                  <span className="text-[11px] font-semibold text-[var(--mute)] flex items-center gap-1 justify-end group-hover:text-[var(--text)] transition-colors">
-                    <span>下一篇</span>
-                    <Icon name="arrow-right" size={12} />
-                  </span>
-                  <span className="text-xs sm:text-sm font-bold text-[var(--text)] line-clamp-1">
-                    {nextPost.title}
-                  </span>
-                </Link>
-              ) : (
-                <div className="p-4 rounded-2xl bg-[var(--page-alt)]/50 border border-[var(--line)]/50 text-[11px] text-[var(--mute)] flex items-center justify-end">
-                  已是最后一篇文章
+                <div className="w-full h-[220px] rounded-2xl border border-dashed border-[var(--line)] bg-[var(--page-alt)]/20 p-5 flex flex-col items-center justify-center text-center space-y-2">
+                  <div className="w-7 h-7 rounded-full bg-[var(--page-alt)] border border-[var(--line)] flex items-center justify-center text-[var(--mute)]">
+                    <Icon name="check" size={13} />
+                  </div>
+                  <span className="text-xs font-medium text-[var(--muted)]">已是最后一篇文章</span>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
-
-          {/* 右侧吸顶 Sticky 目录 */}
-          <aside className="hidden lg:block lg:col-span-1 self-start">
-            <Toc items={tocItems} />
-          </aside>
         </div>
 
         {/* 相关文章推荐 */}
@@ -250,7 +237,8 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
           </section>
         )}
-      </article>
-    </>
+        </div>
+      </PostLayoutContent>
+    </TocProvider>
   );
 }

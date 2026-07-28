@@ -421,8 +421,8 @@ input:where([type='button'], [type='reset'], [type='submit']),
 
 :root {
   --fly-responsive-gutter: clamp(16px, calc(11.25px + 1.25vw), 30px);
-  --sidebar-width: calc(232px + var(--fly-responsive-gutter));
-  --sidebar-collapsed-width: calc(52px + var(--fly-responsive-gutter));
+  --sidebar-width: 176px;
+  --sidebar-collapsed-width: 64px;
   --navigation-panel-width: calc(244px + var(--fly-responsive-gutter));
   --navigation-overlay: #e8e8e8;
   --content-width: none;

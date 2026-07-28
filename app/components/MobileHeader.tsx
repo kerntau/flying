@@ -63,7 +63,7 @@ export function MobileHeader() {
 
       {/* 移动端菜单抽屉 Panel */}
       <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-        <SheetContent className="fixed inset-y-0 left-0 z-50 w-72 bg-[var(--page)] p-6 shadow-2xl flex flex-col justify-between border-r border-[var(--line)]">
+        <SheetContent className="fixed inset-y-0 left-0 z-[110] w-72 bg-[var(--page)] p-6 shadow-2xl flex flex-col justify-between border-r border-[var(--line)]">
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between border-b border-[var(--line)] pb-4">
               <Link className="text-xl font-bold tracking-tight text-[var(--text)]" href="/" onClick={() => setMobileMenuOpen(false)}>

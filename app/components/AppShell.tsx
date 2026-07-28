@@ -12,11 +12,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <MobileHeader />
       <div className="fly-main-wrapper flex flex-1 w-full">
         <Sidebar />
-        <main className="fly-content-area flex-1 min-w-0 p-4 sm:p-6 lg:p-8">
-          {children}
-        </main>
+        <div className="fly-site-main flex-1 min-w-0 flex flex-col">
+          <main className="fly-content-area flex-1 p-4 sm:p-6 lg:p-8">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </div>
-      <Footer />
       <SearchDialog />
     </div>
   );

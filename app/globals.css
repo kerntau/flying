@@ -50,6 +50,7 @@
   --navigation-overlay: #212121;
   --accent: var(--fly-primary-color-dark);
   --accent-strong: var(--fly-primary-color-dark);
+  --accent-contrast: #000000;
   --accent-secondary: var(--fly-secondary-color-dark);
   --accent-secondary-soft: color-mix(in srgb, var(--accent-secondary) 10%, var(--page));
   --shadow-soft: 0 18px 48px rgba(0, 0, 0, 0.34);
@@ -67,7 +68,6 @@ body {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
 }
 

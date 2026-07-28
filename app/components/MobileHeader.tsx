@@ -12,64 +12,52 @@ export function MobileHeader() {
   const { setSearchOpen, mobileMenuOpen, setMobileMenuOpen, toggleSidebar, sidebarCollapsed } = useUI();
 
   return (
-    <header className="fly-mobile-header sticky top-0 z-40 flex h-[var(--navbar-height)] items-center justify-between pl-4 pr-4 sm:pr-6 bg-[var(--page)]/80 backdrop-blur-md border-b border-[var(--line)] w-full">
-      {/* 左侧：精确渲染单图标按钮 (桌面端为侧栏开关，移动端为菜单开关) + 品牌标题 (与侧边栏纵向绝对对齐) */}
-      <div className="flex items-center gap-3 min-w-0">
-        {/* 桌面端：只渲染 1 个侧栏收缩/展开图标 */}
+    <header className="fly-mobile-header">
+      {/* 左侧：品牌区域 */}
+      <div className="fly-navbar-brand">
+        {/* 桌面端 ≥1200px：侧栏折叠/展开按钮 */}
         <button
-          className="hidden md:inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full hover:bg-[var(--page-alt)] text-[var(--text)] active:scale-95 transition-all duration-200"
+          className="fly-icon-button fly-sidebar-collapse-button"
           type="button"
           onClick={toggleSidebar}
           aria-label={sidebarCollapsed ? "展开侧栏" : "收缩侧栏"}
-          title={sidebarCollapsed ? "展开侧栏" : "收缩侧栏"}
-        >
-          <Icon name={sidebarCollapsed ? "panel-left-open" : "panel-left-close"} size={18} />
-        </button>
-
-        {/* 移动端：只渲染 1 个三条杠菜单图标 */}
-        <button
-          className="inline-flex md:hidden h-9 w-9 shrink-0 items-center justify-center rounded-full hover:bg-[var(--page-alt)] text-[var(--text)] active:scale-95 transition-colors"
-          type="button"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="打开导航菜单"
+          aria-expanded={!sidebarCollapsed}
+          aria-controls="fly-site-sidebar"
         >
           <Icon name="menu" size={20} />
         </button>
 
-        <Link className="text-base sm:text-lg font-bold tracking-tight text-[var(--text)] truncate" href="/">
+        {/* 移动端 <1200px：菜单打开按钮 */}
+        <button
+          className="fly-icon-button fly-menu-button"
+          type="button"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="打开菜单"
+          aria-expanded={mobileMenuOpen}
+          aria-controls="fly-navigation-popup"
+        >
+          <Icon name="menu" size={20} />
+        </button>
+
+        <Link className="fly-brand fly-brand--mobile" href="/">
           {site.title}
         </Link>
       </div>
 
-      {/* 中间：全局搜索框 */}
-      <div className="flex-1 max-w-[424px] mx-4 hidden md:block">
-        <button
-          className="relative flex w-full h-10 items-center justify-between px-4 rounded-xl bg-[var(--page-alt)] text-sm font-medium text-[var(--faint)] hover:bg-[var(--hover-bg-color)] hover:text-[var(--text)] transition-all duration-200 cursor-pointer border border-transparent focus-visible:border-[var(--accent)]"
-          type="button"
-          onClick={() => setSearchOpen(true)}
-          aria-label="搜索文章"
-        >
-          <div className="flex items-center gap-2.5 truncate">
-            <Icon name="search" size={16} className="text-[var(--faint)] shrink-0" />
-            <span className="truncate text-xs sm:text-sm">搜索文章...</span>
-          </div>
-          <kbd className="inline-flex h-5 items-center rounded border border-[var(--line)] bg-[var(--page)] px-1.5 font-mono text-[11px] font-semibold text-[var(--muted)] shadow-xs">
-            /
-          </kbd>
-        </button>
-      </div>
+      {/* 中间：搜索栏 */}
+      <button
+        className="fly-navbar-search"
+        type="button"
+        onClick={() => setSearchOpen(true)}
+        aria-label="搜索文章"
+      >
+        <Icon name="search" className="fly-search-icon" size={16} />
+        <span className="fly-search-placeholder">搜索文章</span>
+        <kbd aria-hidden="true">/</kbd>
+      </button>
 
-      {/* 右侧：移动端搜索图标按钮 + 主题切换器 */}
-      <div className="flex items-center gap-2 shrink-0">
-        <button
-          className="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-full bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] transition-colors"
-          type="button"
-          onClick={() => setSearchOpen(true)}
-          aria-label="搜索文章"
-        >
-          <Icon name="search" size={16} />
-        </button>
-
+      {/* 右侧：主题切换 */}
+      <div className="flex items-center justify-end justify-self-end">
         <ThemeToggle />
       </div>
 

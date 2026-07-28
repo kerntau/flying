@@ -360,11 +360,29 @@ a {
   .fly-navbar-search {
     display: grid;
     width: 36px;
+    height: 36px;
     max-width: none;
     flex: 0 0 36px;
     margin-left: auto;
     padding: 0;
     place-items: center;
+    border-radius: 9999px;
+    background: transparent;
+    color: var(--text);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .fly-navbar-search:hover {
+    background: var(--hover-bg-color);
+    transform: scale(1.06);
+  }
+
+  .fly-navbar-search:active {
+    transform: scale(0.94);
+  }
+
+  .fly-navbar-search .fly-search-icon {
+    color: var(--text);
   }
 
   .fly-search-placeholder {
@@ -372,6 +390,118 @@ a {
   }
 
   .fly-navbar-search kbd {
+    display: none;
+  }
+
+  /* 首页精选轮播组件移动端：左标题右图极简高质感排版 (无外框无冗余背景) */
+  .fly-home-carousel {
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    margin-bottom: 1.25rem;
+    border: none !important;
+  }
+
+  .fly-home-carousel-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    width: 100%;
+    aspect-ratio: auto;
+    background: transparent;
+    border: 0;
+  }
+
+  /* 左侧：分类 + 标题 + 底部操作按钮 */
+  .fly-home-carousel-copy {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0;
+    color: var(--text) !important;
+    background: transparent;
+  }
+
+  .fly-home-carousel-avatars {
+    display: none !important;
+  }
+
+  .fly-home-carousel-terms {
+    color: var(--accent) !important;
+    font-size: 11px;
+    font-weight: 600;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .fly-home-carousel-terms span {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
+    color: var(--accent) !important;
+    font-size: 11px;
+    font-weight: 600;
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .fly-home-carousel-copy h2 {
+    font-size: 0.875rem;
+    line-height: 1.35;
+    margin-top: 4px;
+    color: var(--text) !important;
+    font-weight: 700;
+    text-shadow: none;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .fly-home-carousel-copy h2 a {
+    color: var(--text) !important;
+  }
+
+  .fly-home-carousel-copy p {
+    display: none !important;
+  }
+
+  .fly-home-carousel-actions {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--text) !important;
+  }
+
+  .fly-home-carousel-read {
+    display: none !important; /* 移动端隐藏易重叠折行的阅读全文胶囊，整卡可直接点击跳转 */
+  }
+
+  /* 右侧：精美 16:10 封面图 */
+  .fly-home-carousel-media {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--hover-bg-color);
+  }
+
+  .fly-home-carousel-media::after {
+    display: none;
+  }
+
+  .fly-home-carousel-media-meta {
     display: none;
   }
 }
@@ -538,16 +668,20 @@ body[data-fly-sidebar-collapsed="true"] .fly-sidebar-uptime {
   }
 }
 
-/* 侧栏折叠/受挤压状态下，主内容区域 margin-left 动态对齐，彻底消除空白间距 bugs */
-body[data-fly-sidebar-collapsed="true"] .fly-site-main,
-body[data-fly-sidebar-collapsed="true"] main.fly-site-main {
-  margin-left: var(--sidebar-collapsed-width) !important;
-  transition: margin-left 220ms ease;
+/* 侧栏折叠/受挤压状态下，仅在桌面端 (≥768px) 动态计算 margin-left */
+@media (min-width: 768px) {
+  body[data-fly-sidebar-collapsed="true"] .fly-site-main,
+  body[data-fly-sidebar-collapsed="true"] main.fly-site-main,
+  body[data-fly-sidebar-collapsed="true"] .fly-content-area {
+    margin-left: var(--sidebar-collapsed-width) !important;
+    transition: margin-left 220ms ease;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
   body .fly-site-main,
-  body main.fly-site-main {
+  body main.fly-site-main,
+  body .fly-content-area {
     margin-left: var(--sidebar-collapsed-width) !important;
     transition: margin-left 220ms ease;
   }
@@ -555,7 +689,11 @@ body[data-fly-sidebar-collapsed="true"] main.fly-site-main {
 
 @media (max-width: 767px) {
   body .fly-site-main,
-  body main.fly-site-main {
+  body main.fly-site-main,
+  body .fly-content-area,
+  body[data-fly-sidebar-collapsed="true"] .fly-site-main,
+  body[data-fly-sidebar-collapsed="true"] main.fly-site-main,
+  body[data-fly-sidebar-collapsed="true"] .fly-content-area {
     margin-left: 0 !important;
   }
 }
@@ -607,6 +745,14 @@ body[data-fly-sidebar-collapsed="true"] main.fly-site-main {
   font-size: 13px;
   font-weight: 500;
   color: var(--muted);
+}
+
+/* ═══ <768px 移动端：强制 margin 归零，彻底消灭左侧空白巨隙 ═══ */
+@media (max-width: 767px) {
+  .fly-content-area,
+  .fly-site-main {
+    margin-left: 0 !important;
+  }
 }
 
 /* ═══ 768px~1199px：侧边栏默认折叠（仅图标） ═══ */
@@ -783,6 +929,7 @@ body[data-fly-sidebar-collapsed="true"] main.fly-site-main {
   line-height: 1.2;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .fly-post-title a {
@@ -803,6 +950,7 @@ body[data-fly-sidebar-collapsed="true"] main.fly-site-main {
   line-height: 1.5;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 
 .fly-post-meta {
@@ -875,225 +1023,153 @@ body[data-fly-sidebar-collapsed="true"] main.fly-site-main {
   transform: scale(1.03);
 }
 
-.fly-image-shade {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(180deg, transparent 30%, rgba(0, 0, 0, 0.82) 100%);
-  pointer-events: none;
-}
-
-.fly-featured-content {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.25rem;
-}
-
-.fly-featured-card--lead .fly-featured-content {
-  padding: 2rem;
-}
-
-.fly-featured-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1.25;
-  margin-top: 0.5rem;
-}
-
-.fly-featured-title a {
-  color: #fff;
-  transition: opacity 200ms ease;
-}
-
-.fly-featured-card:hover .fly-featured-title a {
-  opacity: 0.85;
-}
-
-.fly-featured-card--lead .fly-featured-title {
-  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
-}
-
-.fly-featured-excerpt {
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin-top: 0.5rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.fly-featured-card--side .fly-featured-excerpt {
-  display: none;
-}
-
-.fly-post-chip--glass {
-  align-self: flex-start;
-  padding: 0.25rem 0.625rem;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-/* Legacy Split Carousel Exact Spec Rules */
-.fly-home-carousel {
-  position: relative;
-  overflow: hidden;
-  border-radius: clamp(16px, 2vw, 30px);
-  background: var(--page-alt);
-  padding: 20px;
-  margin-bottom: 2.5rem;
-}
-
-.fly-home-carousel-card {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  align-items: center;
-  min-width: 0;
-  width: 100%;
-}
-
+/* Legacy Split Carousel Exact Spec Rules (仅在 ≥768px 桌面端生效) */
 @media (min-width: 768px) {
-  .fly-home-carousel-card {
-    grid-template-columns: minmax(0, 0.968fr) minmax(0, 1fr);
+  .fly-home-carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: clamp(16px, 2vw, 30px);
+    background: var(--page-alt);
+    padding: 20px;
+    margin-bottom: 2.5rem;
   }
-}
 
-.fly-home-carousel-copy {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  height: 100%;
-  padding: 10px 10px 10px 14px;
-  color: var(--text);
-}
+  .fly-home-carousel-card {
+    display: grid;
+    grid-template-columns: minmax(0, 0.968fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: center;
+    min-width: 0;
+    width: 100%;
+  }
 
-.fly-home-carousel-avatars {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-}
+  .fly-home-carousel-copy {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100%;
+    padding: 10px 10px 10px 14px;
+    color: var(--text);
+  }
 
-.fly-home-carousel-terms {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 500;
-}
+  .fly-home-carousel-avatars {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
 
-.fly-home-carousel-copy h2 {
-  display: -webkit-box;
-  margin: 8px 0 0;
-  overflow: hidden;
-  color: var(--text);
-  font-size: clamp(20px, 2.2vw, 28px);
-  font-weight: 700;
-  line-height: 1.25;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
+  .fly-home-carousel-terms {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+  }
 
-.fly-home-carousel-copy h2 a {
-  color: var(--text);
-  transition: opacity 180ms ease;
-}
+  .fly-home-carousel-copy h2 {
+    display: -webkit-box;
+    margin: 8px 0 0;
+    overflow: hidden;
+    color: var(--text);
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 700;
+    line-height: 1.25;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
 
-.fly-home-carousel-copy h2 a:hover {
-  opacity: 0.8;
-}
+  .fly-home-carousel-copy h2 a {
+    color: var(--text);
+    transition: opacity 180ms ease;
+  }
 
-.fly-home-carousel-copy > p {
-  display: -webkit-box;
-  margin: 10px 0 0;
-  overflow: hidden;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
+  .fly-home-carousel-copy h2 a:hover {
+    opacity: 0.8;
+  }
 
-.fly-home-carousel-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
-}
+  .fly-home-carousel-copy > p {
+    display: -webkit-box;
+    margin: 10px 0 0;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
 
-.fly-home-carousel-read {
-  display: inline-flex;
-  min-height: 40px;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border-radius: 20px;
-  background: var(--text);
-  color: var(--page);
-  padding: 8px 20px;
-  font-size: 13px;
-  font-weight: 600;
-  transition: opacity 180ms ease, transform 180ms ease;
-}
+  .fly-home-carousel-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+  }
 
-.fly-home-carousel-read:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
+  .fly-home-carousel-read {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 20px;
+    background: var(--text);
+    color: var(--page);
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
 
-.fly-home-carousel-media {
-  position: relative;
-  display: block;
-  width: 100%;
-  aspect-ratio: 8 / 5;
-  overflow: hidden;
-  border-radius: 14px;
-  background: var(--hover-bg-color);
-}
+  .fly-home-carousel-read:hover {
+    opacity: 0.9;
+  }
 
-.fly-home-carousel-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1s cubic-bezier(0.2, 1, 0.2, 1);
-}
+  .fly-home-carousel-media {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 8 / 5;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--hover-bg-color);
+  }
 
-.fly-home-carousel-media:hover .fly-home-carousel-image {
-  transform: scale(1.03);
-}
+  .fly-home-carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s cubic-bezier(0.2, 1, 0.2, 1);
+  }
 
-.fly-home-carousel-media-meta {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-}
+  .fly-home-carousel-media:hover .fly-home-carousel-image {
+    transform: scale(1.03);
+  }
 
-.fly-home-carousel-media-meta > span {
-  border-radius: 6px;
-  background: rgba(0, 0, 0, 0.62);
-  padding: 5px 9px;
-  white-space: nowrap;
-  backdrop-filter: blur(8px);
+  .fly-home-carousel-media-meta {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .fly-home-carousel-media-meta > span {
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.62);
+    padding: 5px 9px;
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1113,7 +1189,7 @@ body[data-fly-sidebar-collapsed="true"] main.fly-site-main {
   z-index: 99999;
 }
 
-/* 主题切换按钮 — 极简非亮边框风格 */
+/* 主题切换按钮 — 极简无框设计（Frameless Style） */
 .fly-theme-toggle-btn {
   position: relative;
   display: inline-flex;
@@ -1122,24 +1198,24 @@ body[data-fly-sidebar-collapsed="true"] main.fly-site-main {
   width: 36px;
   height: 36px;
   border-radius: 9999px;
-  border: 1px solid var(--line);
-  background: var(--page-alt);
+  border: 1px solid transparent;
+  background: transparent;
   color: var(--text);
   cursor: pointer;
   justify-self: end;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
 }
 
 .fly-theme-toggle-btn:hover {
   background: var(--hover-bg-color);
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .fly-theme-toggle-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.94);
 }
 
-/* 暗色模式下完全移除边框高亮与光晕 */
+/* 消除暗色模式多余高亮/外框 */
 [data-theme="dark"] .fly-theme-toggle-btn,
 .dark .fly-theme-toggle-btn {
   border-color: transparent;
@@ -1150,7 +1226,18 @@ body[data-fly-sidebar-collapsed="true"] main.fly-site-main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: flyIconSpringIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes flyIconSpringIn {
+  from {
+    opacity: 0;
+    transform: scale(0.6) rotate(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1499,6 +1586,38 @@ body[data-fly-sidebar-collapsed="true"] main.fly-site-main {
 .dark .hljs-tag,
 .dark .hljs-name {
   color: #7ee787;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   shadcn/ui 官方原版 Tooltip 动画与全沉浸样式补全
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes shadcnTooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shadcnTooltipFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+[data-slot="tooltip-content"][data-state="delayed-open"],
+[data-slot="tooltip-content"][data-state="instant-open"],
+.shadcn-tooltip-content[data-state="delayed-open"],
+.shadcn-tooltip-content[data-state="instant-open"] {
+  animation: shadcnTooltipFadeIn 0.08s ease-out forwards;
 }
 
 

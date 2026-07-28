@@ -21,7 +21,7 @@ export default function ArchivesPage() {
   const years = Object.keys(groups).sort((a, b) => (a > b ? -1 : 1));
 
   return (
-    <div className="fly-archives-page max-w-4xl mx-auto space-y-10">
+    <div className="fly-archives-page w-full max-w-5xl space-y-10 transition-all duration-350">
       <header className="border-b border-[var(--line)] pb-6">
         <h1 className="text-3xl font-extrabold text-[var(--text)]">文章归档</h1>
         <p className="text-sm text-[var(--muted)] mt-1">共计 {posts.length} 篇文章</p>

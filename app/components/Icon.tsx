@@ -20,6 +20,8 @@ import {
   Calendar,
   Clock,
   ArrowLeft,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from "lucide-react";
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
@@ -67,6 +69,10 @@ export function Icon({ name, className = "", size = 20, ...props }: IconProps) {
       return <Clock size={size} className={className} {...props} />;
     case "arrow-left":
       return <ArrowLeft size={size} className={className} {...props} />;
+    case "panel-left-close":
+      return <PanelLeftClose size={size} className={className} {...props} />;
+    case "panel-left-open":
+      return <PanelLeftOpen size={size} className={className} {...props} />;
     default:
       return <Globe size={size} className={className} {...props} />;
   }

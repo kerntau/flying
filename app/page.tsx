@@ -10,7 +10,7 @@ export default function HomePage() {
   const recentPosts = posts.slice(0, 12);
 
   return (
-    <div className="fly-home-page max-w-6xl mx-auto space-y-10">
+    <div className="fly-home-page w-full max-w-7xl space-y-10 transition-all duration-350">
       {/* Banner & Hero Header */}
       <section className="fly-hero-banner py-6 flex flex-col gap-2">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text)]">

@@ -4,10 +4,7 @@ import "@/globals.css";
 import { site } from "@/data/site";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { UIProvider } from "@/components/UIContext";
-import { Sidebar } from "@/components/Sidebar";
-import { MobileHeader } from "@/components/MobileHeader";
-import { SearchDialog } from "@/components/SearchDialog";
-import { Footer } from "@/components/Footer";
+import { AppShell } from "@/components/AppShell";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -27,17 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           <UIProvider>
-            <div className="fly-app-shell min-h-screen flex flex-col bg-[var(--page)] text-[var(--text)]">
-              <MobileHeader />
-              <div className="fly-main-wrapper flex flex-1 w-full">
-                <Sidebar />
-                <main className="fly-content-area flex-1 min-w-0 transition-all duration-300 md:ml-[var(--sidebar-width)] p-4 sm:p-6 lg:p-8">
-                  {children}
-                </main>
-              </div>
-              <Footer />
-              <SearchDialog />
-            </div>
+            <AppShell>{children}</AppShell>
           </UIProvider>
         </ThemeProvider>
       </body>

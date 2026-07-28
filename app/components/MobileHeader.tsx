@@ -9,7 +9,7 @@ import { useUI } from "./UIContext";
 import { Sheet, SheetClose, SheetContent } from "./ui/sheet";
 
 export function MobileHeader() {
-  const { setSearchOpen, mobileMenuOpen, setMobileMenuOpen, toggleSidebar } = useUI();
+  const { setSearchOpen, mobileMenuOpen, setMobileMenuOpen } = useUI();
 
   return (
     <header className="fly-mobile-header sticky top-0 z-40 flex items-center justify-between px-4 py-3 bg-[var(--page)]/80 backdrop-blur-md border-b border-[var(--line)] md:hidden">

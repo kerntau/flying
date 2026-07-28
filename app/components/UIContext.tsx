@@ -14,10 +14,40 @@ interface UIContextType {
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
 
+const COLLAPSED_STORAGE_KEY = "flying-sidebar-collapsed";
+
 export function UIProvider({ children }: { children: React.ReactNode }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  // 初始化读取 localStorage 并同步给 document.body
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(COLLAPSED_STORAGE_KEY);
+      if (stored === "true") {
+        setSidebarCollapsed(true);
+        document.body.dataset.flySidebarCollapsed = "true";
+      } else {
+        document.body.dataset.flySidebarCollapsed = "false";
+      }
+    } catch (_e) {
+      document.body.dataset.flySidebarCollapsed = "false";
+    }
+  }, []);
+
+  // 状态变更时实时同步给 localStorage 和 document.body
+  const handleSetSidebarCollapsed = (collapsed: boolean) => {
+    setSidebarCollapsed(collapsed);
+    try {
+      localStorage.setItem(COLLAPSED_STORAGE_KEY, collapsed ? "true" : "false");
+    } catch (_e) {}
+    document.body.dataset.flySidebarCollapsed = collapsed ? "true" : "false";
+  };
+
+  const toggleSidebar = () => {
+    handleSetSidebarCollapsed(!sidebarCollapsed);
+  };
 
   // 监听全局 / 键快捷唤醒搜索
   useEffect(() => {
@@ -31,8 +61,6 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const toggleSidebar = () => setSidebarCollapsed(!sidebarCollapsed);
-
   return (
     <UIContext.Provider
       value={{
@@ -41,7 +69,7 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
         mobileMenuOpen,
         setMobileMenuOpen,
         sidebarCollapsed,
-        setSidebarCollapsed,
+        setSidebarCollapsed: handleSetSidebarCollapsed,
         toggleSidebar,
       }}
     >

@@ -1,51 +1,53 @@
-# Flying 独立站点
+# Flying 静态博客
 
-`Flying` 现在是一个独立 Astro 博客项目。它保留原主题的左侧导航、内容卡片、图库、作者页、暗色模式和页面动效，但运行时不再依赖外部主题系统、Finder API、后台主题配置或 Thymeleaf 模板。
+Flying 是基于 Next.js App Router 的静态博客。内容、图片、瞬间和友链均在仓库本地维护，构建时生成可直接部署的静态站点；站点不依赖 Halo API、账户、评论或订阅服务。
 
-## 目录结构
+## 技术栈
+
+- Next.js App Router + TypeScript
+- Tailwind CSS v4、Radix UI 与 cmdk
+- next-themes、Embla Carousel、react-zoom-pan-pinch
+- Markdown frontmatter 与本地 JSON 内容读取
+
+`next.config.mjs` 使用 `output: "export"`、`trailingSlash: true` 与未优化图片，部署产物位于 `out/`。
+
+## 目录
 
 ```text
 app/
-  components/        # 独立站点组件
-  content/           # 本地文章、图库和瞬间内容
-  data/              # 站点信息、导航、作者、友链
-  layouts/           # 页面布局
-  pages/             # Astro 路由
-public/
-  assets/
-    css/
-    js/
-    images/
-    icons/
-unocss/
-  preflights/
-  shortcuts/
+  components/        # 布局与 Client Component 交互
+  content/           # Markdown 文章、图库与瞬间数据
+  data/              # 站点信息、导航、作者和友链
+  lib/               # 内容模型、读取层、RSS、SEO
+  posts/             # App Router 页面路由
+  photos/
+  moments/
+  categories/
+  tags/
+  authors/
 scripts/
-  build-theme.mjs    # 生成图标、UnoCSS，并执行 Astro build
-  validate-theme.mjs # 独立站点结构校验
+  prepare-static-content.mjs # 内容校验、RSS 与搜索索引生成
+public/
+  assets/            # 保持原有图片与图标地址
 ```
 
-## 开发
+## 开发与构建
 
 ```bash
 pnpm install
 pnpm dev
-```
-
-常用命令：
-
-```bash
-pnpm lint
 pnpm typecheck
+pnpm validate:content
 pnpm build
-node scripts/validate-theme.mjs
 ```
 
-## 内容
+`pnpm build` 会先校验 frontmatter、重复 slug、本地封面和正文图片、内部链接，再生成 `public/search-index.json`、`public/rss.xml` 和全部静态路由。
 
-- 文章放在 `app/content/posts/*.md`
-- 图片条目放在 `app/content/photos/*.json`
-- 瞬间条目放在 `app/content/moments/*.json`
-- 导航、友链、作者和站点基础信息在 `app/data/site.ts`
+## 内容维护
 
-构建输出在 `dist/`。项目不包含任何 Halo 模板、主题 YAML 或后台设置文件。
+- 文章：`app/content/posts/*.md`
+- 图库：`app/content/photos/*.json`
+- 瞬间：`app/content/moments/*.json`
+- 作者、友链、导航和站点元信息：`app/data/site.ts`
+
+所有本地图片继续通过 `/assets/...` 地址引用，保持文章封面、RSS、canonical、Open Graph 和中文 slug 的既有 URL。

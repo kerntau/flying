@@ -9,6 +9,8 @@ import { AuthorPopover } from "@/components/AuthorPopover";
 import { Toc } from "@/components/Toc";
 import { PostCard } from "@/components/PostCard";
 import { Icon } from "@/components/Icon";
+import { ImagePreviewButton } from "@/components/LightboxModal";
+import { ShareMenu } from "@/components/ShareMenu";
 
 interface PostPageProps {
   params: Promise<{
@@ -79,17 +81,14 @@ export default async function PostPage({ params }: PostPageProps) {
           <AuthorPopover name={post.author} />
           <span>•</span>
           <time dateTime={post.pubDate}>{formattedDate}</time>
+          <ShareMenu title={post.title} />
         </div>
       </header>
 
       {/* Cover Image */}
       {post.cover && (
         <div className="fly-post-cover aspect-[21/9] rounded-3xl overflow-hidden bg-[var(--page-alt)] border border-[var(--line)]">
-          <img
-            src={post.cover}
-            alt={post.title}
-            className="w-full h-full object-cover"
-          />
+          <ImagePreviewButton imageUrl={post.cover} title={post.title} className="block h-full w-full cursor-zoom-in" />
         </div>
       )}
 

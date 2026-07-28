@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllPhotos, getPhotoBySlug } from "@/lib/content";
 import { Icon } from "@/components/Icon";
+import { ImagePreviewButton } from "@/components/LightboxModal";
 
 interface PhotoDetailPageProps {
   params: Promise<{
@@ -34,7 +35,7 @@ export default async function PhotoDetailPage({ params }: PhotoDetailPageProps) 
       </Link>
 
       <div className="rounded-3xl overflow-hidden bg-[var(--page-alt)] border border-[var(--line)] shadow-xl">
-        <img src={photo.url} alt={photo.title} className="w-full max-h-[70vh] object-contain bg-black/40" />
+        <ImagePreviewButton imageUrl={photo.url} title={photo.title} description={photo.description} className="block w-full cursor-zoom-in bg-black/40" />
         <div className="p-6 space-y-2">
           <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-[var(--page)] text-[var(--accent)]">
             {photo.group}

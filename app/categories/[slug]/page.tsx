@@ -6,6 +6,7 @@ import { PostCard } from "@/components/PostCard";
 import { Icon } from "@/components/Icon";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
+import { Folder } from "lucide-react";
 
 interface CategoryPageProps {
   params: Promise<{
@@ -15,15 +16,24 @@ interface CategoryPageProps {
 
 export async function generateStaticParams() {
   const categories = getAllCategories();
-  return categories.map((cat) => ({
-    slug: cat.slug,
-  }));
+  const paramsSet = new Set<string>();
+
+  categories.forEach((cat) => {
+    paramsSet.add(cat.slug);
+    paramsSet.add(encodeURIComponent(cat.slug));
+  });
+
+  return Array.from(paramsSet).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = decodeURIComponent(slug);
-  return pageMetadata({ title: `分类: ${category}`, description: `深度阅读分类 ${category} 下的专业文章。`, path: `/categories/${slug}/` });
+  return pageMetadata({
+    title: `分类: ${category}`,
+    description: `深度阅读分类 ${category} 下的专业文章。`,
+    path: `/categories/${slug}/`,
+  });
 }
 
 export default async function CategoryDetailPage({ params }: CategoryPageProps) {
@@ -38,27 +48,31 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
   }
 
   return (
-    <div className="fly-category-detail-page w-full max-w-7xl mx-auto space-y-8 sm:space-y-10 transition-all duration-350">
-      {/* 顶部分类 Banner */}
-      <header className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--page-alt)] via-[var(--page)] to-[var(--page-alt)] p-6 sm:p-8 border border-[var(--line)] shadow-xs space-y-4">
-        <Link
-          href="/categories/"
-          className="inline-flex items-center gap-2 text-xs font-bold text-[var(--muted)] hover:text-[var(--accent)] transition-colors px-3 py-1.5 rounded-lg bg-[var(--page)] border border-[var(--line)]"
-        >
-          <Icon name="arrow-left" size={14} />
-          <span>返回全部分类</span>
-        </Link>
-
-        <div className="space-y-1.5">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-[var(--accent)] tracking-wider uppercase">
-            <span>CATEGORY ARCHIVE</span>
+    <div className="fly-category-detail-page w-full max-w-7xl mx-auto space-y-6 sm:space-y-8 transition-all duration-350 select-none">
+      {/* 极简通透 Header（彻底取消突兀边框大盒子） */}
+      <header className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--line)]/20 pb-3 gap-3">
+        {/* 左侧：返回按钮 + 分类大标题 */}
+        <div className="flex items-center gap-3">
+          <Link
+            href="/categories/"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--muted)] hover:text-[var(--accent)] transition-colors px-2.5 py-1 rounded-lg bg-[var(--page-alt)]/60 hover:bg-[var(--page-alt)] border-0 shrink-0"
+          >
+            <Icon name="arrow-left" size={13} />
+            <span>分类</span>
+          </Link>
+          <span className="text-[var(--line)] opacity-30 text-xs">/</span>
+          <div className="flex items-center gap-2">
+            <Folder className="w-5 h-5 text-blue-500 opacity-80" />
+            <h1 className="text-xl sm:text-2xl font-black tracking-tight text-[var(--text)]">
+              {decodedSlug}
+            </h1>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-[var(--text)]">
-            {decodedSlug}
-          </h1>
-          <p className="text-xs sm:text-sm text-[var(--muted)]">
-            收录 {posts.length} 篇精选主题文章
-          </p>
+        </div>
+
+        {/* 右侧：精选文章篇数统计 */}
+        <div className="flex items-center gap-2 text-xs font-mono font-medium text-[var(--muted)]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] opacity-70 animate-pulse" />
+          <span>共收录 {posts.length} 篇主题文章</span>
         </div>
       </header>
 

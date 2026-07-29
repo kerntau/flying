@@ -2252,6 +2252,47 @@ body[data-fly-sidebar-collapsed="true"] .fly-sidebar-uptime {
   border-top: 1px dashed var(--line);
 }
 
+/* 归档控制栏与 Filter Tabs */
+.archive-filter-btn {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.archive-filter-btn.active {
+  background-color: var(--text);
+  color: var(--page);
+  border-color: var(--text);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.archive-tag-badge {
+  font-size: 0.72rem;
+  padding: 0.12em 0.55em;
+  border-radius: 9999px;
+  background-color: var(--page-alt);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  transition: all 0.2s ease;
+}
+
+.archive-animate-item {
+  animation: archiveFadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.archive-cover-mask {
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 18%, black 45%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 18%, black 45%);
+  transition: -webkit-mask-image 0.4s ease, mask-image 0.4s ease, opacity 0.3s ease, transform 0.4s ease;
+}
+
+.group:hover .archive-cover-mask {
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.6) 10%, black 30%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.6) 10%, black 30%);
+}
+
+
+
+
+
 
 
 

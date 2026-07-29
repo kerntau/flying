@@ -20,27 +20,15 @@ export function getAllPosts(): Post[] {
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data, content } = matter(fileContents);
 
-      const title = data.title || slug;
-      const category = data.category || "默认分类";
-      const tags = Array.isArray(data.tags) ? data.tags : [];
-
-      const ogParams = new URLSearchParams();
-      ogParams.set("title", title);
-      ogParams.set("category", category);
-      if (tags.length > 0) {
-        ogParams.set("tags", tags.slice(0, 3).join(","));
-      }
-      const ogCover = `/api/og?${ogParams.toString()}`;
-
       return {
         slug,
-        title,
+        title: data.title || slug,
         description: data.description || "",
         pubDate: data.pubDate ? new Date(data.pubDate).toISOString() : new Date().toISOString(),
         updatedDate: data.updatedDate ? new Date(data.updatedDate).toISOString() : undefined,
-        cover: ogCover,
-        category,
-        tags,
+        cover: data.cover || "",
+        category: data.category || "默认分类",
+        tags: Array.isArray(data.tags) ? data.tags : [],
         author: data.author || site.author,
         content,
       } as Post;

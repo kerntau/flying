@@ -22,8 +22,8 @@ export function PhotosClient({ photos }: PhotosClientProps) {
 
   return (
     <div className="space-y-6 sm:space-y-8">
-      {/* 组别筛选 Tabs */}
-      <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-[var(--page-alt)] border border-[var(--line)] max-w-max">
+      {/* 组别筛选 Tabs (无边框线极简胶囊) */}
+      <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-2xl bg-[var(--page-alt)]/60 border-0 max-w-max">
         {groups.map((group) => (
           <button
             key={group}
@@ -31,8 +31,8 @@ export function PhotosClient({ photos }: PhotosClientProps) {
             onClick={() => setSelectedGroup(group)}
             className={`px-4 py-1.5 text-xs font-bold rounded-xl transition-all duration-300 ${
               selectedGroup === group
-                ? "bg-[var(--accent)] text-white shadow-xs"
-                : "text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page)]"
+                ? "bg-[var(--text)] text-[var(--page)] shadow-xs"
+                : "text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]"
             }`}
           >
             {group}
@@ -45,7 +45,7 @@ export function PhotosClient({ photos }: PhotosClientProps) {
         {filteredPhotos.map((photo) => (
           <div
             key={photo.slug}
-            className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-[var(--page-alt)] border border-[var(--line)] shadow-2xs hover:shadow-xl transition-all duration-500 cursor-pointer"
+            className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-[var(--page-alt)] border-0 shadow-2xs hover:shadow-xl transition-all duration-500 cursor-pointer"
             onClick={() => setActivePhoto(photo)}
           >
             <img

@@ -6,15 +6,7 @@
     <link>https://blog.cot.wiki</link>
     <atom:link href="https://blog.cot.wiki/rss.xml" rel="self" type="application/rss+xml"/>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 20 Mar 2026 03:30:00 GMT</lastBuildDate>
-    <item>
-      <title><![CDATA[Coet 个人工作站：全栈架构设计与工程化规范白皮书]]></title>
-      <link>https://blog.cot.wiki/posts/coet-architecture/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/coet-architecture/</guid>
-      <description><![CDATA[从内容建模、渲染管线、后台控制、部署链路到运维策略，系统拆解 Coet 个人工作站的架构边界、工程规范与演进路径，给出一套适用于个人站点长期演化的工程化蓝图。]]></description>
-      <pubDate>Fri, 20 Mar 2026 00:00:00 GMT</pubDate>
-      <category><![CDATA[项目开发]]></category>
-    </item>
+    <lastBuildDate>Sun, 08 Mar 2026 12:19:25 GMT</lastBuildDate>
     <item>
       <title><![CDATA[2026 国内外 AI 大模型发展态势深度分析]]></title>
       <link>https://blog.cot.wiki/posts/ai-analysis-2026/</link>

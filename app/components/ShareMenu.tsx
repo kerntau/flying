@@ -24,7 +24,7 @@ export function ShareMenu({ title }: { title: string }) {
     <button
       type="button"
       onClick={handleCopy}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--page-alt)] border border-[var(--line)]/60 text-xs font-bold text-[var(--muted)] hover:text-[var(--text)] hover:border-[var(--accent)]/40 transition-all cursor-pointer shadow-2xs active:scale-95 shrink-0"
+      className="inline-flex items-center gap-1 text-xs text-[var(--muted)] hover:text-[var(--text)] transition-colors cursor-pointer shrink-0 bg-transparent border-0 p-0"
       aria-label="复制文章链接"
     >
       {copied ? (
@@ -34,7 +34,7 @@ export function ShareMenu({ title }: { title: string }) {
         </>
       ) : (
         <>
-          <Copy size={14} className="text-[var(--accent)]" />
+          <Copy size={14} />
           <span>复制链接</span>
         </>
       )}

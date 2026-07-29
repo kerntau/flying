@@ -1,13 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
+import remarkDirective from "remark-directive";
+import { remarkAlert } from "remark-github-blockquote-alert";
 import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug";
-import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import { rehypeRemoveFirstH1 } from "./rehype-remove-first-h1";
 import { rehypeOptimization } from "./rehype-optimization";
+import rehypePrettyCode, {
+  rehypePrettyCodeOptions,
+  rehypeTrimPrettyCodeWhitespace,
+} from "./rehype-pretty-code";
+import { remarkCodeBlockTitle } from "./remark-code-titles";
+import { remarkCustomDirectives } from "./remark-custom-directives";
+import { remarkUnwrapBlockElements } from "./remark-unwrap-block-elements";
 
 export interface TocItem {
   id: string;
@@ -17,15 +26,21 @@ export interface TocItem {
 
 export async function renderMarkdown(content: string): Promise<string> {
   const result = await unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeRaw)
+    .use(remarkParse as any)
+    .use(remarkGfm as any)
+    .use(remarkCodeBlockTitle as any)
+    .use(remarkDirective as any)
+    .use(remarkCustomDirectives as any)
+    .use(remarkAlert as any)
+    .use(remarkUnwrapBlockElements as any)
+    .use(remarkRehype as any, { allowDangerousHtml: true })
+    .use(rehypeRaw as any)
     .use(rehypeRemoveFirstH1 as any)
     .use(rehypeOptimization as any)
-    .use(rehypeSlug)
-    .use(rehypeHighlight)
-    .use(rehypeStringify, { allowDangerousHtml: true })
+    .use(rehypeSlug as any)
+    .use(rehypePrettyCode as any, rehypePrettyCodeOptions)
+    .use(rehypeTrimPrettyCodeWhitespace as any)
+    .use(rehypeStringify as any, { allowDangerousHtml: true })
     .process(content || "");
 
   return result.toString();

@@ -70,97 +70,23 @@ function ensureHeader(wrapper: HTMLElement, languageLabel: string) {
   return header;
 }
 
-function extractYouTubeId(input: string): string {
-  let videoId = input;
-  try {
-    if (videoId.includes('youtube.com/watch')) {
-      const url = new URL(videoId);
-      videoId = url.searchParams.get('v') || '';
-    } else if (videoId.includes('youtu.be/')) {
-      videoId = videoId.split('youtu.be/')[1]?.split('?')[0] || '';
-    } else if (videoId.includes('youtube.com/embed/')) {
-      videoId = videoId.split('youtube.com/embed/')[1]?.split('?')[0] || '';
-    }
-  } catch {
-    return input;
-  }
-  return videoId;
-}
-
-function createYouTubeEmbed(videoId: string) {
-  const container = document.createElement('div');
-  container.className = 'youtube-embed-container my-6 relative aspect-video w-full overflow-hidden rounded-2xl border border-[var(--line)] shadow-lg';
-
-  const iframe = document.createElement('iframe');
-  iframe.className = 'absolute inset-0 h-full w-full';
-  iframe.src = `https://www.youtube.com/embed/${videoId}`;
-  iframe.title = 'YouTube video player';
-  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-  iframe.allowFullscreen = true;
-
-  container.appendChild(iframe);
-  return container;
-}
-
-export function HtmlMarkdownContent({ html, className }: { html: string; className?: string }) {
+export function HtmlMarkdownContent({ html }: { html: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const article = containerRef.current;
-    if (!article) return;
+    const container = containerRef.current;
+    if (!container) return;
+
+    const labels = {
+      copy: '复制',
+      copied: '已复制',
+      failed: '失败',
+      toastSuccess: '代码已复制到剪贴板',
+      toastError: '复制代码失败',
+    };
 
     const cleanups: Array<() => void> = [];
-
-    // 1. 表格 → 横滚容器
-    const tables = Array.from(article.querySelectorAll<HTMLTableElement>('table'));
-    for (const table of tables) {
-      if (table.parentElement?.classList.contains('table-scroll-wrapper')) continue;
-      const wrapper = document.createElement('div');
-      wrapper.className = 'table-scroll-wrapper';
-      table.parentNode?.insertBefore(wrapper, table);
-      wrapper.appendChild(table);
-    }
-
-    // 2. 图片懒加载
-    const images = Array.from(article.querySelectorAll<HTMLImageElement>('img'));
-    for (const img of images) {
-      if (!img.hasAttribute('loading')) {
-        img.setAttribute('loading', 'lazy');
-      }
-    }
-
-    // 3. 标题 # 锚点链接生成
-    const headings = Array.from(article.querySelectorAll<HTMLElement>('h2, h3, h4, h5, h6'));
-    for (const heading of headings) {
-      if (heading.querySelector('.heading-link')) continue;
-
-      heading.classList.add('group');
-      const link = document.createElement('a');
-      link.className =
-        'heading-link ml-2 opacity-60 sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 transition-opacity text-[var(--accent)] font-normal no-underline';
-      link.href = `#${heading.id}`;
-
-      const span = document.createElement('span');
-      span.setAttribute('aria-hidden', 'true');
-      span.textContent = '#';
-      link.appendChild(span);
-      heading.appendChild(link);
-    }
-
-    // 4. YouTube 短代码 {% youtube %} 处理
-    const paragraphs = article.querySelectorAll<HTMLParagraphElement>('p');
-    paragraphs.forEach((paragraph) => {
-      const text = (paragraph.textContent || '').trim();
-      const videoMatch = text.match(/\{% youtube (https:\/\/[^\s]+|[a-zA-Z0-9_-]+) %\}/);
-      if (!videoMatch?.[1]) return;
-
-      const videoId = extractYouTubeId(videoMatch[1]);
-      if (!videoId || !/^[a-zA-Z0-9_-]{1,11}$/.test(videoId)) return;
-      paragraph.replaceWith(createYouTubeEmbed(videoId));
-    });
-
-    // 5. 代码块转换 Header、macOS dots、语言标签、复制按钮与清洗
-    const blocks = article.querySelectorAll('pre');
+    const blocks = container.querySelectorAll('pre');
 
     blocks.forEach((pre) => {
       if (pre.dataset.coetCopyBound === '1') return;
@@ -179,8 +105,8 @@ export function HtmlMarkdownContent({ html, className }: { html: string; classNa
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'copy-code-btn';
-      button.setAttribute('aria-label', '复制代码');
-      button.textContent = '复制';
+      button.setAttribute('aria-label', labels.copy);
+      button.textContent = labels.copy;
 
       let timer: ReturnType<typeof setTimeout> | undefined;
 
@@ -189,39 +115,24 @@ export function HtmlMarkdownContent({ html, className }: { html: string; classNa
         const textToCopy = (currentCode?.textContent || pre.textContent || '').replace(/\n$/, '');
 
         try {
-          if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(textToCopy);
-          } else {
-            const textArea = document.createElement('textarea');
-            textArea.value = textToCopy;
-            textArea.style.position = 'absolute';
-            textArea.style.left = '-9999px';
-            textArea.style.top = '0';
-            textArea.setAttribute('readonly', '');
-            document.body.appendChild(textArea);
-            textArea.select();
-            const successful = document.execCommand('copy');
-            document.body.removeChild(textArea);
-            if (!successful) throw new Error('copy failed');
-          }
-
+          await navigator.clipboard.writeText(textToCopy);
           button.classList.add('copied');
-          button.textContent = '已复制';
-          toast.success('已复制到剪贴板');
+          button.textContent = labels.copied;
+          toast.success(labels.toastSuccess);
 
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => {
             button.classList.remove('copied');
-            button.textContent = '复制';
+            button.textContent = labels.copy;
           }, 1600);
         } catch {
           button.classList.remove('copied');
-          button.textContent = '错误';
-          toast.error('复制失败');
+          button.textContent = labels.failed;
+          toast.error(labels.toastError);
 
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => {
-            button.textContent = '复制';
+            button.textContent = labels.copy;
           }, 1600);
         }
       };
@@ -245,9 +156,10 @@ export function HtmlMarkdownContent({ html, className }: { html: string; classNa
   return (
     <div
       ref={containerRef}
-      id="article"
-      className={className || "html-markdown-content article-detail prose prose-neutral dark:prose-invert max-w-none text-sm sm:text-base leading-relaxed space-y-6 overflow-hidden break-words [word-break:break-word]"}
+      className="html-markdown-content article-detail w-full max-w-full overflow-hidden break-words [word-break:break-word]"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
 }
+
+export default HtmlMarkdownContent;

@@ -78,6 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               gtag('config', 'G-Q3E0H4KPD3');
             `,
           }}
+        />
         {/* Google Tag Manager (head) */}
         <script
           dangerouslySetInnerHTML={{

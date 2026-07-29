@@ -185,11 +185,12 @@ export default async function PostPage({ params }: PostPageProps) {
                   <Icon name="arrow-left" size={12} />
                   <span>上一篇</span>
                 </div>
-                <div className="w-full h-full min-h-[160px] rounded-2xl border border-dashed border-[var(--line)] bg-[var(--page-alt)]/30 p-3 flex flex-col items-center justify-center text-center space-y-1.5">
-                  <div className="w-6 h-6 rounded-full bg-[var(--page-alt)] border border-[var(--line)] flex items-center justify-center text-[var(--mute)]">
-                    <Icon name="check" size={12} />
+                <div className="w-full h-full min-h-[160px] rounded-2xl border border-[var(--line)]/60 bg-gradient-to-br from-[var(--page-alt)]/60 via-[var(--page)] to-[var(--page-alt)]/30 p-5 flex flex-col items-center justify-center text-center space-y-2 shadow-2xs">
+                  <div className="w-9 h-9 rounded-xl bg-[var(--accent)]/10 border border-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] shadow-2xs">
+                    <Icon name="archive" size={16} />
                   </div>
-                  <span className="text-[11px] font-medium text-[var(--muted)]">已是第一篇</span>
+                  <span className="text-xs font-extrabold text-[var(--text)] tracking-tight">已至最早文章</span>
+                  <span className="text-[10px] sm:text-[11px] text-[var(--muted)]">这里是探寻序栈的初始起点</span>
                 </div>
               </div>
             )}
@@ -211,11 +212,12 @@ export default async function PostPage({ params }: PostPageProps) {
                   <span>下一篇</span>
                   <Icon name="arrow-right" size={12} />
                 </div>
-                <div className="w-full h-full min-h-[160px] rounded-2xl border border-dashed border-[var(--line)] bg-[var(--page-alt)]/30 p-3 flex flex-col items-center justify-center text-center space-y-1.5">
-                  <div className="w-6 h-6 rounded-full bg-[var(--page-alt)] border border-[var(--line)] flex items-center justify-center text-[var(--mute)]">
-                    <Icon name="check" size={12} />
+                <div className="w-full h-full min-h-[160px] rounded-2xl border border-[var(--line)]/60 bg-gradient-to-br from-[var(--page-alt)]/60 via-[var(--page)] to-[var(--page-alt)]/30 p-5 flex flex-col items-center justify-center text-center space-y-2 shadow-2xs">
+                  <div className="w-9 h-9 rounded-xl bg-[var(--accent)]/10 border border-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] shadow-2xs">
+                    <Icon name="clock" size={16} />
                   </div>
-                  <span className="text-[11px] font-medium text-[var(--muted)]">已是最新篇</span>
+                  <span className="text-xs font-extrabold text-[var(--text)] tracking-tight">已是最新发布</span>
+                  <span className="text-[10px] sm:text-[11px] text-[var(--muted)]">持续创作中 · 敬请期待后续新篇</span>
                 </div>
               </div>
             )}

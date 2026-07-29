@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" style="background-color: #FAF5FF;">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 675" width="1200" height="675" style="background-color: #FAF5FF;">
   <defs>
     <linearGradient id="bgGrad_linux_privilege_escalation" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FAF5FF" />
@@ -15,18 +16,24 @@
       <circle cx="16" cy="16" r="1.2" fill="#94A3B8" opacity="0.22" />
     </pattern>
 
-    <filter id="softGlow_linux_privilege_escalation" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="60" result="blur" />
-    </filter>
+    <radialGradient id="glow1_linux_privilege_escalation" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C084FC" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#C084FC" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="glow2_linux_privilege_escalation" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E9D5FF" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#E9D5FF" stop-opacity="0" />
+    </radialGradient>
   </defs>
 
   <!-- 背景底图与极简点阵 -->
   <rect width="100%" height="100%" fill="url(#bgGrad_linux_privilege_escalation)" />
   <rect width="100%" height="100%" fill="url(#dotGrid_linux_privilege_escalation)" />
 
-  <!-- 柔和浅色高质感弥散光斑 -->
-  <circle cx="960" cy="180" r="320" fill="#C084FC" opacity="0.28" filter="url(#softGlow_linux_privilege_escalation)" />
-  <circle cx="280" cy="520" r="260" fill="#E9D5FF" opacity="0.22" filter="url(#softGlow_linux_privilege_escalation)" />
+  <!-- 柔和浅色高质感弥散光斑 (用零损耗 RadialGradient 代替 feGaussianBlur) -->
+  <circle cx="960" cy="180" r="380" fill="url(#glow1_linux_privilege_escalation)" />
+  <circle cx="280" cy="520" r="320" fill="url(#glow2_linux_privilege_escalation)" />
 
   <!-- 主题构图图腾 -->
   

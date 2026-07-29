@@ -247,7 +247,7 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                   <div className="fly-home-carousel-media">
                     <Link href={`/posts/${post.slug}/`} className="block w-full h-full" aria-label={`阅读：${post.title}`}>
                       <img
-                        src={post.cover ? (post.cover.includes("?") ? post.cover : `${post.cover}?v=2`) : "/assets/images/fallback-cover.svg"}
+                        src={post.cover ? (post.cover.includes("?") ? post.cover : `${post.cover}?v=3`) : "/assets/images/fallback-cover.svg"}
                         alt={post.title}
                         className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                         loading="lazy"

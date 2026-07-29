@@ -142,7 +142,7 @@ export default async function PostPage({ params }: PostPageProps) {
             {post.cover && (
               <div className="lg:col-span-4 w-full flex justify-center lg:justify-end">
                 <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-[var(--page-alt)] border border-[var(--line)] shadow-sm">
-                  <ImagePreviewButton imageUrl={post.cover.includes("?") ? post.cover : `${post.cover}?v=2`} title={post.title} className="block h-full w-full cursor-zoom-in" />
+                  <ImagePreviewButton imageUrl={post.cover.includes("?") ? post.cover : `${post.cover}?v=3`} title={post.title} className="block h-full w-full cursor-zoom-in" />
                 </div>
               </div>
             )}

@@ -56,9 +56,9 @@
 
   <!-- 极简 Pill 领域标签 -->
   <g transform="translate(95, 100)">
-    <rect x="0" y="0" width="215" height="36" rx="18" fill="#FEF3C7" opacity="0.95" />
-    <text x="107.5" y="23" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#B45309" letter-spacing="1.5">
-      ALGORITHMS & MATH
+    <rect x="0" y="0" width="259" height="36" rx="18" fill="#FEF3C7" opacity="0.95" />
+    <text x="129.5" y="23" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#B45309" letter-spacing="1.5">
+      ALGORITHMS &amp;amp; MATH
     </text>
   </g>
 

@@ -56,9 +56,9 @@
 
   <!-- 极简 Pill 领域标签 -->
   <g transform="translate(95, 100)">
-    <rect x="0" y="0" width="226" height="36" rx="18" fill="#E0E7FF" opacity="0.95" />
-    <text x="113" y="23" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#4338CA" letter-spacing="1.5">
-      AI & DEEP LEARNING
+    <rect x="0" y="0" width="270" height="36" rx="18" fill="#E0E7FF" opacity="0.95" />
+    <text x="135" y="23" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#4338CA" letter-spacing="1.5">
+      AI &amp;amp; DEEP LEARNING
     </text>
   </g>
 

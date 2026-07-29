@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = decodeURIComponent(slug);
-  return pageMetadata({ title: `分类: ${category}`, description: `浏览分类 ${category} 下的文章。`, path: `/categories/${slug}/` });
+  return pageMetadata({ title: `分类: ${category}`, description: `深度阅读分类 ${category} 下的专业文章。`, path: `/categories/${slug}/` });
 }
 
 export default async function CategoryDetailPage({ params }: CategoryPageProps) {
@@ -38,24 +38,38 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
   }
 
   return (
-    <div className="fly-category-detail-page max-w-6xl mx-auto space-y-8">
-      <header className="border-b border-[var(--line)] pb-6 space-y-2">
+    <div className="fly-category-detail-page w-full max-w-7xl mx-auto space-y-8 sm:space-y-10 transition-all duration-350">
+      {/* 顶部分类 Banner */}
+      <header className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--page-alt)] via-[var(--page)] to-[var(--page-alt)] p-6 sm:p-8 border border-[var(--line)] shadow-xs space-y-4">
         <Link
           href="/categories/"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[var(--muted)] hover:text-[var(--text)] transition-colors mb-2"
+          className="inline-flex items-center gap-2 text-xs font-bold text-[var(--muted)] hover:text-[var(--accent)] transition-colors px-3 py-1.5 rounded-lg bg-[var(--page)] border border-[var(--line)]"
         >
-          <Icon name="arrow-left" size={16} />
-          <span>返回分类列表</span>
+          <Icon name="arrow-left" size={14} />
+          <span>返回全部分类</span>
         </Link>
-        <h1 className="text-3xl font-extrabold text-[var(--text)]">分类: {decodedSlug}</h1>
-        <p className="text-sm text-[var(--muted)]">该分类下共有 {posts.length} 篇文章</p>
+
+        <div className="space-y-1.5">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-[var(--accent)] tracking-wider uppercase">
+            <span>CATEGORY ARCHIVE</span>
+          </div>
+          <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-[var(--text)]">
+            {decodedSlug}
+          </h1>
+          <p className="text-xs sm:text-sm text-[var(--muted)]">
+            收录 {posts.length} 篇精选主题文章
+          </p>
+        </div>
       </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => (
-          <PostCard key={post.slug} post={post} />
-        ))}
-      </div>
+      {/* 5 列卡片网格 (与首页保持 100% 视觉与移动端适配一致) */}
+      <section className="space-y-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4.5">
+          {posts.map((post) => (
+            <PostCard key={post.slug} post={post} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

@@ -10,37 +10,33 @@ export default function PhotosPage() {
   const groups = Array.from(new Set(photos.map((p) => p.group)));
 
   return (
-    <div className="fly-photos-page w-full max-w-6xl mx-auto space-y-8 sm:space-y-10 transition-all duration-350">
-      {/* 顶部 Hero Header */}
-      <header className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--page-alt)] via-[var(--page)] to-[var(--page-alt)] p-6 sm:p-8 border border-[var(--line)] shadow-xs">
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[var(--accent)]/10 text-[var(--accent)]">
-              <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
-              GALLERY & MOMENTS
-            </div>
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-[var(--text)]">
-              光影画廊
-            </h1>
-            <p className="text-xs sm:text-sm text-[var(--muted)] max-w-xl">
-              记录生活中的掠影与微小浪漫，用镜头捕捉光线流动与瞬间的艺术温度。
-            </p>
+    <div className="fly-photos-page w-full space-y-12 transition-all duration-350 pb-16">
+      {/* 顶部超大排版 Hero 区 */}
+      <header className="relative flex flex-col items-center justify-center py-24 overflow-hidden rounded-3xl bg-[var(--page-alt)] border border-[var(--line)]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[var(--accent)]/10 via-transparent to-transparent opacity-60"></div>
+        <div className="relative z-10 flex flex-col items-center text-center space-y-4 px-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase bg-[var(--page)] text-[var(--text)] border border-[var(--line)] shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+            Gallery & Moments
           </div>
-
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="px-4 py-3 rounded-xl bg-[var(--page)]/80 backdrop-blur-md border border-[var(--line)] shadow-xs text-center">
-              <span className="block text-xl font-black text-[var(--accent)]">{photos.length}</span>
-              <span className="text-[10px] text-[var(--mute)] font-medium">精选摄影</span>
-            </div>
-            <div className="px-4 py-3 rounded-xl bg-[var(--page)]/80 backdrop-blur-md border border-[var(--line)] shadow-xs text-center">
-              <span className="block text-xl font-black text-[var(--accent)]">{groups.length}</span>
-              <span className="text-[10px] text-[var(--mute)] font-medium">主题影集</span>
-            </div>
-          </div>
+          <h1 className="text-5xl sm:text-7xl font-black tracking-tighter text-[var(--text)]">
+            光影画廊
+          </h1>
+          <p className="text-sm sm:text-base font-medium text-[var(--muted)] max-w-xl">
+            记录生活中的掠影与微小浪漫，用镜头捕捉光线流动与瞬间的艺术温度。<br/>
+            当前收录 {photos.length} 张相片，分为 {groups.length} 个独立影集。
+          </p>
+        </div>
+        
+        {/* 背景大字 */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12rem] md:text-[20rem] font-black tracking-tighter text-[var(--line)] opacity-20 pointer-events-none select-none mix-blend-overlay">
+          GALLERY
         </div>
       </header>
 
-      <PhotosClient photos={photos} />
+      <div className="max-w-6xl mx-auto px-4 sm:px-0">
+        <PhotosClient photos={photos} />
+      </div>
     </div>
   );
 }

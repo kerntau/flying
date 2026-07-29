@@ -239,32 +239,9 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
 
   return (
     <>
-      {/* 桌面端与移动端悬浮控制按钮组 */}
-      <div className="fixed z-[90] flex flex-col items-end gap-2.5 transition-all duration-300 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-4 sm:right-6 lg:right-8">
-        {/* 1. 返回顶部按钮 */}
-        <AnimatePresence>
-          {showBackToTop && (
-            <TooltipIconButton label="返回顶部" side="left">
-              <motion.button
-                type="button"
-                aria-label="返回顶部"
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.92 }}
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--page)]/90 backdrop-blur-xl border border-[var(--line)] shadow-md text-[var(--muted)] hover:text-[var(--accent)] hover:border-[var(--accent)]/40 transition-all cursor-pointer"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="m18 15-6-6-6 6"/>
-                </svg>
-              </motion.button>
-            </TooltipIconButton>
-          )}
-        </AnimatePresence>
-
-        {/* 2. 目录 Toggle 胶囊按钮（桌面端展示阅读进度 %） */}
+      {/* 桌面端与移动端悬浮控制按钮组 (桌面端居右垂直居中 sm:top-[55%] sm:-translate-y-1/2) */}
+      <div className="fixed z-[90] flex flex-col items-end gap-2.5 transition-all duration-500 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-6 sm:top-[55%] sm:bottom-auto sm:-translate-y-1/2 xl:right-10">
+        {/* 目录 Toggle 胶囊按钮 */}
         <TooltipIconButton label={open ? '关闭目录' : '文章目录'} side="left">
           <motion.button
             type="button"
@@ -272,24 +249,24 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
             aria-expanded={open}
             aria-controls="floating-toc-panel"
             onClick={() => setOpen(!open)}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.92 }}
-            className={`group relative flex items-center justify-center h-11 px-3 sm:px-4 rounded-full bg-[var(--page)]/90 backdrop-blur-xl border border-[var(--line)] shadow-md transition-all cursor-pointer ${
+            className={`group relative flex items-center justify-center transition-all duration-500 h-12 w-12 sm:w-auto sm:min-w-[52px] sm:px-3.5 rounded-full bg-[var(--page)]/90 backdrop-blur-xl border border-[var(--line)] shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.3)] text-[var(--muted)] hover:text-[var(--accent)] cursor-pointer ${
               open
-                ? 'border-[var(--accent)] text-[var(--accent)] bg-[var(--accent)]/10'
-                : 'text-[var(--muted)] hover:text-[var(--text)] hover:border-[var(--accent)]/40'
+                ? 'border-[var(--accent)]/25 text-[var(--accent)] bg-[var(--accent)]/15 sm:opacity-0 sm:pointer-events-none'
+                : ''
             }`}
           >
             {/* 汉堡图标 */}
-            <div className="relative h-3.5 w-3.5 flex-shrink-0">
+            <div className="relative h-3.5 w-[15px] flex-shrink-0">
               <motion.div
                 initial={false}
                 animate={{
                   rotate: open ? 45 : 0,
-                  y: open ? 0 : -4,
+                  y: open ? 0 : -5,
                 }}
-                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                className="absolute top-1/2 left-0 h-[1.5px] w-3.5 -translate-y-1/2 origin-center rounded-full bg-current"
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                className="absolute top-1/2 left-0 h-[1.5px] w-[15px] -translate-y-1/2 origin-center rounded-full bg-current"
               />
               <motion.div
                 initial={false}
@@ -297,22 +274,22 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                   opacity: open ? 0 : 1,
                   scaleX: open ? 0 : 1,
                 }}
-                transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
-                className="absolute top-1/2 left-0 h-[1.5px] w-2.5 -translate-y-1/2 origin-left rounded-full bg-current"
+                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                className="absolute top-1/2 left-0 h-[1.5px] w-[11px] -translate-y-1/2 origin-left rounded-full bg-current"
               />
               <motion.div
                 initial={false}
                 animate={{
                   rotate: open ? -45 : 0,
-                  y: open ? 0 : 4,
+                  y: open ? 0 : 5,
                 }}
-                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                className="absolute top-1/2 left-0 h-[1.5px] w-3.5 -translate-y-1/2 origin-center rounded-full bg-current"
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                className="absolute top-1/2 left-0 h-[1.5px] w-[15px] -translate-y-1/2 origin-center rounded-full bg-current"
               />
             </div>
 
-            {/* 桌面端大屏专属：独立展示当前阅读进度百分比 Label */}
-            <span className="hidden sm:inline-block text-xs font-extrabold tracking-tight ml-2">
+            {/* 桌面端展示阅读进度 % Label */}
+            <span className="hidden text-[14px] font-black tracking-tighter transition-colors sm:ml-2 sm:inline-block group-hover:text-[var(--accent)]">
               {progressLabel}
             </span>
           </motion.button>

@@ -1,51 +1,43 @@
 "use client";
 
-import React from "react";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Copy, Share2, Mail } from "lucide-react";
+import React, { useState } from "react";
+import { Copy, Check } from "lucide-react";
+import { toast } from "@/lib/toast";
 
 export function ShareMenu({ title }: { title: string }) {
-  async function copyLink() {
-    await navigator.clipboard?.writeText(window.location.href);
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    try {
+      if (typeof window !== "undefined") {
+        await navigator.clipboard.writeText(window.location.href);
+        setCopied(true);
+        toast.success("链接已复制到剪贴板");
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      toast.error("复制链接失败");
+    }
   }
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <button
-          type="button"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--page-alt)] border border-[var(--line)]/60 text-xs font-bold text-[var(--muted)] hover:text-[var(--text)] hover:border-[var(--accent)]/40 transition-all cursor-pointer shadow-2xs active:scale-95 shrink-0"
-          aria-label="分享文章"
-        >
-          <Share2 size={14} className="text-[var(--accent)]" />
-          <span>分享</span>
-        </button>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="z-50 min-w-[140px] rounded-xl border border-[var(--line)] bg-[var(--page)] p-1.5 shadow-xl animate-in fade-in zoom-in-95 duration-150"
-          sideOffset={8}
-        >
-          <DropdownMenu.Item
-            className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-[var(--text)] outline-none hover:bg-[var(--page-alt)] transition-colors"
-            onSelect={copyLink}
-          >
-            <Copy size={14} className="text-[var(--muted)]" />
-            <span>复制链接</span>
-          </DropdownMenu.Item>
-          <DropdownMenu.Item asChild>
-            <a
-              className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-[var(--text)] outline-none hover:bg-[var(--page-alt)] transition-colors"
-              href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(
-                typeof window === "undefined" ? "" : window.location.href
-              )}`}
-            >
-              <Mail size={14} className="text-[var(--muted)]" />
-              <span>邮件分享</span>
-            </a>
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--page-alt)] border border-[var(--line)]/60 text-xs font-bold text-[var(--muted)] hover:text-[var(--text)] hover:border-[var(--accent)]/40 transition-all cursor-pointer shadow-2xs active:scale-95 shrink-0"
+      aria-label="复制文章链接"
+    >
+      {copied ? (
+        <>
+          <Check size={14} className="text-emerald-500" />
+          <span className="text-emerald-500">已复制</span>
+        </>
+      ) : (
+        <>
+          <Copy size={14} className="text-[var(--accent)]" />
+          <span>复制链接</span>
+        </>
+      )}
+    </button>
   );
 }

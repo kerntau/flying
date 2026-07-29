@@ -224,63 +224,114 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
     };
   }, [open]);
 
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const checkScroll = () => {
+      setShowBackToTop(window.scrollY > 160);
+    };
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    checkScroll();
+    return () => window.removeEventListener('scroll', checkScroll);
+  }, []);
+
   if (!tocItems.length) return null;
 
   return (
     <>
-      <div
-        className="fixed z-[90] flex flex-col items-end gap-2.5 transition-all duration-500 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-6 sm:top-[55%] sm:bottom-auto sm:-translate-y-1/2 xl:right-10"
+      {/* 一体化贴边矩形页签 Dock (两个按钮合在一起，极简内边距 right-0) */}
+      <motion.div
+        initial={{ opacity: 0, x: 15 }}
+        animate={{ opacity: 1, x: 0 }}
+        className="fixed z-[90] flex flex-col items-center overflow-hidden rounded-l-xl rounded-r-none bg-white/85 dark:bg-zinc-900/85 backdrop-blur-2xl border-l border-y border-black/[0.08] dark:border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] transition-all duration-300 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-0"
       >
-        {/* 目录按钮 */}
-        <motion.button
-          type="button"
-          aria-label={open ? '关闭目录' : '打开目录'}
-          aria-expanded={open}
-          aria-controls="floating-toc-panel"
-          onClick={() => setOpen(!open)}
-          whileHover={{ scale: 1.05, y: -2 }}
-          whileTap={{ scale: 0.92 }}
-          className={`group relative flex items-center justify-center transition-all duration-500 h-12 w-12 sm:w-auto sm:min-w-[52px] sm:px-3.5 rounded-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-black/[0.06] dark:border-white/[0.08] shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.3)] text-zinc-600 dark:text-zinc-300 hover:text-[var(--accent)] sm:shadow-[0_8px_25px_-5px_rgba(0,0,0,0.1)] sm:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] active:shadow-[0_1px_4px_rgba(0,0,0,0.06)] ${
-            open
-              ? 'border-[var(--accent)]/25 text-[var(--accent)] !bg-[var(--accent)]/15 dark:!bg-[var(--accent)]/20 sm:opacity-0 sm:pointer-events-none'
-              : ''
-          }`}
-        >
-          {/* 汉堡菜单形变动画 */}
-          <div className="relative h-3.5 w-[15px] flex-shrink-0">
-            <motion.div
-              initial={false}
-              animate={{
-                rotate: open ? 45 : 0,
-                y: open ? 0 : -5,
-              }}
-              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-              className="absolute top-1/2 left-0 h-[1.5px] w-[15px] -translate-y-1/2 origin-center rounded-full bg-current"
-            />
-            <motion.div
-              initial={false}
-              animate={{
-                opacity: open ? 0 : 1,
-                scaleX: open ? 0 : 1,
-              }}
-              transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-              className="absolute top-1/2 left-0 h-[1.5px] w-[11px] -translate-y-1/2 origin-left rounded-full bg-current"
-            />
-            <motion.div
-              initial={false}
-              animate={{
-                rotate: open ? -45 : 0,
-                y: open ? 0 : 5,
-              }}
-              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-              className="absolute top-1/2 left-0 h-[1.5px] w-[15px] -translate-y-1/2 origin-center rounded-full bg-current"
-            />
-          </div>
-          <span className="hidden text-[14px] font-black tracking-tighter transition-colors sm:ml-2 sm:inline-block group-hover:text-[var(--accent)]">
-            {progressLabel}
-          </span>
-        </motion.button>
-      </div>
+        {/* 1. 返回顶部按钮 */}
+        <AnimatePresence>
+          {showBackToTop && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <motion.button
+                    type="button"
+                    aria-label="返回顶部"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: '34px' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    whileHover={{ backgroundColor: 'var(--accent)', color: '#ffffff' }}
+                    whileTap={{ scale: 0.94 }}
+                    className="group flex h-[34px] w-[34px] items-center justify-center text-zinc-600 dark:text-zinc-300 transition-colors cursor-pointer"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-y-0.5">
+                      <path d="m18 15-6-6-6 6"/>
+                    </svg>
+                  </motion.button>
+                </TooltipTrigger>
+                <TooltipContent side="left">返回顶部</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </AnimatePresence>
+
+        {/* 内部 1px 微分割线 */}
+        {showBackToTop && (
+          <div className="w-5 h-[1px] bg-black/[0.06] dark:bg-white/10 shrink-0" />
+        )}
+
+        {/* 2. 目录 Toggle 按钮 */}
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <motion.button
+                type="button"
+                aria-label={open ? '关闭目录' : '打开目录'}
+                aria-expanded={open}
+                aria-controls="floating-toc-panel"
+                onClick={() => setOpen(!open)}
+                whileHover={!open ? { backgroundColor: 'var(--accent)', color: '#ffffff' } : undefined}
+                whileTap={{ scale: 0.94 }}
+                className={`group flex h-[34px] w-[34px] items-center justify-center transition-colors cursor-pointer ${
+                  open
+                    ? 'bg-[var(--accent)] text-white shadow-xs'
+                    : 'text-zinc-600 dark:text-zinc-300'
+                }`}
+              >
+                {/* 汉堡菜单形变动画 */}
+                <div className="relative h-3 w-3 flex-shrink-0">
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      rotate: open ? 45 : 0,
+                      y: open ? 0 : -4,
+                    }}
+                    transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                    className="absolute top-1/2 left-0 h-[1.5px] w-3 -translate-y-1/2 origin-center rounded-full bg-current"
+                  />
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      opacity: open ? 0 : 1,
+                      scaleX: open ? 0 : 1,
+                    }}
+                    transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
+                    className="absolute top-1/2 left-0 h-[1.5px] w-2 -translate-y-1/2 origin-left rounded-full bg-current"
+                  />
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      rotate: open ? -45 : 0,
+                      y: open ? 0 : 4,
+                    }}
+                    transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                    className="absolute top-1/2 left-0 h-[1.5px] w-3 -translate-y-1/2 origin-center rounded-full bg-current"
+                  />
+                </div>
+              </motion.button>
+            </TooltipTrigger>
+            <TooltipContent side="left">{open ? '关闭目录' : '文章目录'}</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </motion.div>
 
       <AnimatePresence>
         {open && (
@@ -301,7 +352,7 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
               ease: [0.16, 1, 0.3, 1],
               layout: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
             }}
-            className="fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] right-4 z-[105] flex max-h-[50vh] w-[min(85vw,300px)] flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--page)]/95 backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-zinc-900/95 lg:relative lg:bottom-auto lg:right-auto lg:top-0 lg:max-h-[min(70vh,600px)] lg:w-[270px] lg:rounded-none lg:rounded-bl-2xl lg:border-0 lg:border-l lg:border-zinc-200/50 lg:dark:border-white/5 lg:bg-transparent lg:dark:bg-transparent lg:backdrop-blur-none lg:shadow-none select-none will-change-transform will-change-opacity origin-bottom-right lg:origin-top-right"
+            className="fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] right-1.5 sm:right-3 z-[105] flex max-h-[50vh] w-[min(85vw,300px)] flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--page)]/95 backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-zinc-900/95 lg:relative lg:bottom-auto lg:right-auto lg:top-0 lg:max-h-[min(70vh,600px)] lg:w-[270px] lg:rounded-none lg:rounded-bl-2xl lg:border-0 lg:border-l lg:border-zinc-200/50 lg:dark:border-white/5 lg:bg-transparent lg:dark:bg-transparent lg:backdrop-blur-none lg:shadow-none select-none will-change-transform will-change-opacity origin-bottom-right lg:origin-top-right"
           >
             {/* Header 控制栏 */}
             <div className="flex items-center justify-between px-3 pt-1.5 pb-0">

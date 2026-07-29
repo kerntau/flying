@@ -32,7 +32,7 @@ export function AuthorPopover({ name }: AuthorPopoverProps) {
           <img
             src={author.avatar || site.logo}
             alt={author.name}
-            className="w-6 h-6 rounded-full object-cover border border-[var(--line)] shadow-2xs"
+            className="w-9 h-9 rounded-full object-cover border-2 border-[var(--page-alt)] shadow-sm"
           />
           <span className="hidden sm:inline font-bold">{author.name}</span>
         </button>

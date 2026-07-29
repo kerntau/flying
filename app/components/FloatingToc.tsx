@@ -380,11 +380,11 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
               ease: [0.16, 1, 0.3, 1],
               layout: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
             }}
-            className="fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] right-1.5 sm:right-3 z-[105] flex max-h-[50vh] w-[min(85vw,300px)] flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--page)]/95 backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-zinc-900/95 lg:relative lg:bottom-auto lg:right-auto lg:top-0 lg:max-h-[min(70vh,600px)] lg:w-[270px] lg:rounded-none lg:rounded-bl-2xl lg:border-0 lg:border-l lg:border-zinc-200/50 lg:dark:border-white/5 lg:bg-transparent lg:dark:bg-transparent lg:backdrop-blur-none lg:shadow-none select-none will-change-transform will-change-opacity origin-bottom-right lg:origin-top-right"
+            className="fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] right-1.5 sm:right-3 z-[105] flex max-h-[50vh] w-[min(85vw,300px)] flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--page)]/95 backdrop-blur-3xl shadow-xl lg:relative lg:bottom-auto lg:right-auto lg:top-0 lg:max-h-[min(70vh,600px)] lg:w-[270px] lg:rounded-none lg:rounded-bl-2xl lg:border-0 lg:border-l lg:border-[var(--line)]/50 lg:bg-transparent lg:backdrop-blur-none lg:shadow-none select-none will-change-transform will-change-opacity origin-bottom-right lg:origin-top-right"
           >
             {/* Header 控制栏 */}
             <div className="flex items-center justify-between px-3 pt-1.5 pb-0">
-              <h3 className="text-[14px] font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+              <h3 className="text-[14px] font-bold tracking-tight text-[var(--text)]">
                 目录
               </h3>
               <div className="flex items-center gap-1.5">
@@ -392,7 +392,7 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                   <button
                     type="button"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 transition-all hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-white/10 dark:hover:text-zinc-100"
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--muted)] transition-all hover:bg-[var(--page-alt)] hover:text-[var(--text)]"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4"/><path d="M12 16V8"/></svg>
                   </button>
@@ -405,19 +405,19 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                       const commentsEl = document.getElementById('comment') || document.getElementById('article-footer') || document.querySelector('.comment-section');
                       commentsEl?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 transition-all hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-white/10 dark:hover:text-zinc-100"
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--muted)] transition-all hover:bg-[var(--page-alt)] hover:text-[var(--text)]"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
                   </button>
                 </TooltipIconButton>
 
-                <div className="w-px h-3 bg-zinc-200 dark:bg-zinc-700 mx-0.5" />
+                <div className="w-px h-3 bg-[var(--line)] mx-0.5" />
 
                 <TooltipIconButton label="关闭目录" side="bottom">
                   <button
                     type="button"
                     onClick={() => setOpen(false)}
-                    className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 transition-all hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-500/10 dark:hover:text-red-400"
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--muted)] transition-all hover:bg-red-500/10 hover:text-red-500"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                   </button>
@@ -467,8 +467,8 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                           }}
                           className={`group relative flex items-start rounded-lg px-2.5 py-1.5 transition-all duration-300 ${
                             isActive
-                              ? 'bg-[var(--page-alt)] font-bold text-zinc-900 dark:bg-white/10 dark:text-zinc-100'
-                              : 'font-medium text-zinc-500 hover:bg-[var(--page-alt)]/60 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100'
+                              ? 'bg-[var(--accent)]/10 text-[var(--accent)] font-bold'
+                              : 'font-medium text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]'
                           }`}
                           style={{
                             paddingLeft: `${Math.max(0, item.depth - 2) * 12 + 12}px`,

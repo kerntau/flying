@@ -138,7 +138,7 @@ export default async function PostPage({ params }: PostPageProps) {
             {/* 右侧封面大图 (精顺 16:9，适中尺寸) */}
             {post.cover && (
               <div className="lg:col-span-4 w-full flex justify-center lg:justify-end">
-                <div className="aspect-[16/9] w-full max-w-[340px] max-h-[190px] rounded-2xl overflow-hidden bg-[var(--page-alt)] border border-[var(--line)] shadow-sm">
+                <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-[var(--page-alt)] border border-[var(--line)] shadow-sm">
                   <ImagePreviewButton imageUrl={post.cover} title={post.title} className="block h-full w-full cursor-zoom-in" />
                 </div>
               </div>

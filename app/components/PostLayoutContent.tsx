@@ -40,7 +40,7 @@ export function PostLayoutContent({
         {/* TOC 占位容器 */}
         <div
           className={`hidden lg:block shrink-0 transition-all duration-500 ease-in-out
-            ${isTocOpen ? 'w-[270px] opacity-100' : 'w-0 opacity-0 overflow-hidden'}
+            ${isTocOpen ? 'w-[270px]' : 'w-0 overflow-hidden'}
           `}
         >
           <div className="sticky top-[15vh] z-10 w-[270px]">

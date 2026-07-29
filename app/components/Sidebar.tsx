@@ -75,19 +75,19 @@ export function Sidebar() {
         </nav>
       </div>
 
-      <footer className="fly-sidebar-socials" aria-label="站点链接">
-        <div className="fly-social-icons">
+      <footer className="fly-sidebar-socials border-t border-[var(--line)]/60 pt-3 pb-3 px-3.5 mt-auto" aria-label="站点链接">
+        <div className="fly-social-icons flex items-center gap-1.5">
           {socialLinks.map((link) => (
             <Tooltip key={link.label}>
               <TooltipTrigger asChild>
                 <a
-                  className="fly-social-icon outline-none"
+                  className="fly-social-icon flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--hover-bg-color)] border border-[var(--line)]/50 shadow-2xs hover:shadow-xs transition-all active:scale-95 outline-none"
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noopener" : undefined}
                   aria-label={link.label}
                 >
-                  <Icon name={link.icon} size={16} />
+                  <Icon name={link.icon} size={15} />
                 </a>
               </TooltipTrigger>
               <TooltipContent side={collapsed ? "right" : "top"} sideOffset={8}>

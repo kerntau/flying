@@ -29,8 +29,9 @@ import {
   MessageSquare,
   Globe,
   List,
-  Tag,
   Search,
+  FileText,
+  Tag,
 } from "lucide-react";
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
@@ -71,6 +72,9 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
       return <List {...iconProps} />;
     case "tag":
       return <Tag {...iconProps} />;
+    case "file-text":
+    case "file":
+      return <FileText {...iconProps} />;
     case "search":
       return <Search {...iconProps} />;
     case "facebook":

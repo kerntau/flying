@@ -31,13 +31,13 @@
   <rect width="100%" height="100%" fill="url(#bgGrad_graph_algorithms)" />
   <rect width="100%" height="100%" fill="url(#dotGrid_graph_algorithms)" />
 
-  <!-- 柔和浅色高质感弥散光斑 (用零损耗 RadialGradient 代替 feGaussianBlur) -->
+  <!-- 柔和浅色高质感弥散光斑 -->
   <circle cx="960" cy="180" r="380" fill="url(#glow1_graph_algorithms)" />
   <circle cx="280" cy="520" r="320" fill="url(#glow2_graph_algorithms)" />
 
   <!-- 主题构图图腾 -->
   
-        <g transform="translate(760, 150)" opacity="0.85">
+        <g transform="translate(620, 100) scale(1.4)" opacity="0.85">
           <line x1="80" y1="80" x2="240" y2="60" stroke="#0284C7" stroke-width="2" opacity="0.4" />
           <line x1="80" y1="80" x2="160" y2="200" stroke="#0284C7" stroke-width="2" opacity="0.4" />
           <line x1="240" y1="60" x2="260" y2="220" stroke="#0284C7" stroke-width="2" opacity="0.4" />
@@ -55,28 +55,17 @@
   <!-- 极简渐变底边线条 -->
   <rect x="90" y="540" width="1020" height="2" fill="url(#accentGrad_graph_algorithms)" opacity="0.35" rx="1" />
 
-  <!-- 文本内容排版 -->
-  <g transform="translate(95, 230)">
-    <!-- Pill 标签 -->
-    <rect x="0" y="0" width="150" height="32" rx="16" fill="#E0F2FE" opacity="0.95" />
-    <text x="75" y="20.5" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#0369A1" letter-spacing="1.2">
+  <!-- 极简 Pill 领域标签 -->
+  <g transform="translate(95, 100)">
+    <rect x="0" y="0" width="160" height="36" rx="18" fill="#E0F2FE" opacity="0.95" />
+    <text x="80" y="23" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#0369A1" letter-spacing="1.5">
       GRAPH THEORY
-    </text>
-
-    <!-- 主标题 -->
-    <text x="0" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="42" font-weight="800" fill="#0F172A" letter-spacing="-0.5">
-      图算法全景解析
-    </text>
-
-    <!-- 副标题 -->
-    <text x="0" y="132" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="500" fill="#475569" letter-spacing="0.2">
-      从广度优先搜索到最短路径与最小生成树
     </text>
   </g>
 
   <!-- 右下角 Logo/落款 -->
   <g transform="translate(1100, 580)">
-    <text text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#64748B" letter-spacing="2">
+    <text text-anchor="end" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#64748B" letter-spacing="2">
       FLYING THEME · 序栈
     </text>
   </g>

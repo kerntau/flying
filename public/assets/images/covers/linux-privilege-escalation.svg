@@ -31,13 +31,13 @@
   <rect width="100%" height="100%" fill="url(#bgGrad_linux_privilege_escalation)" />
   <rect width="100%" height="100%" fill="url(#dotGrid_linux_privilege_escalation)" />
 
-  <!-- 柔和浅色高质感弥散光斑 (用零损耗 RadialGradient 代替 feGaussianBlur) -->
+  <!-- 柔和浅色高质感弥散光斑 -->
   <circle cx="960" cy="180" r="380" fill="url(#glow1_linux_privilege_escalation)" />
   <circle cx="280" cy="520" r="320" fill="url(#glow2_linux_privilege_escalation)" />
 
   <!-- 主题构图图腾 -->
   
-        <g transform="translate(780, 160)" opacity="0.85">
+        <g transform="translate(640, 110) scale(1.4)" opacity="0.85">
           <path d="M 30 270 L 100 270 L 100 200 L 170 200 L 170 130 L 240 130 L 240 60 L 280 60" fill="none" stroke="#7C3AED" stroke-width="3" stroke-linecap="round" />
           <circle cx="100" cy="270" r="6" fill="#7C3AED" />
           <circle cx="170" cy="200" r="6" fill="#7C3AED" />
@@ -50,28 +50,17 @@
   <!-- 极简渐变底边线条 -->
   <rect x="90" y="540" width="1020" height="2" fill="url(#accentGrad_linux_privilege_escalation)" opacity="0.35" rx="1" />
 
-  <!-- 文本内容排版 -->
-  <g transform="translate(95, 230)">
-    <!-- Pill 标签 -->
-    <rect x="0" y="0" width="234" height="32" rx="16" fill="#EDE9FE" opacity="0.95" />
-    <text x="117" y="20.5" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#6D28D9" letter-spacing="1.2">
+  <!-- 极简 Pill 领域标签 -->
+  <g transform="translate(95, 100)">
+    <rect x="0" y="0" width="248" height="36" rx="18" fill="#EDE9FE" opacity="0.95" />
+    <text x="124" y="23" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#6D28D9" letter-spacing="1.5">
       PRIVILEGE ESCALATION
-    </text>
-
-    <!-- 主标题 -->
-    <text x="0" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="42" font-weight="800" fill="#0F172A" letter-spacing="-0.5">
-      Linux 提权技术详解
-    </text>
-
-    <!-- 副标题 -->
-    <text x="0" y="132" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="500" fill="#475569" letter-spacing="0.2">
-      SUID 提权 · 内核漏洞利用与 Cron 劫持
     </text>
   </g>
 
   <!-- 右下角 Logo/落款 -->
   <g transform="translate(1100, 580)">
-    <text text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#64748B" letter-spacing="2">
+    <text text-anchor="end" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#64748B" letter-spacing="2">
       FLYING THEME · 序栈
     </text>
   </g>

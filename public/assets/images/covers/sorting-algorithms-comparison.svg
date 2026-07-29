@@ -31,13 +31,13 @@
   <rect width="100%" height="100%" fill="url(#bgGrad_sorting_algorithms_comparison)" />
   <rect width="100%" height="100%" fill="url(#dotGrid_sorting_algorithms_comparison)" />
 
-  <!-- 柔和浅色高质感弥散光斑 (用零损耗 RadialGradient 代替 feGaussianBlur) -->
+  <!-- 柔和浅色高质感弥散光斑 -->
   <circle cx="960" cy="180" r="380" fill="url(#glow1_sorting_algorithms_comparison)" />
   <circle cx="280" cy="520" r="320" fill="url(#glow2_sorting_algorithms_comparison)" />
 
   <!-- 主题构图图腾 -->
   
-        <g transform="translate(770, 160)" opacity="0.85">
+        <g transform="translate(630, 110) scale(1.4)" opacity="0.85">
           <rect x="20" y="180" width="36" height="100" rx="6" fill="#65A30D" opacity="0.3" />
           <rect x="70" y="120" width="36" height="160" rx="6" fill="#65A30D" opacity="0.5" />
           <rect x="120" y="60" width="36" height="220" rx="6" fill="#65A30D" />
@@ -50,28 +50,17 @@
   <!-- 极简渐变底边线条 -->
   <rect x="90" y="540" width="1020" height="2" fill="url(#accentGrad_sorting_algorithms_comparison)" opacity="0.35" rx="1" />
 
-  <!-- 文本内容排版 -->
-  <g transform="translate(95, 230)">
-    <!-- Pill 标签 -->
-    <rect x="0" y="0" width="181.5" height="32" rx="16" fill="#ECFCCB" opacity="0.95" />
-    <text x="90.75" y="20.5" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#4D7C0F" letter-spacing="1.2">
+  <!-- 极简 Pill 领域标签 -->
+  <g transform="translate(95, 100)">
+    <rect x="0" y="0" width="193" height="36" rx="18" fill="#ECFCCB" opacity="0.95" />
+    <text x="96.5" y="23" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#4D7C0F" letter-spacing="1.5">
       DATA STRUCTURES
-    </text>
-
-    <!-- 主标题 -->
-    <text x="0" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="42" font-weight="800" fill="#0F172A" letter-spacing="-0.5">
-      十大排序算法性能对比
-    </text>
-
-    <!-- 副标题 -->
-    <text x="0" y="132" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="500" fill="#475569" letter-spacing="0.2">
-      时间复杂度 · 空间开销与稳定性深度分析
     </text>
   </g>
 
   <!-- 右下角 Logo/落款 -->
   <g transform="translate(1100, 580)">
-    <text text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#64748B" letter-spacing="2">
+    <text text-anchor="end" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#64748B" letter-spacing="2">
       FLYING THEME · 序栈
     </text>
   </g>

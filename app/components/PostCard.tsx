@@ -14,9 +14,9 @@ export function PostCard({ post }: PostCardProps) {
     : "";
 
   return (
-    <article className="fly-post-card group flex flex-col min-w-0 bg-transparent">
-      {/* 16:10 封面图框 (图片左下角带玻璃分类 Pill) */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg sm:rounded-xl bg-[var(--page-alt)] shadow-xs transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md">
+    <article className="fly-post-card group flex flex-col h-full min-w-0 bg-transparent">
+      {/* 16:10 封面图框 (图片左下角带玻璃分类 Pill，与首页全卡片 100% 尺寸一致) */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg sm:rounded-xl bg-[var(--page-alt)] shadow-xs transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md shrink-0">
         <Link href={`/posts/${post.slug}/`} className="block w-full h-full" aria-label={`阅读：${post.title}`}>
           <img
             src={post.cover || "/assets/images/fallback-cover.svg"}
@@ -34,23 +34,23 @@ export function PostCard({ post }: PostCardProps) {
         )}
       </div>
 
-      {/* 下方正文：文章标题 + 底部日期 */}
-      <div className="flex flex-col flex-1 pt-2 sm:pt-2.5 min-w-0">
-        {/* 文章标题 */}
-        <h2 className="text-xs sm:text-sm font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-snug group-hover:text-[var(--accent)] transition-colors">
+      {/* 下方正文：文章标题 (统一 2 行固定高度) + 底部置底对齐的日期/标签 */}
+      <div className="flex flex-col flex-1 justify-between pt-2 sm:pt-2.5 min-w-0">
+        {/* 文章标题 (桌面端固定 2 行空间，移动端紧凑对齐) */}
+        <h2 className="text-xs sm:text-sm font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-[1.35] sm:min-h-[2.7em] min-h-0 group-hover:text-[var(--accent)] transition-colors">
           <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
         </h2>
 
-        {/* 底部元数据：文章标签 (时间左侧) + 日期 */}
-        <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[var(--mute)] pt-1.5 sm:pt-2 flex-wrap">
+        {/* 底部元数据：文章标签 (时间左侧) + 日期 (mt-auto 强制底部对齐) */}
+        <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[var(--mute)] pt-1.5 sm:pt-2 mt-auto whitespace-nowrap overflow-hidden">
           {/* 标签 (时间左侧) */}
           {post.tags && post.tags.length > 0 && (
-            <div className="flex items-center gap-1 overflow-hidden">
+            <div className="flex items-center gap-1 overflow-hidden shrink-0">
               {post.tags.slice(0, 1).map((tag) => (
                 <Link
                   key={tag}
                   href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
-                  className="inline-flex items-center px-1 py-0.2 rounded-md bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] transition-colors font-medium max-w-[80px] truncate"
+                  className="inline-flex items-center px-1.5 py-0.5 rounded-md bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] transition-colors font-medium max-w-[90px] truncate"
                 >
                   #{tag}
                 </Link>
@@ -59,13 +59,15 @@ export function PostCard({ post }: PostCardProps) {
           )}
 
           {post.tags && post.tags.length > 0 && formattedDate && (
-            <span className="text-[var(--mute)] opacity-60">•</span>
+            <span className="text-[var(--mute)] opacity-60 shrink-0">•</span>
           )}
 
           {/* 发布时间 */}
-          <time dateTime={post.pubDate} className="whitespace-nowrap">
-            {formattedDate}
-          </time>
+          {formattedDate && (
+            <time dateTime={post.pubDate} className="whitespace-nowrap shrink-0">
+              {formattedDate}
+            </time>
+          )}
         </div>
       </div>
     </article>

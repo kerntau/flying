@@ -92,23 +92,52 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
               : "";
 
             return (
-              <div key={post.slug} className="flex-[0_0_100%] min-w-0" style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', opacity: selectedIndex === index ? 1 : 0.3, transition: 'opacity 400ms ease' }}>
+              <div
+                key={post.slug}
+                className="flex-[0_0_100%] min-w-0"
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  opacity: selectedIndex === index ? 1 : 0,
+                  pointerEvents: selectedIndex === index ? 'auto' : 'none',
+                  transition: 'opacity 300ms ease-in-out',
+                }}
+              >
                 <article className="fly-home-carousel-card">
                   {/* 左侧 Copy 区域 */}
                   <div className="fly-home-carousel-copy">
-                    <div className="flex flex-col items-start gap-2 w-full">
-                      {/* 作者头像 */}
-                      <div className="fly-home-carousel-avatars">
-                        <img
-                          src="/assets/images/avatar.png"
-                          alt={post.author || "Kerntau"}
-                          className="w-10 h-10 rounded-full object-cover bg-[var(--page)]"
-                        />
-                      </div>
+                    <div className="flex flex-col items-start gap-3 sm:gap-4 w-full">
+                      {/* 顶部元数据：分类 Badge Pill (移动端仅展示分类，隐藏头像与标签) */}
+                      <div className="flex flex-wrap items-center gap-2 w-full pt-0.5">
+                        <div className="fly-home-carousel-avatars shrink-0 hidden sm:block">
+                          <img
+                            src="/assets/images/avatar.png"
+                            alt={post.author || "Kerntau"}
+                            className="w-6.5 h-6.5 rounded-full object-cover border border-[var(--line)] shadow-2xs"
+                          />
+                        </div>
 
-                      {/* 分类 / 路径 */}
-                      <div className="fly-home-carousel-terms">
-                        <span>{post.category || "精选推荐"}</span>
+                        {/* 分类 Badge Pill */}
+                        <div className="fly-home-carousel-terms shrink-0">
+                          <span className="inline-flex items-center px-2 py-0.5 text-[11px] font-bold rounded-md bg-[var(--accent)]/10 text-[var(--accent)] sm:px-2.5 sm:py-1 sm:text-xs sm:rounded-lg">
+                            {post.category || "精选推荐"}
+                          </span>
+                        </div>
+
+                        {/* 标签 Pills 列表 (移动端隐藏) */}
+                        {post.tags && post.tags.length > 0 && (
+                          <div className="hidden sm:flex flex-wrap items-center gap-1.5 shrink-0">
+                            {post.tags.slice(0, 3).map((tag) => (
+                              <Link
+                                key={tag}
+                                href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
+                                className="inline-flex items-center px-2.5 py-1 rounded-lg bg-[var(--page-alt)] hover:bg-[var(--hover-bg-color)] text-[var(--muted)] hover:text-[var(--text)] text-xs font-medium transition-colors border border-[var(--line)]/50"
+                              >
+                                #{tag}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
                       </div>
 
                       {/* 文章标题 */}
@@ -116,8 +145,28 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                         <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
                       </h2>
 
-                      {/* 描述摘要 */}
-                      {post.description && <p>{post.description}</p>}
+                      {/* 描述摘要 (移动端隐藏) */}
+                      {post.description && <p className="hidden sm:block">{post.description}</p>}
+
+                      {/* 桌面端大胶囊元数据栏 (移动端隐藏) */}
+                      <div className="hidden sm:inline-flex flex-wrap items-center gap-2.5 px-3 py-1.5 rounded-lg bg-[var(--page-alt)]/60 text-xs text-[var(--muted)] font-medium mt-1">
+                        {formattedDate && (
+                          <span className="flex items-center gap-1.5 font-medium">
+                            <Icon name="calendar" size={13} className="text-[var(--muted)]/70" />
+                            <time dateTime={post.pubDate}>{formattedDate}</time>
+                          </span>
+                        )}
+                        <span className="opacity-30">•</span>
+                        <span className="flex items-center gap-1.5 font-medium">
+                          <Icon name="clock" size={13} className="text-[var(--muted)]/70" />
+                          <span>约 {Math.max(1, Math.ceil((post.content || "").length / 400))} 分钟阅读</span>
+                        </span>
+                        <span className="opacity-30">•</span>
+                        <span className="flex items-center gap-1.5 font-medium">
+                          <Icon name="file-text" size={13} className="text-[var(--muted)]/70" />
+                          <span>{(post.content || "").length} 字</span>
+                        </span>
+                      </div>
                     </div>
 
                     {/* 底部阅读全文与切换控制按键 */}
@@ -194,26 +243,15 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                     </div>
                   </div>
 
-                  {/* 右侧 Media 区域 (比例 8/5，右下角 2 个磨砂标签) */}
+                  {/* 右侧 Media 区域 */}
                   <div className="fly-home-carousel-media">
-                    <Link href={`/posts/${post.slug}/`} className="block w-full h-full">
+                    <Link href={`/posts/${post.slug}/`} className="block w-full h-full" aria-label={`阅读：${post.title}`}>
                       <img
                         src={post.cover || "/assets/images/fallback-cover.svg"}
                         alt={post.title}
-                        className="fly-home-carousel-image"
+                        className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                       />
                     </Link>
-
-                    {/* 右上角 Icon Badge */}
-                    <div className="absolute top-3 right-3 p-1.5 rounded-lg bg-black/40 backdrop-blur-md text-white border border-white/10 shadow-xs">
-                      <Icon name="video" size={13} />
-                    </div>
-
-                    {/* 右下角日期与阅读数 */}
-                    <div className="fly-home-carousel-media-meta">
-                      <span>{formattedDate}</span>
-                      <span>294 次阅读</span>
-                    </div>
                   </div>
                 </article>
               </div>

@@ -397,14 +397,14 @@ a {
   .fly-home-carousel {
     padding: 0 !important;
     border-radius: 0 !important;
-    background: transparent !important;
+    background: var(--page) !important;
     margin-bottom: 1.25rem;
     border: none !important;
   }
 
   .fly-home-carousel-card {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 12px;
     align-items: center;
     width: 100%;
@@ -484,6 +484,14 @@ a {
 
   .fly-home-carousel-read {
     display: none !important; /* 移动端隐藏易重叠折行的阅读全文胶囊，整卡可直接点击跳转 */
+  }
+
+  .fly-carousel-nav-arrows {
+    display: none !important;
+  }
+
+  .fly-carousel-mobile-date {
+    display: inline;
   }
 
   /* 右侧：精美 16:10 封面图 */
@@ -1128,6 +1136,10 @@ body[data-fly-sidebar-collapsed="true"] .fly-sidebar-uptime {
 
   .fly-home-carousel-read:hover {
     opacity: 0.9;
+  }
+
+  .fly-carousel-mobile-date {
+    display: none !important;
   }
 
   .fly-home-carousel-media {

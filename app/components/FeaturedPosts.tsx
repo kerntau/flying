@@ -84,15 +84,15 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
 
   return (
     <section className="fly-home-carousel" aria-label="精选文章">
-      <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
+      <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {posts.map((post) => {
+          {posts.map((post, index) => {
             const formattedDate = post.pubDate
               ? format(new Date(post.pubDate), "yyyy年MM月dd日", { locale: zhCN })
               : "";
 
             return (
-              <div key={post.slug} className="flex-[0_0_100%] min-w-0">
+              <div key={post.slug} className="flex-[0_0_100%] min-w-0" style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', opacity: selectedIndex === index ? 1 : 0.3, transition: 'opacity 400ms ease' }}>
                 <article className="fly-home-carousel-card">
                   {/* 左侧 Copy 区域 */}
                   <div className="fly-home-carousel-copy">
@@ -152,6 +152,15 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                             ))}
                           </div>
 
+                          {/* 移动端：显示发布时间 */}
+                          {formattedDate && (
+                            <time dateTime={post.pubDate} className="fly-carousel-mobile-date text-[10px] text-[var(--muted)] whitespace-nowrap">
+                              {formattedDate}
+                            </time>
+                          )}
+
+                          {/* 桌面端：左右切换箭头 */}
+                          <div className="fly-carousel-nav-arrows flex items-center gap-1">
                           <Tooltip>
                             <TooltipTrigger asChild>
                               <button
@@ -179,6 +188,7 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                             </TooltipTrigger>
                             <TooltipContent side="top">下一篇精选</TooltipContent>
                           </Tooltip>
+                          </div>
                         </div>
                       )}
                     </div>

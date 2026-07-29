@@ -251,12 +251,6 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                         alt={post.title}
                         className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                         loading="lazy"
-                        onError={(e) => {
-                          const target = e.currentTarget;
-                          if (target.src !== "/assets/images/fallback-cover.svg") {
-                            target.src = "/assets/images/fallback-cover.svg";
-                          }
-                        }}
                       />
                     </Link>
                   </div>

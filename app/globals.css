@@ -41,15 +41,15 @@
   --radius-card: 14px;
   --radius-section: clamp(16px, 2vw, 30px);
   --section-gap: clamp(60px, 5.6vw, 80px);
-  --page: #ffffff;
-  --page-alt: #f8f9fa;
-  --text: #000000;
-  --muted: #4d4d4d;
-  --faint: #757575;
-  --mute: #b2b2b2;
-  --line: hsla(0, 0%, 50%, 0.15);
-  --fly-primary-color: #000000;
-  --fly-secondary-color: #ededed;
+  --page: #f6f7f9;
+  --page-alt: #eaeef2;
+  --text: #111318;
+  --muted: #525866;
+  --faint: #787f90;
+  --mute: #a0a7b8;
+  --line: hsla(220, 15%, 50%, 0.12);
+  --fly-primary-color: #111318;
+  --fly-secondary-color: #e4e7ec;
   --fly-primary-color-dark: #ffffff;
   --fly-secondary-color-dark: #ffffff;
   --accent: var(--fly-primary-color);
@@ -59,26 +59,26 @@
   --accent-soft-strong: color-mix(in srgb, var(--accent) 15%, var(--page));
   --accent-secondary-soft: var(--accent-secondary);
   --accent-contrast: #ffffff;
-  --hover-bg-color: var(--accent-secondary-soft);
-  --shadow-soft: 0 18px 38px -16px rgba(0, 0, 0, 0.35);
+  --hover-bg-color: color-mix(in srgb, var(--accent) 6%, var(--page));
+  --shadow-soft: 0 18px 38px -16px rgba(0, 0, 0, 0.15);
   --navbar-height: 58px;
 
-  /* Shadcn UI Sidebar 配色变量 */
-  --sidebar-background: #fbfbfb;
+  /* Shadcn UI Sidebar 配色变量 - 软温润底色 */
+  --sidebar-background: #f4f5f7;
   --sidebar-foreground: #18181b;
   --sidebar-primary: #18181b;
   --sidebar-primary-foreground: #fafafa;
-  --sidebar-accent: #f4f4f5;
+  --sidebar-accent: #eaeef2;
   --sidebar-accent-foreground: #18181b;
-  --sidebar-border: #e4e4e7;
+  --sidebar-border: #e0e4eb;
   --sidebar-ring: #a1a1aa;
 
-  /* 代码块适配变量 - 浅色 */
+  /* 代码块适配变量 - 浅色温润护眼 */
   --code-line-hover: rgba(0, 0, 0, 0.035);
   --code-line-highlight: rgba(2, 132, 199, 0.08);
   --code-line-number: rgba(0, 0, 0, 0.3);
-  --code-wrapper-border: #cbd5e1;
-  --code-wrapper-bg: #f8fafc;
+  --code-wrapper-border: #d0d7e2;
+  --code-wrapper-bg: #eaeef2;
 
   color-scheme: light;
 }

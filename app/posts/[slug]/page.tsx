@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 import { getAllPosts, getPostBySlug } from "@/lib/content";
 import { renderMarkdown, extractToc } from "@/lib/markdown";
+import { countWords, estimateReadTime, formatWordCount } from "@/lib/word-count";
 import { AuthorPopover } from "@/components/AuthorPopover";
 import { PostCard } from "@/components/PostCard";
 import { Icon } from "@/components/Icon";
@@ -64,8 +65,8 @@ export default async function PostPage({ params }: PostPageProps) {
     ? format(new Date(post.pubDate), "yyyy年MM月dd日", { locale: zhCN })
     : "";
 
-  // 估算阅读时长（按中文 400字/分钟）
-  const readTimeMin = Math.max(1, Math.ceil((post.content || "").length / 400));
+  const wordCount = countWords(post.content);
+  const readTimeMin = estimateReadTime(post.content);
 
   return (
     <TocProvider>
@@ -130,7 +131,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   <span className="opacity-40">•</span>
                   <span className="flex items-center gap-1">
                     <Icon name="file-text" size={14} />
-                    <span>{(post.content || "").length} 字</span>
+                    <span>{formatWordCount(wordCount)}</span>
                   </span>
                 </div>
 
@@ -163,7 +164,7 @@ export default async function PostPage({ params }: PostPageProps) {
             author={post.author}
             pubDate={formattedDate}
             slug={post.slug}
-            wordCount={(post.content || "").length}
+            wordCount={wordCount}
           />
 
 

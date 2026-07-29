@@ -46,7 +46,7 @@ export function PostCard({ post }: PostCardProps) {
           {/* 标签 (时间左侧) */}
           {post.tags && post.tags.length > 0 && (
             <div className="flex items-center gap-1 overflow-hidden shrink-0">
-              {post.tags.slice(0, 1).map((tag) => (
+              {post.tags.slice(0, 2).map((tag) => (
                 <Link
                   key={tag}
                   href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}

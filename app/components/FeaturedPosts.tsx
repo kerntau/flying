@@ -6,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 import type { Post } from "@/lib/types";
+import { countWords, estimateReadTime, formatWordCount } from "@/lib/word-count";
 import { Icon } from "./Icon";
 
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
@@ -159,12 +160,12 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                         <span className="opacity-30">•</span>
                         <span className="flex items-center gap-1.5 font-medium">
                           <Icon name="clock" size={13} className="text-[var(--muted)]/70" />
-                          <span>约 {Math.max(1, Math.ceil((post.content || "").length / 400))} 分钟阅读</span>
+                          <span>约 {estimateReadTime(post.content)} 分钟阅读</span>
                         </span>
                         <span className="opacity-30">•</span>
                         <span className="flex items-center gap-1.5 font-medium">
                           <Icon name="file-text" size={13} className="text-[var(--muted)]/70" />
-                          <span>{(post.content || "").length} 字</span>
+                          <span>{formatWordCount(countWords(post.content))}</span>
                         </span>
                       </div>
                     </div>

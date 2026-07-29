@@ -15,6 +15,7 @@ import {
   SortDesc,
 } from "lucide-react";
 import type { Post } from "@/lib/types";
+import { countWords, estimateReadTime, formatWordCount } from "@/lib/word-count";
 
 interface ArchiveClientProps {
   initialPosts: Post[];
@@ -50,9 +51,8 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
   // 1. 计算文章字数与阅读时间
   const postsWithStats = useMemo(() => {
     return initialPosts.map((post) => {
-      const cleanContent = (post.content || "").replace(/[\s\n\r#*`>~-]/g, "");
-      const wordCount = cleanContent.length;
-      const readTime = Math.max(1, Math.ceil(wordCount / 400));
+      const wordCount = countWords(post.content);
+      const readTime = estimateReadTime(post.content);
       return {
         ...post,
         wordCount,
@@ -104,22 +104,13 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
     });
   }, [sortedPosts, isAscending]);
 
-  // 格式化字数
-  const formatWordCount = (count: number) => {
-    if (count >= 10000) {
-      return `${(count / 10000).toFixed(1)} 万字`;
-    }
-    if (count >= 1000) {
-      return `${(count / 1000).toFixed(1)}k 字`;
-    }
-    return `${count} 字`;
-  };
+
 
   return (
-    <div className="fly-archives-client w-full max-w-4xl mx-auto space-y-6 sm:space-y-8 py-2 pb-2 transition-all duration-350 select-none">
+    <div className="fly-archives-client w-full max-w-4xl mx-auto space-y-4 sm:space-y-6 py-1 pb-1 transition-all duration-350 select-none">
       {/* 无结果时的 Empty 提示 */}
       {groups.length === 0 && (
-        <div className="text-center py-8 text-[var(--muted)] space-y-2">
+        <div className="text-center py-4 text-[var(--muted)] space-y-1">
           <p className="text-base font-bold">暂无符合该分类的文章</p>
           <button
             type="button"

@@ -64,6 +64,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           src="https://cloud.umami.is/script.js"
           data-website-id="49070c80-b77d-4bab-a6c8-25585348aad1"
         />
+        {/* Google Analytics (gtag.js) 统计分析 */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-Q3E0H4KPD3"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-Q3E0H4KPD3');
+            `,
+          }}
+        />
       </head>
       <body>
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>

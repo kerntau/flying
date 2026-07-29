@@ -78,15 +78,15 @@ export default async function PostPage({ params }: PostPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* 左侧信息大区 */}
             <div className={`space-y-4 ${post.cover ? "lg:col-span-8" : "lg:col-span-12"}`}>
-              {/* 顶栏一体化精美元数据（作者头像 + 分类高亮 Pill + 标签 Pill 统一高度与样式对齐） */}
+              {/* 顶栏一体化精美元数据（作者头像 + 分类高亮 Pill + 标签 Pill 统一高度 28px 与中轴对齐） */}
               <div className="flex flex-wrap items-center gap-2 pt-0.5">
                 <AuthorPopover name={post.author} />
 
-                {/* 分类 Badge Pill (Theme Accent 高亮) */}
+                {/* 分类 Badge Pill */}
                 {post.category && (
                   <Link
                     href={`/categories/${encodeURIComponent(post.category)}/`}
-                    className="inline-flex items-center px-2.5 py-1 text-xs font-bold rounded-lg bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shadow-2xs shrink-0"
+                    className="inline-flex items-center justify-center h-7 px-3 text-xs font-bold rounded-full bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shadow-2xs shrink-0 leading-none"
                   >
                     {post.category}
                   </Link>
@@ -97,7 +97,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   <Link
                     key={tag}
                     href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
-                    className="inline-flex items-center px-2.5 py-1 rounded-lg bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] transition-colors font-medium text-xs border border-[var(--line)]/50 shrink-0"
+                    className="inline-flex items-center justify-center h-7 px-3 rounded-full bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]/80 transition-colors font-medium text-xs border-0 shrink-0 leading-none shadow-2xs"
                   >
                     #{tag}
                   </Link>
@@ -127,11 +127,6 @@ export default async function PostPage({ params }: PostPageProps) {
                   <span className="flex items-center gap-1">
                     <Icon name="clock" size={14} />
                     <span>约 {readTimeMin} 分钟阅读</span>
-                  </span>
-                  <span className="opacity-40">•</span>
-                  <span className="flex items-center gap-1">
-                    <Icon name="file-text" size={14} />
-                    <span>{formatWordCount(wordCount)}</span>
                   </span>
                 </div>
 

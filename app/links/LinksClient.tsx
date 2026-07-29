@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import type { Link as LinkItem } from "@/lib/types";
 import { site } from "@/data/site";
-import { ArrowUpRight, Globe, Sparkles, Copy, Check } from "lucide-react";
+import { ArrowUpRight, Sparkles, Copy, Check, ChevronDown } from "lucide-react";
 
 interface LinksClientProps {
   links: LinkItem[];
@@ -12,6 +12,7 @@ interface LinksClientProps {
 export function LinksClient({ links }: LinksClientProps) {
   const [selectedGroup, setSelectedGroup] = useState<string>("全部");
   const [copied, setCopied] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const groups = ["全部", ...Array.from(new Set(links.map((l) => l.group)))];
 
@@ -29,7 +30,7 @@ export function LinksClient({ links }: LinksClientProps) {
 
   return (
     <div className="space-y-8">
-      {/* 1. 无边框 Pill 组别控制器 */}
+      {/* 1. 软胶囊 Tab 组别控制器 (消除纯黑底块) */}
       {groups.length > 1 && (
         <div className="flex flex-wrap items-center gap-2">
           {groups.map((group) => {
@@ -39,10 +40,10 @@ export function LinksClient({ links }: LinksClientProps) {
                 key={group}
                 type="button"
                 onClick={() => setSelectedGroup(group)}
-                className={`px-4 py-2 text-xs font-bold rounded-xl transition-all duration-300 ${
+                className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-250 cursor-pointer ${
                   active
-                    ? "bg-[var(--page-alt)] text-[var(--accent)] shadow-2xs scale-102"
-                    : "text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]/60"
+                    ? "bg-[var(--page-alt)] text-[var(--accent)] font-extrabold shadow-2xs"
+                    : "text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]/50 font-medium"
                 }`}
               >
                 {group}
@@ -53,9 +54,8 @@ export function LinksClient({ links }: LinksClientProps) {
       )}
 
       {/* 2. 画廊风格高感友链卡片网格 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {filteredLinks.map((link) => {
-          // 提取干净的域名后缀显示
           let domain = "";
           try {
             domain = new URL(link.href).hostname.replace(/^www\./, "");
@@ -69,29 +69,29 @@ export function LinksClient({ links }: LinksClientProps) {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative p-4 rounded-2xl bg-[var(--page-alt)]/50 hover:bg-[var(--page-alt)] transition-all duration-300 hover:-translate-y-1 shadow-2xs hover:shadow-md border-0 flex items-start gap-3.5"
+              className="group relative p-4 sm:p-4.5 rounded-2xl bg-[var(--page-alt)]/50 hover:bg-[var(--page-alt)]/80 transition-colors duration-200 border-0 flex items-start gap-3.5"
             >
               {/* 头像 */}
-              <div className="relative shrink-0 w-12 h-12">
+              <div className="relative shrink-0 w-11 h-11">
                 <img
                   src={link.avatar}
                   alt={link.title}
-                  className="w-full h-full rounded-2xl object-cover shadow-2xs bg-[var(--page)] border border-[var(--line)]/20 group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full rounded-xl object-cover bg-[var(--page)] border border-[var(--line)]/15"
                 />
               </div>
 
               {/* 文本区域 */}
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-extrabold text-sm text-[var(--text)] group-hover:text-[var(--accent)] transition-colors truncate">
+                  <h3 className="font-bold text-sm text-[var(--text)] group-hover:text-[var(--accent)] transition-colors truncate">
                     {link.title}
                   </h3>
-                  <ArrowUpRight className="w-4 h-4 text-[var(--muted)] opacity-40 group-hover:opacity-100 group-hover:text-[var(--accent)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 ml-1" />
+                  <ArrowUpRight className="w-4 h-4 text-[var(--muted)] opacity-40 group-hover:opacity-90 group-hover:text-[var(--accent)] transition-colors shrink-0 ml-1" />
                 </div>
-                <p className="text-xs text-[var(--muted)] line-clamp-1 font-medium">
+                <p className="text-xs text-[var(--muted)]/80 line-clamp-1 font-medium">
                   {link.description || "暂无描述"}
                 </p>
-                <div className="text-[0.7rem] font-mono text-[var(--mute)] truncate pt-0.5">
+                <div className="text-[0.7rem] font-mono text-[var(--muted)]/50 truncate pt-0.5">
                   {domain}
                 </div>
               </div>
@@ -100,13 +100,13 @@ export function LinksClient({ links }: LinksClientProps) {
         })}
       </div>
 
-      {/* 3. 底部水墨“申请互换友链”面板 */}
-      <section className="bg-[var(--page-alt)]/40 rounded-3xl p-6 sm:p-7 space-y-5 border-0 shadow-2xs mt-10">
+      {/* 3. 底部“申请互换友链”轻量面板 (默认隐藏详细参数代码) */}
+      <section className="bg-[var(--page-alt)]/30 rounded-3xl p-5 sm:p-6 border-0 shadow-2xs mt-10 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4.5 h-4.5 text-[var(--accent)]" />
-              <h3 className="font-black text-lg text-[var(--text)]">
+              <Sparkles className="w-4 h-4 text-[var(--accent)]" />
+              <h3 className="font-extrabold text-base text-[var(--text)]">
                 申请互换友链
               </h3>
             </div>
@@ -115,45 +115,58 @@ export function LinksClient({ links }: LinksClientProps) {
             </p>
           </div>
 
-          {/* 一键复制博客信息 */}
-          <button
-            type="button"
-            onClick={handleCopySiteInfo}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--page)] hover:bg-[var(--page-alt)] text-xs font-bold text-[var(--text)] border-0 shadow-2xs hover:shadow-md transition-all shrink-0 cursor-pointer"
-          >
-            {copied ? (
-              <>
-                <Check className="w-3.5 h-3.5 text-emerald-500" />
-                <span className="text-emerald-500">已复制本站信息</span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-3.5 h-3.5 text-[var(--accent)]" />
-                <span>一键复制本站信息</span>
-              </>
-            )}
-          </button>
+          {/* 右侧胶囊操作组 */}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setShowDetails(!showDetails)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--page)]/90 hover:bg-[var(--page-alt)] text-xs font-semibold text-[var(--muted)] hover:text-[var(--text)] border-0 shadow-2xs transition-all cursor-pointer"
+            >
+              <span>本站格式</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showDetails ? "rotate-180 text-[var(--accent)]" : ""}`} />
+            </button>
+
+            <button
+              type="button"
+              onClick={handleCopySiteInfo}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--page)]/90 hover:bg-[var(--page-alt)] text-xs font-semibold text-[var(--muted)] hover:text-[var(--accent)] border-0 shadow-2xs transition-all cursor-pointer"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-500" />
+                  <span className="text-emerald-500 font-bold">已复制</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 opacity-70" />
+                  <span>一键复制</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
 
-        {/* 无边框通透水墨代码展示面板 */}
-        <div className="bg-[var(--page)]/90 rounded-2xl p-5 text-xs sm:text-sm font-mono text-[var(--muted)] space-y-2.5 border-0 shadow-2xs">
-          <div className="flex items-center gap-3">
-            <span className="shrink-0 text-xs font-bold text-[var(--text)] bg-[var(--page-alt)]/80 px-2 py-0.5 rounded-md">名称</span>
-            <span className="text-[var(--text)] font-semibold">{site.title}</span>
+        {/* 按需折叠展开的详细格式面板 */}
+        {showDetails && (
+          <div className="bg-[var(--page)]/90 rounded-2xl p-4 text-xs sm:text-sm font-mono text-[var(--muted)] space-y-2 border-0 shadow-2xs animate-in fade-in zoom-in-98 duration-200">
+            <div className="flex items-center gap-3">
+              <span className="shrink-0 text-[11px] font-bold text-[var(--muted)] bg-[var(--page-alt)] px-2 py-0.5 rounded-md">名称</span>
+              <span className="text-[var(--text)] font-semibold">{site.title}</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="shrink-0 text-[11px] font-bold text-[var(--muted)] bg-[var(--page-alt)] px-2 py-0.5 rounded-md">网址</span>
+              <span className="text-[var(--accent)] truncate">{site.url}</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="shrink-0 text-[11px] font-bold text-[var(--muted)] bg-[var(--page-alt)] px-2 py-0.5 rounded-md">图标</span>
+              <span className="truncate text-[var(--muted)]/80">{site.url}/logo.png</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="shrink-0 text-[11px] font-bold text-[var(--muted)] bg-[var(--page-alt)] px-2 py-0.5 rounded-md">描述</span>
+              <span className="truncate text-[var(--muted)]/80">{site.subtitle || site.description}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="shrink-0 text-xs font-bold text-[var(--text)] bg-[var(--page-alt)]/80 px-2 py-0.5 rounded-md">网址</span>
-            <span className="text-[var(--accent)] truncate">{site.url}</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="shrink-0 text-xs font-bold text-[var(--text)] bg-[var(--page-alt)]/80 px-2 py-0.5 rounded-md">图标</span>
-            <span className="truncate">{site.url}/logo.png</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="shrink-0 text-xs font-bold text-[var(--text)] bg-[var(--page-alt)]/80 px-2 py-0.5 rounded-md">描述</span>
-            <span className="truncate">{site.subtitle || site.description}</span>
-          </div>
-        </div>
+        )}
       </section>
     </div>
   );

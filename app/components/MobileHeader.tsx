@@ -100,7 +100,7 @@ export function MobileHeader() {
             <div className="p-3.5 rounded-xl bg-[var(--page-alt)]/60 border border-[var(--line)]/50 flex items-center gap-3 mt-1">
               <div className="relative shrink-0">
                 <img
-                  src="/og-image.jpg"
+                  src={site.logo}
                   alt={site.author}
                   className="w-9.5 h-9.5 rounded-full object-cover border border-[var(--line)] shadow-2xs"
                 />

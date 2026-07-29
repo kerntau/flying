@@ -80,8 +80,8 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
       return <Search {...iconProps} />;
     case "facebook":
       return (
-        <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
-          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" className={className} {...props}>
+          <path d="M14 13.5h2.5l1-4H14v-2c0-1.03.7-1.5 1.5-1.5h2v-3.8c-.78-.1-2.17-.2-3.5-.2-3.6 0-5.5 2.1-5.5 5.5v2H5.5v4H9v10.5h5V13.5z" />
         </svg>
       );
     case "github":
@@ -95,18 +95,16 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
       );
     case "telegram":
       return (
-        <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
-          <path d="m22 2-7 20-4-9-9-4Z" />
-          <path d="M22 2 11 13" />
+        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" className={className} {...props}>
+          <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S17.63 0 12 0zm5.56 8.16l-2.02 9.53c-.15.68-.55.84-1.12.52l-3.1-2.28-1.5 1.44c-.16.16-.3.3-.61.3l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.13 4.49-3.07-.96c-.67-.21-.68-.67.14-.99l12.01-4.63c.56-.21 1.05.13.8 1.08z" />
         </svg>
       );
     case "outlook":
     case "email":
     case "mail":
       return (
-        <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
-          <rect width="20" height="16" x="2" y="4" rx="2" />
-          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" className={className} {...props}>
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
         </svg>
       );
     case "panel-left":

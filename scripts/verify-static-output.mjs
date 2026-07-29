@@ -5,7 +5,7 @@ import matter from "gray-matter";
 const root = process.cwd();
 const contentRoot = join(root, "app", "content");
 const outputRoot = join(root, "out");
-const siteUrl = "https://blog.cot.wiki";
+const siteUrl = "https://curn.me";
 const baseRoutes = ["/", "/about/", "/archives/", "/authors/", "/categories/", "/links/", "/moments/", "/photos/", "/tags/"];
 
 async function exists(filename) {

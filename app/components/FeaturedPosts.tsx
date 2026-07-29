@@ -6,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 import type { Post } from "@/lib/types";
+import { site } from "@/data/site";
 import { countWords, estimateReadTime, formatWordCount } from "@/lib/word-count";
 import { Icon } from "./Icon";
 
@@ -112,8 +113,8 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                       <div className="flex flex-wrap items-center gap-2 w-full pt-0.5">
                         <div className="fly-home-carousel-avatars shrink-0 hidden sm:block">
                           <img
-                            src="/og-image.jpg"
-                            alt={post.author || "Kerntau"}
+                            src={site.logo}
+                            alt={post.author || site.author}
                             className="w-9 h-9 rounded-full object-cover border-2 border-[var(--page)] shadow-sm"
                           />
                         </div>

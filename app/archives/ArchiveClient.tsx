@@ -107,7 +107,7 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
 
 
   return (
-    <div className="fly-archives-client w-full max-w-4xl mx-auto space-y-4 sm:space-y-6 py-1 pb-1 transition-all duration-350 select-none">
+    <div className="fly-archives-client w-full max-w-6xl lg:max-w-[1240px] mx-auto space-y-4 sm:space-y-6 py-1 pb-1 transition-all duration-350 select-none">
       {/* 无结果时的 Empty 提示 */}
       {groups.length === 0 && (
         <div className="text-center py-4 text-[var(--muted)] space-y-1">
@@ -142,13 +142,17 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
                   <button
                     type="button"
                     onClick={() => setCategoryOpen(!categoryOpen)}
-                    className="flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm font-semibold text-[var(--text)] hover:text-[var(--accent)] py-1 px-1.5 sm:px-3 rounded-lg hover:bg-[var(--page-alt)] transition-all cursor-pointer whitespace-nowrap"
+                    className={`flex items-center gap-1.5 text-xs sm:text-sm font-semibold py-1.5 px-3 rounded-full transition-all cursor-pointer whitespace-nowrap ${
+                      categoryOpen
+                        ? 'bg-[var(--page-alt)] text-[var(--accent)]'
+                        : 'bg-[var(--page-alt)]/60 hover:bg-[var(--page-alt)] text-[var(--text)] hover:text-[var(--accent)]'
+                    }`}
                   >
-                    <Folder className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-500 opacity-80 shrink-0" />
-                    <span className="truncate max-w-[85px] sm:max-w-none">
+                    <Folder className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-500 opacity-85 shrink-0" />
+                    <span className="truncate max-w-[90px] sm:max-w-none">
                       {selectedCategory === "all" ? "全部分类" : selectedCategory}
                     </span>
-                    <ChevronDown className={`w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-50 transition-transform duration-200 ${categoryOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown className={`w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-50 transition-transform duration-200 ${categoryOpen ? "rotate-180 text-[var(--accent)]" : ""}`} />
                   </button>
 
                   {/* 分类下拉弹出面板 */}
@@ -206,21 +210,23 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
                   )}
                 </div>
 
-                <span className="text-[var(--line)] opacity-30 text-xs">|</span>
-
                 {/* 2. 排序规则下拉触发器 */}
                 <div className="relative" ref={sortRef}>
                   <button
                     type="button"
                     onClick={() => setSortOpen(!sortOpen)}
-                    className="flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm font-semibold text-[var(--text)] hover:text-[var(--accent)] py-1 px-1.5 sm:px-3 rounded-lg hover:bg-[var(--page-alt)] transition-all cursor-pointer whitespace-nowrap"
+                    className={`flex items-center gap-1.5 text-xs sm:text-sm font-semibold py-1.5 px-3 rounded-full transition-all cursor-pointer whitespace-nowrap ${
+                      sortOpen
+                        ? 'bg-[var(--page-alt)] text-[var(--accent)]'
+                        : 'bg-[var(--page-alt)]/60 hover:bg-[var(--page-alt)] text-[var(--text)] hover:text-[var(--accent)]'
+                    }`}
                   >
-                    <ArrowUpDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-70 shrink-0" />
+                    <ArrowUpDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500 opacity-85 shrink-0" />
                     <span>{sortBy === "date" ? "按日期" : "按字数"}</span>
-                    <span className="text-[0.7rem] sm:text-xs font-mono text-[var(--mute)]">
+                    <span className="text-[0.7rem] sm:text-xs font-mono opacity-60">
                       ({isAscending ? "升序" : "降序"})
                     </span>
-                    <ChevronDown className={`w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-50 transition-transform duration-200 ${sortOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown className={`w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-50 transition-transform duration-200 ${sortOpen ? "rotate-180 text-[var(--accent)]" : ""}`} />
                   </button>
 
                   {/* 排序下拉弹出面板 */}
@@ -334,9 +340,9 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
 
                   {/* 中间：分类 Tag + 标题 + 字数/阅读时间 */}
                   <div className="flex-1 min-w-0 pr-1 sm:pr-2 flex items-center gap-2 sm:gap-3">
-                    {/* 分类 Tag */}
+                    {/* 分类 Tag (全站统一 Theme Accent 高亮 Pill) */}
                     {post.category && (
-                      <span className="archive-tag-badge shrink-0 hidden sm:inline-block">
+                      <span className="shrink-0 hidden sm:inline-flex items-center px-2 py-0.5 text-[11px] font-bold rounded-md bg-[var(--accent)]/10 text-[var(--accent)] leading-none shadow-2xs">
                         {post.category}
                       </span>
                     )}
@@ -350,7 +356,7 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
                     </Link>
 
                     {/* 元数据：字数 & 阅读时长 */}
-                    <div className="shrink-0 hidden md:flex items-center gap-1.5 text-xs font-mono text-[var(--mute)]">
+                    <div className="shrink-0 hidden sm:flex items-center gap-1.5 text-xs font-mono text-[var(--mute)]">
                       <span>{formatWordCount(post.wordCount)}</span>
                       <span>·</span>
                       <span>{post.readTime} min</span>
@@ -360,7 +366,7 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
                   {/* 右侧：缩略图 */}
                   <Link
                     href={`/posts/${post.slug}/`}
-                    className="shrink-0 w-28 sm:w-52 h-9 sm:h-14 rounded-lg overflow-hidden relative archive-cover-mask bg-[var(--page-alt)] border border-[var(--line)]/20 transition-all duration-300 opacity-85 group-hover:opacity-100 group-hover:shadow-sm"
+                    className="shrink-0 w-24 sm:w-48 lg:w-60 h-9 sm:h-13 lg:h-14 rounded-lg overflow-hidden relative archive-cover-mask bg-[var(--page-alt)] border border-[var(--line)]/20 transition-all duration-300 opacity-85 group-hover:opacity-100 group-hover:shadow-sm"
                   >
                     {post.cover ? (
                       <img

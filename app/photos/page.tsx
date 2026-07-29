@@ -15,7 +15,7 @@ export default function PhotosPage() {
   const groups = Array.from(new Set(photos.map((p) => p.group)));
 
   return (
-    <div className="fly-photos-page w-full max-w-6xl mx-auto space-y-6 sm:space-y-8 py-4 pb-16 transition-all duration-350 select-none">
+    <div className="fly-photos-page w-full max-w-6xl lg:max-w-[1240px] mx-auto space-y-6 sm:space-y-8 py-4 pb-16 transition-all duration-350 select-none">
       {/* 极简清爽 Header */}
       <header className="flex items-center justify-between border-b border-[var(--line)]/20 pb-4">
         {/* 左侧：标准清爽中文大标题 */}

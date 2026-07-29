@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToc } from './TocContext';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
@@ -45,6 +45,7 @@ function TooltipIconButton({
 }
 
 export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
+  const instanceId = useId();
   const { isTocOpen: open, setIsTocOpen: setOpen } = useToc();
   const [activeId, setActiveId] = useState('');
   const listContainerRef = useRef<HTMLElement | null>(null);
@@ -62,7 +63,7 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
         const url = rawUrl.startsWith('#') ? rawUrl : `#${targetId}`;
         return { value, url, depth, targetId };
       })
-      .filter((item) => item.depth >= 2 && item.depth <= 4 && item.targetId);
+      .filter((item) => item.depth >= 2 && item.depth <= 3 && item.targetId);
   }, [toc]);
 
   const tocIds = useMemo(() => {
@@ -96,27 +97,35 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
       return;
     }
 
-    const viewportHeight = window.innerHeight;
-    // 调整检测阈值至 0.45，实现正文滚动到近中间位置时即切换高亮
-    const threshold = viewportHeight * 0.45;
+    // 1. 视口最顶部 (小于 100px) 强行定位到首条目录
+    if (window.scrollY < 100) {
+      setActiveId(headings[0].id);
+      return;
+    }
 
-    let currentActive = '';
+    // 2. 视口最底部 (接近底端 60px) 强行定位到末条目录
+    const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
+    if (isAtBottom) {
+      setActiveId(headings[headings.length - 1].id);
+      return;
+    }
 
-    for (let i = headings.length - 1; i >= 0; i--) {
+    // 3. 黄金偏移线 (离顶 180px)：顺向遍历，精准锁定当前章节
+    const navOffset = 180;
+    let currentActive = headings[0].id;
+
+    for (let i = 0; i < headings.length; i++) {
       const heading = headings[i];
       const rect = heading.getBoundingClientRect();
 
-      if (rect.top <= threshold) {
+      if (rect.top <= navOffset) {
         currentActive = heading.id;
+      } else {
         break;
       }
     }
 
-    if (!currentActive && window.scrollY < 100) {
-      setActiveId('');
-    } else if (currentActive) {
-      setActiveId(currentActive);
-    }
+    setActiveId(currentActive);
   }, [tocIds]);
 
   useEffect(() => {
@@ -398,19 +407,6 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                   </button>
                 </TooltipIconButton>
 
-                <TooltipIconButton label="查看评论" side="bottom">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const commentsEl = document.getElementById('comment') || document.getElementById('article-footer') || document.querySelector('.comment-section');
-                      commentsEl?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--muted)] transition-all hover:bg-[var(--page-alt)] hover:text-[var(--text)]"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-                  </button>
-                </TooltipIconButton>
-
                 <div className="w-px h-3 bg-[var(--line)] mx-0.5" />
 
                 <TooltipIconButton label="关闭目录" side="bottom">
@@ -465,28 +461,30 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                               setOpen(false);
                             }
                           }}
-                          className={`group relative flex items-start rounded-lg px-2.5 py-1.5 transition-all duration-300 ${
+                          className={`group relative flex items-center rounded-lg px-2.5 py-1.5 transition-all duration-300 ${
                             isActive
                               ? 'bg-[var(--accent)]/10 text-[var(--accent)] font-bold'
                               : 'font-medium text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]'
                           }`}
-                          style={{
-                            paddingLeft: `${Math.max(0, item.depth - 2) * 12 + 12}px`,
-                            fontSize: item.depth === 2 ? '13px' : '12px',
-                          }}
                         >
                           {isActive && (
                             <motion.div
-                              layoutId="active-toc-indicator"
-                              className="absolute -left-[1.5px] top-1 bottom-1 w-[3px] rounded-full bg-[var(--accent)] shadow-[0_0_8px_rgba(59,130,246,0.6)] z-20"
+                              layoutId={`active-toc-indicator-${instanceId}`}
+                              className="absolute left-0 top-1.5 bottom-1.5 w-[3.5px] rounded-r-full bg-[var(--accent)] shadow-[0_0_8px_rgba(59,130,246,0.5)] z-20"
                               transition={{
                                 type: 'tween',
                                 ease: [0.25, 1, 0.5, 1],
-                                duration: 0.4,
+                                duration: 0.25,
                               }}
                             />
                           )}
-                          <span className={isActive ? 'whitespace-normal break-words' : 'truncate'}>
+                          <span
+                            className={isActive ? 'whitespace-normal break-words' : 'truncate'}
+                            style={{
+                              paddingLeft: `${Math.max(0, item.depth - 2) * 12}px`,
+                              fontSize: item.depth === 2 ? '13px' : '12px',
+                            }}
+                          >
                             {item.value}
                           </span>
                         </a>

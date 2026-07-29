@@ -96,7 +96,7 @@ if (failures.length) {
 posts.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
 await writeFile(path.join(publicRoot, "search-index.json"), JSON.stringify(posts.map(({ slug, title, category, description }) => ({ slug, title, category, description }))), "utf8");
 
-const siteUrl = "https://blog.cot.wiki";
+const siteUrl = "https://curn.me";
 const lastBuildDate = posts.reduce((latest, post) => Math.max(latest, (post.updatedDate ?? post.pubDate).getTime()), 0);
 const items = posts.map((post) => `
     <item>

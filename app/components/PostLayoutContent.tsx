@@ -37,7 +37,7 @@ export function PostLayoutContent({
           {children}
         </article>
 
-        {/* Desktop TOC 占位容器 */}
+        {/* Desktop TOC 侧边栏 */}
         <div
           className={`hidden lg:block shrink-0 transition-all duration-500 ease-in-out
             ${isTocOpen ? 'w-[270px]' : 'w-0 overflow-hidden'}
@@ -48,7 +48,7 @@ export function PostLayoutContent({
           </div>
         </div>
 
-        {/* Mobile / Tablet 悬浮目录与按钮组 (保证在移动端正常挂载) */}
+        {/* Mobile / Tablet 悬浮目录与按钮组 */}
         <div className="lg:hidden">
           {toc}
         </div>

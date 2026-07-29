@@ -28,7 +28,7 @@ export default function CategoriesPage() {
   });
 
   return (
-    <div className="fly-categories-page w-full max-w-5xl mx-auto space-y-4 sm:space-y-5 py-1 pb-8 transition-all duration-350 select-none">
+    <div className="fly-categories-page w-full max-w-6xl lg:max-w-[1240px] mx-auto space-y-4 sm:space-y-5 py-1 pb-8 transition-all duration-350 select-none">
       {/* 大气清爽 Header */}
       <header className="flex items-center justify-between border-b border-[var(--line)]/20 pb-4">
         {/* 左侧：标准清爽中文大标题 */}
@@ -53,29 +53,29 @@ export default function CategoriesPage() {
         {categoriesWithPosts.map((cat) => (
           <div
             key={cat.slug}
-            className="group relative flex flex-col justify-between bg-[var(--page-alt)]/50 hover:bg-[var(--page-alt)] rounded-2xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 shadow-2xs hover:shadow-lg border-0 overflow-hidden"
+            className="group relative flex flex-col justify-between bg-[var(--page-alt)]/50 hover:bg-[var(--page-alt)]/85 rounded-2xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 shadow-2xs hover:shadow-md border-0 overflow-hidden"
           >
             <div>
               {/* 卡片头部：序号 + 分类大标题 + 篇数 Badge */}
               <div className="flex items-center justify-between gap-3 mb-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                   {/* 标准数字序号 */}
-                  <span className="text-xs sm:text-sm font-mono font-bold text-[var(--mute)] bg-[var(--page)] px-2.5 py-1 rounded-md shadow-2xs">
+                  <span className="text-xs font-mono font-bold text-[var(--muted)]/70 bg-[var(--page)] px-2 py-0.5 rounded-md border-0 shrink-0">
                     {cat.indexNumber}
                   </span>
                   <Link
                     href={`/categories/${encodeURIComponent(cat.slug)}/`}
-                    className="flex items-center gap-2.5 text-xl sm:text-2xl font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors"
+                    className="flex items-center gap-2 text-lg sm:text-xl font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors truncate"
                   >
-                    <Folder className="w-5 h-5 text-blue-500 opacity-80" />
-                    <span>{cat.name}</span>
+                    <Folder className="w-5 h-5 text-blue-500 opacity-85 shrink-0" />
+                    <span className="truncate">{cat.name}</span>
                   </Link>
                 </div>
 
-                {/* 篇数 Badge */}
+                {/* 篇数 Badge (无边框纯净底块) */}
                 <Link
                   href={`/categories/${encodeURIComponent(cat.slug)}/`}
-                  className="px-3 py-1 rounded-full text-xs sm:text-sm font-mono font-semibold bg-[var(--page)] text-[var(--muted)] group-hover:bg-[var(--text)] group-hover:text-[var(--page)] transition-all shrink-0 shadow-2xs"
+                  className="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-[var(--page)] text-[var(--muted)] group-hover:text-[var(--accent)] transition-colors shrink-0 shadow-2xs border-0"
                 >
                   {cat.count} 篇
                 </Link>
@@ -95,7 +95,7 @@ export default function CategoriesPage() {
                         <span className="truncate flex-1 font-medium group-hover/item:translate-x-1 transition-transform">
                           {post.title}
                         </span>
-                        <time className="shrink-0 font-mono text-[var(--mute)] text-xs">
+                        <time className="shrink-0 font-mono text-[var(--muted)]/70 text-xs">
                           {dateStr}
                         </time>
                       </Link>
@@ -106,7 +106,7 @@ export default function CategoriesPage() {
             </div>
 
             {/* 卡片底部：查看全部入口 */}
-            <div className="pt-3.5 border-t border-[var(--line)]/15 flex items-center justify-between text-xs sm:text-sm font-semibold text-[var(--mute)] group-hover:text-[var(--accent)] transition-colors">
+            <div className="pt-3.5 border-t border-[var(--line)]/15 flex items-center justify-between text-xs sm:text-sm font-semibold text-[var(--muted)] group-hover:text-[var(--accent)] transition-colors">
               <span>共 {cat.count} 篇文章</span>
               <Link
                 href={`/categories/${encodeURIComponent(cat.slug)}/`}

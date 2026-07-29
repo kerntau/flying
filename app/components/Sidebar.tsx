@@ -75,7 +75,7 @@ export function Sidebar() {
         </nav>
       </div>
 
-      <footer className="fly-sidebar-socials border-t border-[var(--line)]/60 pt-3 pb-3 px-3.5 mt-auto" aria-label="站点链接">
+      <footer className="fly-sidebar-socials border-t border-[var(--line)]/60 pt-2.5 pb-2.5 px-2.5 mt-auto" aria-label="站点链接">
         <div className="fly-social-icons flex items-center gap-1.5">
           {socialLinks.map((link) => (
             <Tooltip key={link.label}>

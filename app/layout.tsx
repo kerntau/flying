@@ -58,6 +58,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
           href="https://cn-font.claude-code-best.win/packages/hcqyt/dist/ChillRoundFBold/result.css"
         />
+        {/* Umami Analytics 网站分析统计 */}
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="49070c80-b77d-4bab-a6c8-25585348aad1"
+        />
       </head>
       <body>
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>

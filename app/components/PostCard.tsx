@@ -35,22 +35,24 @@ export function PostCard({ post }: PostCardProps) {
       </div>
 
       {/* 下方正文：文章标题 (统一 2 行固定高度) + 底部置底对齐的日期/标签 */}
-      <div className="flex flex-col flex-1 justify-between pt-2 sm:pt-2.5 min-w-0">
+      <div className="flex flex-col flex-1 justify-between pt-1.5 sm:pt-2 min-w-0">
         {/* 文章标题 (桌面端固定 2 行空间，移动端紧凑对齐) */}
         <h2 className="text-xs sm:text-sm font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-[1.35] sm:min-h-[2.7em] min-h-0 group-hover:text-[var(--accent)] transition-colors">
           <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
         </h2>
 
         {/* 底部元数据：文章标签 (时间左侧) + 日期 (mt-auto 强制底部对齐) */}
-        <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[var(--mute)] pt-1.5 sm:pt-2 mt-auto whitespace-nowrap overflow-hidden">
+        <div className="flex items-center gap-1 text-[10px] sm:text-[11px] text-[var(--mute)] pt-1 sm:pt-1.5 mt-auto whitespace-nowrap overflow-hidden min-w-0">
           {/* 标签 (时间左侧) */}
           {post.tags && post.tags.length > 0 && (
-            <div className="flex items-center gap-1 overflow-hidden shrink-0">
-              {post.tags.slice(0, 2).map((tag) => (
+            <div className="flex items-center gap-1 overflow-hidden min-w-0 shrink">
+              {post.tags.slice(0, 2).map((tag, index) => (
                 <Link
                   key={tag}
                   href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
-                  className="inline-flex items-center px-1.5 py-0.5 rounded-md bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] transition-colors font-medium max-w-[90px] truncate"
+                  className={`items-center px-1 py-0.5 rounded-md bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] transition-colors font-medium max-w-[80px] sm:max-w-[100px] truncate shrink ${
+                    index === 0 ? "inline-flex" : "hidden sm:inline-flex"
+                  }`}
                 >
                   #{tag}
                 </Link>
@@ -62,7 +64,7 @@ export function PostCard({ post }: PostCardProps) {
             <span className="text-[var(--mute)] opacity-60 shrink-0">•</span>
           )}
 
-          {/* 发布时间 */}
+          {/* 发布时间 - 不压缩完整展示 */}
           {formattedDate && (
             <time dateTime={post.pubDate} className="whitespace-nowrap shrink-0">
               {formattedDate}

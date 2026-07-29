@@ -20,13 +20,13 @@
   line-height: 1;
   color: var(--muted);
   opacity: 0.55;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: inherit;
   user-select: none;
 }
 
 :root {
   --font-lxgw-bright: "LXGW WenKai Screen";
-  --font-sans: "LXGW WenKai Screen", "Microsoft YaHei", "微软雅黑", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+  --font-sans: "Microsoft YaHei", "微软雅黑", system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --fly-responsive-gutter: clamp(16px, calc(11.25px + 1.25vw), 30px);
   --sidebar-width: 176px;
@@ -1072,14 +1072,14 @@ body[data-fly-sidebar-collapsed="true"] .fly-sidebar-uptime {
     overflow: hidden;
     border-radius: clamp(16px, 2vw, 30px);
     background: var(--page-alt);
-    padding: 20px;
+    padding: 12px;
     margin-bottom: 2.5rem;
   }
 
   .fly-home-carousel-card {
     display: grid;
     grid-template-columns: minmax(0, 0.968fr) minmax(0, 1fr);
-    gap: 20px;
+    gap: 14px;
     align-items: center;
     min-width: 0;
     width: 100%;
@@ -1092,7 +1092,7 @@ body[data-fly-sidebar-collapsed="true"] .fly-sidebar-uptime {
     align-items: flex-start;
     justify-content: space-between;
     height: 100%;
-    padding: 10px 10px 10px 14px;
+    padding: 6px 8px 6px 10px;
     color: var(--text);
   }
 
@@ -2086,19 +2086,29 @@ body[data-fly-sidebar-collapsed="true"] .fly-sidebar-uptime {
   scroll-margin-top: 6rem;
 }
 
-/* H2 二级标题 — 核心大章节 (左加粗主色边框 + 渐变微绒底色) */
+/* H2 二级标题 — 核心大章节 (左侧精致主题柱 + 底部优雅分割线) */
 .blog-root .article-detail h2 {
-  margin-top: 2.6rem !important;
-  margin-bottom: 1.1rem !important;
-  padding: 0.6rem 0.9rem;
-  border-left: 4px solid var(--accent, #0284c7);
-  border-radius: 0 8px 8px 0;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 7%, transparent) 0%, transparent 85%);
-  font-size: clamp(1.35rem, 2.2vw, 1.58rem) !important;
+  display: flex;
+  align-items: center;
+  margin-top: 2.5rem !important;
+  margin-bottom: 1rem !important;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(1.3rem, 2.1vw, 1.5rem) !important;
   font-weight: 800 !important;
   line-height: 1.3;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  letter-spacing: -0.015em;
+}
+
+.blog-root .article-detail h2::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 1.05em;
+  margin-right: 0.6rem;
+  background: var(--accent);
+  border-radius: 999px;
+  flex-shrink: 0;
 }
 
 /* H3 三级标题 — 子章节 (虚线底分界线 + 专属井号科技 Badge) */

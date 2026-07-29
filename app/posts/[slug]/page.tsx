@@ -78,15 +78,15 @@ export default async function PostPage({ params }: PostPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* 左侧信息大区 */}
             <div className={`space-y-4 ${post.cover ? "lg:col-span-8" : "lg:col-span-12"}`}>
-              {/* 顶栏一体化精美元数据（作者头像 + 分类高亮 Pill + 标签 Pill 统一高度 28px 与物理中轴对齐） */}
-              <div className="flex flex-wrap items-center gap-2 pt-0.5 select-none leading-none">
+              {/* 顶栏一体化精美元数据（放大作者头像 + 分类高亮 Pill + 标签 Pill 物理中轴线 100% 对齐） */}
+              <div className="flex flex-wrap items-center gap-2.5 pt-0.5 select-none leading-none">
                 <AuthorPopover name={post.author} />
 
                 {/* 分类 Badge Pill */}
                 {post.category && (
                   <Link
                     href={`/categories/${encodeURIComponent(post.category)}/`}
-                    className="inline-flex items-center justify-center h-7 px-3 text-xs font-bold rounded-full bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shadow-2xs shrink-0 leading-none"
+                    className="inline-flex items-center justify-center h-8 px-3.5 text-xs font-bold rounded-full bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shadow-2xs shrink-0 leading-none"
                   >
                     <span className="translate-y-[0.5px]">{post.category}</span>
                   </Link>
@@ -97,7 +97,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   <Link
                     key={tag}
                     href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
-                    className="inline-flex items-center justify-center h-7 px-3 rounded-full bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]/80 transition-colors font-medium text-xs border-0 shrink-0 leading-none shadow-2xs"
+                    className="inline-flex items-center justify-center h-8 px-3.5 rounded-full bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]/80 transition-colors font-medium text-xs border-0 shrink-0 leading-none shadow-2xs"
                   >
                     <span className="translate-y-[0.5px]">#{tag}</span>
                   </Link>

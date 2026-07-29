@@ -5,10 +5,10 @@ import {
   User,
   Heart,
   Globe,
-  Github,
   Sparkles,
   Layers,
 } from "lucide-react";
+import { Icon } from "@/components/Icon";
 
 export const metadata = pageMetadata({
   title: "关于序栈",
@@ -20,16 +20,16 @@ export const metadata = pageMetadata({
 export default function AboutPage() {
   const techBadges = [
     {
-      name: "NEXT.JS 15",
-      badgeUrl: "https://img.shields.io/badge/NEXT.JS-15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white",
+      name: "NEXT.JS 16",
+      badgeUrl: "https://img.shields.io/badge/NEXT.JS-16-000000?style=for-the-badge&logo=nextdotjs&logoColor=white",
     },
     {
       name: "REACT 19",
       badgeUrl: "https://img.shields.io/badge/REACT-19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB",
     },
     {
-      name: "TYPESCRIPT 5.X",
-      badgeUrl: "https://img.shields.io/badge/TYPESCRIPT-5.X-3178C6?style=for-the-badge&logo=typescript&logoColor=white",
+      name: "TYPESCRIPT 6.X",
+      badgeUrl: "https://img.shields.io/badge/TYPESCRIPT-6.X-3178C6?style=for-the-badge&logo=typescript&logoColor=white",
     },
     {
       name: "TAILWIND 4",
@@ -125,7 +125,7 @@ export default function AboutPage() {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--page)] hover:bg-[var(--page-alt)] text-xs font-bold text-[var(--text)] hover:text-[var(--accent)] transition-all shadow-2xs cursor-pointer"
             >
-              <Github className="w-3.5 h-3.5 opacity-80" />
+              <Icon name="github" size={14} className="opacity-80" />
               <span>GitHub</span>
             </a>
           </div>
@@ -237,7 +237,7 @@ export default function AboutPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 hover:text-[var(--accent)] transition-colors ml-auto"
                   >
-                    <Github className="w-3.5 h-3.5 opacity-70" />
+                    <Icon name="github" size={14} className="opacity-70" />
                     <span>Repo</span>
                   </a>
                 )}

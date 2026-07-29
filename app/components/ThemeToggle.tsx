@@ -30,48 +30,8 @@ export function ThemeToggle() {
 
   const nextTheme = getNextTheme(currentTheme);
 
-  const handleToggle = (e: any) => {
-    if (typeof document === "undefined") {
-      setTheme(nextTheme);
-      return;
-    }
-
-    // 获取按钮中心坐标以产生扩散圈效果
-    const rect = e.currentTarget?.getBoundingClientRect?.() || e.target?.getBoundingClientRect?.();
-    const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
-    const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
-
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    );
-
-    if ("startViewTransition" in document) {
-      const doc = document as any;
-      const transition = doc.startViewTransition(() => {
-        setTheme(nextTheme);
-      });
-
-      transition.ready.then(() => {
-        const clipPath = [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${endRadius}px at ${x}px ${y}px)`,
-        ];
-
-        document.documentElement.animate(
-          {
-            clipPath: clipPath,
-          },
-          {
-            duration: 280,
-            easing: "cubic-bezier(0.2, 0, 0, 1)",
-            pseudoElement: "::view-transition-new(root)",
-          }
-        );
-      });
-    } else {
-      setTheme(nextTheme);
-    }
+  const handleToggle = () => {
+    setTheme(nextTheme);
   };
 
   // 根据 3 档确定描述文案与 Icon
@@ -153,7 +113,7 @@ export function ThemeToggle() {
       isIconOnly
       variant="ghost"
       aria-label={label}
-      onClick={handleToggle as any}
+      onClick={handleToggle}
       className="fly-theme-toggle-btn justify-self-end outline-none focus:outline-none min-w-9 w-9 h-9 p-0 rounded-full"
     >
       <div className="fly-theme-toggle-icon" key={currentTheme}>

@@ -53,51 +53,43 @@ export function LinksClient({ links }: LinksClientProps) {
         </div>
       )}
 
-      {/* 2. 画廊风格高感友链卡片网格 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-        {filteredLinks.map((link) => {
-          let domain = "";
-          try {
-            domain = new URL(link.href).hostname.replace(/^www\./, "");
-          } catch {
-            domain = link.href;
-          }
+      {/* 2. 参照 Github/blog 风格的 4 列居中发光友链卡片网格 */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+        {filteredLinks.map((link) => (
+          <a
+            key={link.title}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-xl bg-[var(--page-alt)]/35 hover:bg-[var(--page-alt)]/75 transition-all duration-300 hover:-translate-y-0.5 shadow-2xs hover:shadow-sm overflow-hidden text-center"
+          >
+            {/* 悬浮微光发光底晕 */}
+            <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+              <div className="absolute left-1/2 top-4 h-16 w-16 -translate-x-1/2 rounded-full bg-[var(--accent)]/12 blur-xl" />
+            </div>
 
-          return (
-            <a
-              key={link.title}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative p-4 sm:p-4.5 rounded-2xl bg-[var(--page-alt)]/50 hover:bg-[var(--page-alt)]/80 transition-colors duration-200 border-0 flex items-start gap-3.5"
-            >
-              {/* 头像 */}
-              <div className="relative shrink-0 w-11 h-11">
-                <img
-                  src={link.avatar}
-                  alt={link.title}
-                  className="w-full h-full rounded-xl object-cover bg-[var(--page)] border border-[var(--line)]/15"
-                />
-              </div>
+            {/* 圆形头像 */}
+            <div className="relative z-10 w-10 h-10 sm:w-11 sm:h-11 shrink-0 mb-2">
+              <img
+                src={link.avatar}
+                alt={link.title}
+                className="w-full h-full rounded-full object-cover bg-[var(--page)] ring-2 ring-[var(--line)]/20 group-hover:ring-[var(--accent)]/40 group-hover:scale-110 transition-all duration-300"
+              />
+            </div>
 
-              {/* 文本区域 */}
-              <div className="flex-1 min-w-0 space-y-1">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-sm text-[var(--text)] group-hover:text-[var(--accent)] transition-colors truncate">
-                    {link.title}
-                  </h3>
-                  <ArrowUpRight className="w-4 h-4 text-[var(--muted)] opacity-40 group-hover:opacity-90 group-hover:text-[var(--accent)] transition-colors shrink-0 ml-1" />
-                </div>
-                <p className="text-xs text-[var(--muted)]/80 line-clamp-1 font-medium">
-                  {link.description || "暂无描述"}
-                </p>
-                <div className="text-[0.7rem] font-mono text-[var(--muted)]/50 truncate pt-0.5">
-                  {domain}
-                </div>
-              </div>
-            </a>
-          );
-        })}
+            {/* 标题 */}
+            <span className="relative z-10 text-[13px] sm:text-sm font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">
+              {link.title}
+            </span>
+
+            {/* 描述 */}
+            {link.description && (
+              <span className="relative z-10 text-[11px] text-[var(--muted)] line-clamp-1 mt-0.5 text-center">
+                {link.description}
+              </span>
+            )}
+          </a>
+        ))}
       </div>
 
       {/* 3. 底部“申请互换友链”轻量面板 (默认隐藏详细参数代码) */}

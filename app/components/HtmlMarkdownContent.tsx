@@ -161,5 +161,3 @@ export function HtmlMarkdownContent({ html }: { html: string }) {
     />
   );
 }
-
-export default HtmlMarkdownContent;

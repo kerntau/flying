@@ -36,8 +36,8 @@ export function SearchDialog() {
   return (
     <Dialog.Root open={searchOpen} onOpenChange={setSearchOpen}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200" />
-        <Dialog.Content className="fixed top-[15%] left-[50%] z-50 w-[90vw] max-w-2xl translate-x-[-50%] rounded-2xl bg-[var(--page)] p-6 shadow-2xl border border-[var(--line)] animate-in zoom-in-95 duration-200 focus:outline-none">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md transition-opacity animate-in fade-in duration-300" />
+        <Dialog.Content className="fixed top-[15%] left-[50%] z-50 w-[90vw] max-w-2xl translate-x-[-50%] rounded-2xl glass-panel p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] focus:outline-none">
           <Command shouldFilter label="搜索文章">
             <div className="flex items-center gap-3 border-b border-[var(--line)] pb-4">
               <Icon name="search" size={20} className="text-[var(--muted)]" />

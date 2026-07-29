@@ -1,27 +1,90 @@
-import React from "react";
+"use client";
+
+import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 import type { Post } from "@/lib/types";
+import { gsap } from "@/lib/gsap";
 
 interface PostCardProps {
   post: Post;
 }
 
 export function PostCard({ post }: PostCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const coverRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const cardEl = cardRef.current;
+    const coverEl = coverRef.current;
+    if (!cardEl || typeof window === "undefined") return;
+
+    // GSAP Hover 监听与弹性物理回弹
+    const onMouseEnter = () => {
+      gsap.to(cardEl, {
+        y: -4,
+        duration: 0.35,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+      if (coverEl) {
+        gsap.to(coverEl, {
+          scale: 1.03,
+          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08)",
+          duration: 0.35,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      }
+    };
+
+    const onMouseLeave = () => {
+      gsap.to(cardEl, {
+        y: 0,
+        duration: 0.45,
+        ease: "back.out(1.4)",
+        overwrite: "auto",
+      });
+      if (coverEl) {
+        gsap.to(coverEl, {
+          scale: 1,
+          boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+          duration: 0.45,
+          ease: "back.out(1.4)",
+          overwrite: "auto",
+        });
+      }
+    };
+
+    cardEl.addEventListener("mouseenter", onMouseEnter);
+    cardEl.addEventListener("mouseleave", onMouseLeave);
+
+    return () => {
+      cardEl.removeEventListener("mouseenter", onMouseEnter);
+      cardEl.removeEventListener("mouseleave", onMouseLeave);
+    };
+  }, []);
+
   const formattedDate = post.pubDate
     ? format(new Date(post.pubDate), "yyyy年MM月dd日", { locale: zhCN })
     : "";
 
   return (
-    <article className="fly-post-card group flex flex-col h-full min-w-0 bg-transparent">
-      {/* 16:10 封面图框 (图片左下角带玻璃分类 Pill，与首页全卡片 100% 尺寸一致) */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg sm:rounded-xl bg-[var(--page-alt)] shadow-xs transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md shrink-0">
+    <article
+      ref={cardRef}
+      className="fly-post-card group flex flex-col h-full min-w-0 bg-transparent gsap-fade-item"
+    >
+      {/* 16:10 封面图框 (带 GSAP 阻尼与微弹平移) */}
+      <div
+        ref={coverRef}
+        className="relative aspect-[16/10] w-full overflow-hidden rounded-lg sm:rounded-xl bg-[var(--page-alt)] shadow-xs active:scale-[0.98] shrink-0 transform-gpu"
+      >
         <Link href={`/posts/${post.slug}/`} className="block w-full h-full" aria-label={`阅读：${post.title}`}>
           <img
             src={post.cover ? (post.cover.includes("?") ? post.cover : `${post.cover}?v=4`) : "/assets/images/fallback-cover.svg"}
             alt={post.title}
-            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105"
             loading="lazy"
           />
         </Link>
@@ -36,14 +99,13 @@ export function PostCard({ post }: PostCardProps) {
 
       {/* 下方正文：文章标题 (统一 2 行固定高度) + 底部置底对齐的日期/标签 */}
       <div className="flex flex-col flex-1 justify-between pt-1.5 sm:pt-2 min-w-0">
-        {/* 文章标题 (桌面端固定 2 行空间，移动端紧凑对齐) */}
+        {/* 文章标题 */}
         <h2 className="text-xs sm:text-sm font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-[1.35] sm:min-h-[2.7em] min-h-0 group-hover:text-[var(--accent)] transition-colors">
           <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
         </h2>
 
-        {/* 底部元数据：文章标签 (时间左侧) + 日期 (mt-auto 强制底部对齐) */}
+        {/* 底部元数据：文章标签 + 日期 */}
         <div className="flex items-center gap-1 text-[10px] sm:text-[11px] text-[var(--mute)] pt-1 sm:pt-1.5 mt-auto whitespace-nowrap overflow-hidden min-w-0">
-          {/* 标签 (时间左侧) */}
           {post.tags && post.tags.length > 0 && (
             <div className="flex items-center gap-1 overflow-hidden min-w-0 shrink">
               {post.tags.slice(0, 2).map((tag, index) => (
@@ -64,7 +126,6 @@ export function PostCard({ post }: PostCardProps) {
             <span className="text-[var(--mute)] opacity-60 shrink-0">•</span>
           )}
 
-          {/* 发布时间 - 不压缩完整展示 */}
           {formattedDate && (
             <time dateTime={post.pubDate} className="whitespace-nowrap shrink-0">
               {formattedDate}

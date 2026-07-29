@@ -3,118 +3,118 @@
   <channel>
     <title><![CDATA[序栈]]></title>
     <description><![CDATA[用理性梳理日常，用技术温柔时光，不慌不忙，自在生长。]]></description>
-    <link>https://blog.cot.wiki</link>
-    <atom:link href="https://blog.cot.wiki/rss.xml" rel="self" type="application/rss+xml"/>
+    <link>https://curn.me</link>
+    <atom:link href="https://curn.me/rss.xml" rel="self" type="application/rss+xml"/>
     <language>zh-CN</language>
     <lastBuildDate>Sun, 08 Mar 2026 12:19:25 GMT</lastBuildDate>
     <item>
       <title><![CDATA[2026 国内外 AI 大模型发展态势深度分析]]></title>
-      <link>https://blog.cot.wiki/posts/ai-analysis-2026/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/ai-analysis-2026/</guid>
+      <link>https://curn.me/posts/ai-analysis-2026/</link>
+      <guid isPermaLink="true">https://curn.me/posts/ai-analysis-2026/</guid>
       <description><![CDATA[GPT-4o/Claude/Gemini vs DeepSeek/通义/文心/Kimi，技术路线、开源生态、应用落地与未来趋势全景对比]]></description>
       <pubDate>Sat, 07 Feb 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[人工智能]]></category>
     </item>
     <item>
       <title><![CDATA[动态规划从入门到精通 — 核心思想与经典问题]]></title>
-      <link>https://blog.cot.wiki/posts/dynamic-programming-guide/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/dynamic-programming-guide/</guid>
+      <link>https://curn.me/posts/dynamic-programming-guide/</link>
+      <guid isPermaLink="true">https://curn.me/posts/dynamic-programming-guide/</guid>
       <description><![CDATA[DP三要素与四步解题法，0-1背包、LCS、编辑距离、LIS经典问题详解与代码实现]]></description>
       <pubDate>Sat, 07 Feb 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[算法详解]]></category>
     </item>
     <item>
       <title><![CDATA[图算法全景解析 — 从遍历到最短路径与生成树]]></title>
-      <link>https://blog.cot.wiki/posts/graph-algorithms/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/graph-algorithms/</guid>
+      <link>https://curn.me/posts/graph-algorithms/</link>
+      <guid isPermaLink="true">https://curn.me/posts/graph-algorithms/</guid>
       <description><![CDATA[BFS/DFS遍历、Dijkstra/Floyd最短路径、Prim/Kruskal最小生成树、拓扑排序完整解析]]></description>
       <pubDate>Sat, 07 Feb 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[算法详解]]></category>
     </item>
     <item>
       <title><![CDATA[十大排序算法性能深度对比]]></title>
-      <link>https://blog.cot.wiki/posts/sorting-algorithms-comparison/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/sorting-algorithms-comparison/</guid>
+      <link>https://curn.me/posts/sorting-algorithms-comparison/</link>
+      <guid isPermaLink="true">https://curn.me/posts/sorting-algorithms-comparison/</guid>
       <description><![CDATA[冒泡、选择、插入、希尔、快排、归并、堆排、计数、桶、基数排序的原理、复杂度与稳定性全面对比分析]]></description>
       <pubDate>Sat, 07 Feb 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[算法详解]]></category>
     </item>
     <item>
       <title><![CDATA[Windows 后渗透 — Mimikatz 密码提取、黄金/白银票据攻击]]></title>
-      <link>https://blog.cot.wiki/posts/windows-post-exploitation/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/windows-post-exploitation/</guid>
+      <link>https://curn.me/posts/windows-post-exploitation/</link>
+      <guid isPermaLink="true">https://curn.me/posts/windows-post-exploitation/</guid>
       <description><![CDATA[Mimikatz凭据提取全模块实战，黄金票据与白银票据攻击完整流程，DCSync与持久化后门]]></description>
       <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[渗透测试]]></category>
     </item>
     <item>
       <title><![CDATA[域渗透基础 — AD 域环境攻击与横向移动]]></title>
-      <link>https://blog.cot.wiki/posts/domain-exploitation-basics/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/domain-exploitation-basics/</guid>
+      <link>https://curn.me/posts/domain-exploitation-basics/</link>
+      <guid isPermaLink="true">https://curn.me/posts/domain-exploitation-basics/</guid>
       <description><![CDATA[Active Directory域渗透入门，BloodHound攻击路径分析、Kerberos攻击与横向移动技术实战]]></description>
       <pubDate>Mon, 19 Jan 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[渗透测试]]></category>
     </item>
     <item>
       <title><![CDATA[Windows 提权技术 — UAC 绕过、令牌窃取、服务路径劫持]]></title>
-      <link>https://blog.cot.wiki/posts/windows-privilege-escalation/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/windows-privilege-escalation/</guid>
+      <link>https://curn.me/posts/windows-privilege-escalation/</link>
+      <guid isPermaLink="true">https://curn.me/posts/windows-privilege-escalation/</guid>
       <description><![CDATA[Windows提权技术全景，UAC绕过、Potato系列令牌窃取、服务路径劫持与WinPEAS自动化枚举]]></description>
       <pubDate>Sun, 18 Jan 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[渗透测试]]></category>
     </item>
     <item>
       <title><![CDATA[Windows 服务与端口攻击面 — SMB、RDP、WinRM 利用]]></title>
-      <link>https://blog.cot.wiki/posts/windows-service-exploitation/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/windows-service-exploitation/</guid>
+      <link>https://curn.me/posts/windows-service-exploitation/</link>
+      <guid isPermaLink="true">https://curn.me/posts/windows-service-exploitation/</guid>
       <description><![CDATA[Windows服务攻击实战，永恒之蓝利用、NTLM中继、RDP暴力破解、WinRM远程执行与MSSQL攻击]]></description>
       <pubDate>Sat, 17 Jan 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[渗透测试]]></category>
     </item>
     <item>
       <title><![CDATA[Windows 渗透测试环境搭建与信息收集]]></title>
-      <link>https://blog.cot.wiki/posts/windows-pentest-setup/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/windows-pentest-setup/</guid>
+      <link>https://curn.me/posts/windows-pentest-setup/</link>
+      <guid isPermaLink="true">https://curn.me/posts/windows-pentest-setup/</guid>
       <description><![CDATA[Windows渗透测试靶机环境搭建，SMB/LDAP/RPC枚举技术与Nmap NSE脚本实战]]></description>
       <pubDate>Fri, 16 Jan 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[渗透测试]]></category>
     </item>
     <item>
       <title><![CDATA[Metasploit 框架深度实战 — 从扫描到 getshell]]></title>
-      <link>https://blog.cot.wiki/posts/metasploit-deep-dive/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/metasploit-deep-dive/</guid>
+      <link>https://curn.me/posts/metasploit-deep-dive/</link>
+      <guid isPermaLink="true">https://curn.me/posts/metasploit-deep-dive/</guid>
       <description><![CDATA[Metasploit完整实战教程，模块架构解析、EternalBlue利用全过程、Meterpreter与MSFvenom]]></description>
       <pubDate>Thu, 15 Jan 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[渗透测试]]></category>
     </item>
     <item>
       <title><![CDATA[Linux 后渗透与持久化 — 反弹 Shell、SSH 隧道、Rootkit]]></title>
-      <link>https://blog.cot.wiki/posts/linux-post-exploitation/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/linux-post-exploitation/</guid>
+      <link>https://curn.me/posts/linux-post-exploitation/</link>
+      <guid isPermaLink="true">https://curn.me/posts/linux-post-exploitation/</guid>
       <description><![CDATA[反弹Shell技术大全、SSH隧道三种模式实战、多种持久化后门部署与痕迹清理技术]]></description>
       <pubDate>Wed, 14 Jan 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[渗透测试]]></category>
     </item>
     <item>
       <title><![CDATA[提权技术详解 — SUID、内核漏洞、Cron 定时任务利用]]></title>
-      <link>https://blog.cot.wiki/posts/linux-privilege-escalation/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/linux-privilege-escalation/</guid>
+      <link>https://curn.me/posts/linux-privilege-escalation/</link>
+      <guid isPermaLink="true">https://curn.me/posts/linux-privilege-escalation/</guid>
       <description><![CDATA[Linux提权技术全面解析，SUID/SGID利用、内核漏洞提权、Cron任务劫持与LinPEAS自动化枚举]]></description>
       <pubDate>Tue, 13 Jan 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[渗透测试]]></category>
     </item>
     <item>
       <title><![CDATA[Linux 服务漏洞利用 — SSH、FTP、Samba、Apache 攻击面]]></title>
-      <link>https://blog.cot.wiki/posts/linux-service-exploitation/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/linux-service-exploitation/</guid>
+      <link>https://curn.me/posts/linux-service-exploitation/</link>
+      <guid isPermaLink="true">https://curn.me/posts/linux-service-exploitation/</guid>
       <description><![CDATA[Linux常见服务攻击面分析，SSH暴力破解、FTP匿名访问、Samba漏洞利用与Apache攻击实战]]></description>
       <pubDate>Mon, 12 Jan 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[渗透测试]]></category>
     </item>
     <item>
       <title><![CDATA[信息收集与目标侦察 — Nmap、Recon-ng、OSINT 技术]]></title>
-      <link>https://blog.cot.wiki/posts/recon-techniques/</link>
-      <guid isPermaLink="true">https://blog.cot.wiki/posts/recon-techniques/</guid>
+      <link>https://curn.me/posts/recon-techniques/</link>
+      <guid isPermaLink="true">https://curn.me/posts/recon-techniques/</guid>
       <description><![CDATA[渗透测试信息收集方法论，Nmap扫描技术大全、被动侦察工具链与子域名枚举实战]]></description>
       <pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate>
       <category><![CDATA[渗透测试]]></category>

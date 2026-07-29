@@ -32,7 +32,6 @@ import {
   Search,
   FileText,
   Tag,
-  Github,
 } from "lucide-react";
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
@@ -85,7 +84,11 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
         </svg>
       );
     case "github":
-      return <Github {...iconProps} />;
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" className={className} {...props}>
+          <path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.54 1.06 1.54 1.06.9 1.57 2.35 1.12 2.92.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05A9.25 9.25 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.59.69.49A10.24 10.24 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z" />
+        </svg>
+      );
     case "x-social":
     case "twitter":
       return (
@@ -147,6 +150,9 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
       return <PanelLeftClose {...iconProps} />;
     case "panel-left-open":
       return <PanelLeftOpen {...iconProps} />;
+    case "moments":
+    case "log":
+    case "logs":
     case "message-square":
     case "chat":
       return <MessageSquare {...iconProps} />;

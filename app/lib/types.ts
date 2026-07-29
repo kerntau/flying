@@ -43,11 +43,12 @@ export interface Link {
   group: string;
 }
 
-export interface SiteConfig {
-  title: string;
-  subtitle: string;
-  description: string;
-  url: string;
+export interface GitCommit {
+  hash: string;
+  abbrevHash: string;
   author: string;
-  logo: string;
+  date: string;
+  subject: string;
+  body?: string;
+  type?: string;
 }

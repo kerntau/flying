@@ -17,6 +17,7 @@ export const navigation = [
   { label: "归档", href: "/archives/", icon: "archive" },
   { label: "分类", href: "/categories/", icon: "folder" },
   { label: "标签", href: "/tags/", icon: "hash" },
+  { label: "日志", href: "/moments/", icon: "log" },
   { label: "图库", href: "/photos/", icon: "image" },
   { label: "友链", href: "/links/", icon: "link" },
   { label: "关于", href: "/about/", icon: "user" },

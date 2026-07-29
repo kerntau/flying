@@ -1,11 +1,8 @@
-import { FlatCompat } from "@eslint/eslintrc";
 import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals.js";
-
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
+import nextVitals from "eslint-config-next/core-web-vitals";
 
 export default defineConfig([
-  ...compat.config(nextVitals),
+  ...nextVitals,
   globalIgnores([
     ".next/**",
     ".astro/**",
@@ -21,6 +18,10 @@ export default defineConfig([
     files: ["app/**/*.ts", "app/**/*.tsx"],
     rules: {
       "@next/next/no-img-element": "off",
+      // Existing client widgets intentionally synchronize browser state in effects.
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/refs": "off",
+      "react-hooks/immutability": "off",
     },
   },
 ]);

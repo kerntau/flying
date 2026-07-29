@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Github } from "lucide-react";
+import { Icon } from "./Icon";
 import { site } from "@/data/site";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
@@ -101,7 +101,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-[var(--page-alt)] hover:bg-[var(--line)]/40 text-[var(--text)] transition-all border border-[var(--line)] shadow-2xs group"
             >
-              <Github className="w-3.5 h-3.5 opacity-75 group-hover:opacity-100 transition-opacity shrink-0" />
+              <Icon name="github" size={14} className="opacity-75 group-hover:opacity-100 transition-opacity shrink-0" />
               <span>Theme Flying</span>
             </a>
           </div>
@@ -170,7 +170,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[var(--page-alt)] hover:bg-[var(--line)]/40 text-[var(--text)] transition-all border border-[var(--line)] shadow-2xs hover:shadow-xs group"
               >
-                <Github className="w-3.5 h-3.5 opacity-75 group-hover:opacity-100 transition-opacity shrink-0" />
+                <Icon name="github" size={14} className="opacity-75 group-hover:opacity-100 transition-opacity shrink-0" />
                 <span>Theme Flying</span>
               </a>
             </TooltipTrigger>

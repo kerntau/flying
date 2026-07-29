@@ -28,74 +28,76 @@ export default function CategoriesPage() {
   });
 
   return (
-    <div className="fly-categories-page w-full max-w-6xl lg:max-w-[1240px] mx-auto space-y-4 sm:space-y-5 py-1 pb-8 transition-all duration-350 select-none">
-      {/* 大气清爽 Header */}
-      <header className="flex items-center justify-between border-b border-[var(--line)]/20 pb-4">
-        {/* 左侧：标准清爽中文大标题 */}
-        <div className="flex items-center gap-3">
-          <Layers className="w-6 h-6 text-[var(--accent)] opacity-80" />
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-[var(--text)]">
+    <div className="fly-categories-page w-full max-w-6xl lg:max-w-[1240px] mx-auto space-y-3.5 sm:space-y-4 py-0.5 pb-8 transition-all duration-350 select-none">
+      {/* 顶部 Header */}
+      <header className="flex items-center justify-between border-b border-[var(--line)]/20 pb-3">
+        {/* 左侧大标题 */}
+        <div className="flex items-center gap-2.5">
+          <Layers className="w-5 h-5 text-[var(--accent)] opacity-85" />
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--text)]">
             全部分类
           </h1>
         </div>
 
-        {/* 右侧：统计概览轻标 */}
-        <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[var(--muted)] font-mono">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span>{categories.length} 个主题领域</span>
+        {/* 右侧统计 */}
+        <div className="flex items-center gap-2 text-xs font-mono text-[var(--muted)]">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span>{categories.length} 个主题</span>
           <span>·</span>
-          <span>{allPosts.length} 篇文章</span>
+          <span>{allPosts.length} 篇</span>
         </div>
       </header>
 
-      {/* 舒展大气画廊风分类卡片网格 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-7">
+      {/* 轻量紧凑分类卡片网格 */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
         {categoriesWithPosts.map((cat) => (
           <div
             key={cat.slug}
-            className="group relative flex flex-col justify-between bg-[var(--page-alt)]/50 hover:bg-[var(--page-alt)]/85 rounded-2xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 shadow-2xs hover:shadow-md border-0 overflow-hidden"
+            className="group relative flex flex-col justify-between bg-[var(--page-alt)]/35 hover:bg-[var(--page-alt)]/70 rounded-xl p-4 sm:p-4.5 transition-all duration-300 shadow-2xs overflow-hidden"
           >
             <div>
-              {/* 卡片头部：序号 + 分类大标题 + 篇数 Badge */}
-              <div className="flex items-center justify-between gap-3 mb-4">
-                <div className="flex items-center gap-3 min-w-0">
-                  {/* 标准数字序号 */}
-                  <span className="text-xs font-mono font-bold text-[var(--muted)]/70 bg-[var(--page)] px-2 py-0.5 rounded-md border-0 shrink-0">
+              {/* 卡片头部：序号 + 分类标题 + 篇数 Badge */}
+              <div className="flex items-center justify-between gap-2.5 mb-2.5">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span className="text-[10px] font-mono font-bold text-[var(--accent)] bg-[var(--accent)]/10 px-1.5 py-0.5 rounded">
                     {cat.indexNumber}
                   </span>
                   <Link
                     href={`/categories/${encodeURIComponent(cat.slug)}/`}
-                    className="flex items-center gap-2 text-lg sm:text-xl font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors truncate"
+                    className="flex items-center gap-2 text-base sm:text-lg font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors truncate"
                   >
-                    <Folder className="w-5 h-5 text-blue-500 opacity-85 shrink-0" />
+                    <Folder className="w-4 h-4 text-blue-500 opacity-85 shrink-0" />
                     <span className="truncate">{cat.name}</span>
                   </Link>
                 </div>
 
-                {/* 篇数 Badge (无边框纯净底块) */}
+                {/* 篇数 Badge */}
                 <Link
                   href={`/categories/${encodeURIComponent(cat.slug)}/`}
-                  className="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-[var(--page)] text-[var(--muted)] group-hover:text-[var(--accent)] transition-colors shrink-0 shadow-2xs border-0"
+                  className="px-2 py-0.5 rounded-md text-xs font-mono font-medium bg-[var(--page)]/80 text-[var(--muted)] group-hover:text-[var(--accent)] transition-colors shrink-0"
                 >
                   {cat.count} 篇
                 </Link>
               </div>
 
-              {/* 卡片中部：近期文章单行微预览 */}
+              {/* 卡片中部：文章列表预览 (精致紧凑行) */}
               {cat.recentPosts.length > 0 && (
-                <div className="space-y-2.5 my-4 border-t border-[var(--line)]/15 pt-3.5">
+                <div className="space-y-1 my-2.5 border-t border-[var(--line)]/10 pt-2">
                   {cat.recentPosts.map((post) => {
                     const dateStr = post.pubDate ? format(new Date(post.pubDate), "MM-dd") : "01-01";
                     return (
                       <Link
                         key={post.slug}
                         href={`/posts/${post.slug}/`}
-                        className="flex items-center justify-between gap-3 py-1 text-xs sm:text-sm text-[var(--muted)] hover:text-[var(--text)] group/item transition-colors"
+                        className="flex items-center justify-between gap-2.5 py-1 px-1.5 rounded-md hover:bg-[var(--page)]/70 text-xs text-[var(--muted)] hover:text-[var(--text)] group/item transition-colors"
                       >
-                        <span className="truncate flex-1 font-medium group-hover/item:translate-x-1 transition-transform">
-                          {post.title}
-                        </span>
-                        <time className="shrink-0 font-mono text-[var(--muted)]/70 text-xs">
+                        <div className="flex items-center gap-2 min-w-0 flex-1">
+                          <span className="w-1 h-1 rounded-full bg-[var(--muted)]/40 group-hover/item:bg-[var(--accent)] transition-colors shrink-0" />
+                          <span className="truncate font-medium group-hover/item:translate-x-0.5 transition-transform">
+                            {post.title}
+                          </span>
+                        </div>
+                        <time className="shrink-0 font-mono text-[11px] opacity-70">
                           {dateStr}
                         </time>
                       </Link>
@@ -105,15 +107,15 @@ export default function CategoriesPage() {
               )}
             </div>
 
-            {/* 卡片底部：查看全部入口 */}
-            <div className="pt-3.5 border-t border-[var(--line)]/15 flex items-center justify-between text-xs sm:text-sm font-semibold text-[var(--muted)] group-hover:text-[var(--accent)] transition-colors">
-              <span>共 {cat.count} 篇文章</span>
+            {/* 卡片底部：共 X 篇 & 进入领域 */}
+            <div className="pt-2.5 border-t border-[var(--line)]/10 flex items-center justify-between text-xs text-[var(--muted)] group-hover:text-[var(--text)] transition-colors">
+              <span className="font-mono text-[11px]">共 {cat.count} 篇文章</span>
               <Link
                 href={`/categories/${encodeURIComponent(cat.slug)}/`}
-                className="inline-flex items-center gap-1.5 group-hover:translate-x-1 transition-transform"
+                className="inline-flex items-center gap-1 font-medium text-[var(--muted)] group-hover:text-[var(--accent)] group-hover:translate-x-0.5 transition-all"
               >
                 <span>进入领域</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>

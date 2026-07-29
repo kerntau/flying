@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import "@/globals.css";
 import { site } from "@/data/site";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -64,31 +65,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           src="https://cloud.umami.is/script.js"
           data-website-id="49070c80-b77d-4bab-a6c8-25585348aad1"
         />
-        {/* Google Analytics (gtag.js) 统计分析 */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-Q3E0H4KPD3"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-Q3E0H4KPD3');
-            `,
-          }}
-        />
-        {/* Google Tag Manager (head) */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5SBML8SP');`,
-          }}
-        />
         {/* Microsoft Clarity 用户行为热力图分析 */}
         <script
           dangerouslySetInnerHTML={{
@@ -101,6 +77,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       </head>
       <body>
+        <GoogleTagManager gtmId="GTM-5SBML8SP" />
         {/* Google Tag Manager (noscript body) */}
         <noscript>
           <iframe
@@ -117,6 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </TooltipProvider>
           </UIProvider>
         </ThemeProvider>
+        <GoogleAnalytics gaId="G-Q3E0H4KPD3" />
       </body>
     </html>
   );

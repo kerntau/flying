@@ -113,7 +113,7 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                           <img
                             src="/assets/images/avatar.png"
                             alt={post.author || "Kerntau"}
-                            className="w-6.5 h-6.5 rounded-full object-cover border border-[var(--line)] shadow-2xs"
+                            className="w-9 h-9 rounded-full object-cover border-2 border-[var(--page)] shadow-sm"
                           />
                         </div>
 

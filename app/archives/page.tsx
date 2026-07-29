@@ -22,92 +22,91 @@ export default function ArchivesPage() {
   const years = Object.keys(groups).sort((a, b) => (a > b ? -1 : 1));
 
   return (
-    <div className="fly-archives-page w-full max-w-5xl mx-auto space-y-8 sm:space-y-10 transition-all duration-350">
-      {/* 顶部 Hero 统计 Banner */}
-      <header className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--page-alt)] via-[var(--page)] to-[var(--page-alt)] p-6 sm:p-8 border border-[var(--line)] shadow-xs">
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[var(--accent)]/10 text-[var(--accent)]">
-              <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
-              TIMELINE ARCHIVES
-            </div>
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-[var(--text)]">
-              文章归档
-            </h1>
-            <p className="text-xs sm:text-sm text-[var(--muted)] max-w-xl">
-              记录思考的痕迹，按时间轴整理全站的技术探索、攻防研究与知识沉淀。
-            </p>
+    <div className="fly-archives-page w-full space-y-12 transition-all duration-350 pb-16">
+      {/* 顶部超大排版 Hero 区 */}
+      <header className="relative flex flex-col items-center justify-center py-20 overflow-hidden rounded-3xl bg-[var(--page-alt)] border border-[var(--line)]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[var(--accent)]/10 via-transparent to-transparent opacity-60"></div>
+        <div className="relative z-10 flex flex-col items-center text-center space-y-4 px-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase bg-[var(--page)] text-[var(--text)] border border-[var(--line)] shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+            Timeline Archives
           </div>
-
-          {/* 三大关键统计 Card */}
-          <div className="grid grid-cols-3 gap-3 sm:gap-4 shrink-0">
-            <div className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl bg-[var(--page)]/80 backdrop-blur-md border border-[var(--line)] shadow-xs">
-              <span className="text-xl sm:text-2xl font-black text-[var(--accent)]">{posts.length}</span>
-              <span className="text-[10px] sm:text-xs text-[var(--mute)] font-medium">总文章数</span>
-            </div>
-            <div className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl bg-[var(--page)]/80 backdrop-blur-md border border-[var(--line)] shadow-xs">
-              <span className="text-xl sm:text-2xl font-black text-[var(--accent)]">{years.length}</span>
-              <span className="text-[10px] sm:text-xs text-[var(--mute)] font-medium">涵盖年份</span>
-            </div>
-            <div className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl bg-[var(--page)]/80 backdrop-blur-md border border-[var(--line)] shadow-xs">
-              <span className="text-xl sm:text-2xl font-black text-[var(--accent)]">{categories.length}</span>
-              <span className="text-[10px] sm:text-xs text-[var(--mute)] font-medium">主题分类</span>
-            </div>
-          </div>
+          <h1 className="text-5xl sm:text-7xl font-black tracking-tighter text-[var(--text)]">
+            归档与沉淀
+          </h1>
+          <p className="text-sm sm:text-base font-medium text-[var(--muted)] max-w-xl">
+            在这里，时间被量化为 {posts.length} 篇文字与 {categories.length} 个技术切面。<br/>
+            记录每一次思考的深度与广度。
+          </p>
+        </div>
+        
+        {/* 背景大字 */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15rem] font-black tracking-tighter text-[var(--line)] opacity-20 pointer-events-none select-none mix-blend-overlay">
+          ARCHIVES
         </div>
       </header>
 
-      {/* 时间轴主体 */}
-      <div className="space-y-12 pl-2 sm:pl-4">
+      {/* 动态时间轴流 */}
+      <div className="space-y-20 max-w-4xl mx-auto px-4 sm:px-0">
         {years.map((year) => (
-          <section key={year} className="relative pl-6 sm:pl-8 border-l-2 border-[var(--line)]">
-            {/* 年份 Node 标记 */}
-            <div className="absolute -left-[17px] top-0 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[var(--accent)] text-white flex items-center justify-center font-bold text-xs shadow-md shadow-[var(--accent)]/30 ring-4 ring-[var(--page)]">
-                {year.slice(2)}
+          <section key={year} className="relative flex flex-col md:flex-row gap-8 md:gap-16 items-start group">
+            {/* 年份标记 (Sticky) */}
+            <div className="md:w-32 shrink-0 md:sticky top-28 z-10">
+              <div className="flex flex-col">
+                <span className="text-5xl md:text-6xl font-black tracking-tighter text-[var(--text)] group-hover:text-[var(--accent)] transition-colors duration-500">
+                  {year}
+                </span>
+                <span className="text-sm font-bold text-[var(--muted)] mt-1 uppercase tracking-wider">
+                  {groups[year].length} Posts
+                </span>
               </div>
-              <span className="text-xl sm:text-2xl font-black tracking-tight text-[var(--text)]">
-                {year} <span className="text-xs font-normal text-[var(--mute)]">({groups[year].length} 篇)</span>
-              </span>
+              <div className="hidden md:block w-full h-[1px] bg-[var(--line)] mt-6"></div>
             </div>
 
-            {/* 文章列表卡片 */}
-            <div className="pt-10 space-y-3.5">
+            {/* 文章列表 */}
+            <div className="flex-1 w-full space-y-4">
               {groups[year].map((post) => (
                 <article
                   key={post.slug}
-                  className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-xl bg-[var(--page)] border border-[var(--line)] hover:border-[var(--accent)]/40 shadow-2xs hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
+                  className="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-[var(--page)] border border-[var(--line)] hover:border-[var(--accent)]/50 shadow-sm hover:shadow-xl hover:shadow-[var(--accent)]/5 transition-all duration-500 hover:-translate-y-1 overflow-hidden group/card"
                 >
-                  <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--accent)] scale-y-0 group-hover/card:scale-y-100 transition-transform duration-500 origin-top"></div>
+                  
+                  <div className="flex items-center gap-5 min-w-0 flex-1">
                     {/* 微缩封面 */}
                     {post.cover && (
-                      <div className="hidden sm:block w-16 h-11 rounded-lg overflow-hidden shrink-0 bg-[var(--page-alt)] border border-[var(--line)]">
+                      <Link href={`/posts/${post.slug}/`} className="hidden sm:block w-24 h-16 rounded-xl overflow-hidden shrink-0 bg-[var(--page-alt)] border border-[var(--line)] z-10">
                         <img
                           src={post.cover}
                           alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-700 ease-out"
                           loading="lazy"
                         />
-                      </div>
+                      </Link>
                     )}
 
-                    <div className="min-w-0 space-y-1">
+                    <div className="min-w-0 space-y-1.5 flex-1 z-10">
                       <Link
                         href={`/posts/${post.slug}/`}
-                        className="font-bold text-sm sm:text-base text-[var(--text)] group-hover:text-[var(--accent)] transition-colors line-clamp-1"
+                        className="block font-bold text-base sm:text-lg text-[var(--text)] group-hover/card:text-[var(--accent)] transition-colors line-clamp-1 truncate"
                       >
                         {post.title}
                       </Link>
 
-                      <div className="flex items-center gap-2 text-xs text-[var(--mute)]">
+                      <div className="flex items-center gap-3 text-xs font-semibold text-[var(--mute)]">
                         {post.category && (
-                          <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-[var(--page-alt)] text-[var(--muted)]">
+                          <span className="text-[var(--muted)] hover:text-[var(--text)] transition-colors">
                             {post.category}
                           </span>
                         )}
+                        {post.category && post.tags && post.tags.length > 0 && (
+                          <span className="w-1 h-1 rounded-full bg-[var(--line)]"></span>
+                        )}
                         {post.tags && post.tags.length > 0 && (
-                          <span className="hidden md:inline text-[11px]">
-                            #{post.tags[0]}
+                          <span className="flex gap-1.5">
+                            {post.tags.slice(0, 2).map(tag => (
+                              <span key={tag}>#{tag}</span>
+                            ))}
                           </span>
                         )}
                       </div>
@@ -115,9 +114,15 @@ export default function ArchivesPage() {
                   </div>
 
                   {/* 发布日期 */}
-                  <time className="text-xs font-mono text-[var(--mute)] shrink-0 self-end sm:self-center">
-                    {format(new Date(post.pubDate), "MM月dd日", { locale: zhCN })}
-                  </time>
+                  <div className="shrink-0 flex items-center justify-between sm:justify-end gap-4 mt-2 sm:mt-0 z-10">
+                    <time className="text-sm font-mono font-bold text-[var(--muted)] bg-[var(--page-alt)] px-3 py-1.5 rounded-lg border border-[var(--line)]">
+                      {format(new Date(post.pubDate), "MM-dd")}
+                    </time>
+                    {/* Mobile Only View Button */}
+                    <Link href={`/posts/${post.slug}/`} className="sm:hidden text-xs font-bold text-[var(--accent)]">
+                      Read →
+                    </Link>
+                  </div>
                 </article>
               ))}
             </div>
@@ -127,3 +132,4 @@ export default function ArchivesPage() {
     </div>
   );
 }
+

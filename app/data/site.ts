@@ -31,7 +31,7 @@ export const socialLinks = [
   {
     label: "X (Twitter)",
     href: "https://x.com/Kerntao",
-    icon: "x",
+    icon: "x-social",
   },
   {
     label: "微软邮箱",

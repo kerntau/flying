@@ -86,7 +86,7 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
       );
     case "github":
       return <Github {...iconProps} />;
-    case "x":
+    case "x-social":
     case "twitter":
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" className={className} {...props}>
@@ -122,6 +122,7 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
       return <Moon {...iconProps} />;
     case "sun":
       return <Sun {...iconProps} />;
+    case "x":
     case "close":
       return <X {...iconProps} />;
     case "share":

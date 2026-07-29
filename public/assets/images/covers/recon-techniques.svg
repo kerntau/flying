@@ -37,7 +37,7 @@
 
   <!-- 主题构图图腾 -->
   
-        <g transform="translate(630, 100) scale(1.4)" opacity="0.85">
+        <g transform="translate(770, 150)" opacity="0.85">
           <circle cx="150" cy="150" r="130" fill="none" stroke="#0D9488" stroke-width="2" opacity="0.3" />
           <circle cx="150" cy="150" r="85" fill="none" stroke="#0D9488" stroke-width="2" opacity="0.5" />
           <path d="M 150 150 L 260 70 A 130 130 0 0 0 150 20 Z" fill="#0D9488" opacity="0.15" />
@@ -51,17 +51,28 @@
   <!-- 极简渐变底边线条 -->
   <rect x="90" y="540" width="1020" height="2" fill="url(#accentGrad_recon_techniques)" opacity="0.35" rx="1" />
 
-  <!-- 极简 Pill 领域标签 -->
-  <g transform="translate(95, 100)">
-    <rect x="0" y="0" width="314" height="36" rx="18" fill="#CCFBF1" opacity="0.95" />
-    <text x="157" y="23" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#0F766E" letter-spacing="1.5">
-      RECONNAISSANCE &amp;amp; OSINT
+  <!-- 文本内容排版 -->
+  <g transform="translate(95, 230)">
+    <!-- Pill 标签 -->
+    <rect x="0" y="0" width="255" height="32" rx="16" fill="#CCFBF1" opacity="0.95" />
+    <text x="127.5" y="20.5" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" font-weight="800" fill="#0F766E" letter-spacing="1.2">
+      RECONNAISSANCE &amp; OSINT
+    </text>
+
+    <!-- 主标题 -->
+    <text x="0" y="85" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="42" font-weight="800" fill="#0F172A" letter-spacing="-0.5">
+      信息收集与目标侦察
+    </text>
+
+    <!-- 副标题 -->
+    <text x="0" y="132" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="21" font-weight="500" fill="#475569" letter-spacing="0.2">
+      Nmap 高级扫描 · Recon-ng 与情报分析
     </text>
   </g>
 
   <!-- 右下角 Logo/落款 -->
   <g transform="translate(1100, 580)">
-    <text text-anchor="end" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#64748B" letter-spacing="2">
+    <text text-anchor="end" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" font-weight="600" fill="#64748B" letter-spacing="2">
       FLYING THEME · 序栈
     </text>
   </g>

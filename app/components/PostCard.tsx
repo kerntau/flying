@@ -19,7 +19,7 @@ export function PostCard({ post }: PostCardProps) {
       <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg sm:rounded-xl bg-[var(--page-alt)] shadow-xs transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md shrink-0">
         <Link href={`/posts/${post.slug}/`} className="block w-full h-full" aria-label={`阅读：${post.title}`}>
           <img
-            src={post.cover ? (post.cover.includes("?") ? post.cover : `${post.cover}?v=3`) : "/assets/images/fallback-cover.svg"}
+            src={post.cover ? (post.cover.includes("?") ? post.cover : `${post.cover}?v=4`) : "/assets/images/fallback-cover.svg"}
             alt={post.title}
             className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
             loading="lazy"

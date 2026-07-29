@@ -243,7 +243,7 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
       <motion.div
         initial={{ opacity: 0, x: 15 }}
         animate={{ opacity: 1, x: 0 }}
-        className="fixed z-[90] flex flex-col items-center overflow-hidden rounded-l-xl rounded-r-none bg-white/85 dark:bg-zinc-900/85 backdrop-blur-2xl border-l border-y border-black/[0.08] dark:border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] transition-all duration-300 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-0"
+        className="fixed z-[90] flex flex-col items-center overflow-hidden rounded-l-xl rounded-r-none bg-[var(--page)]/90 backdrop-blur-2xl border-l border-y border-[var(--line)] shadow-[0_4px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] transition-all duration-300 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-0"
       >
         {/* 1. 返回顶部按钮 */}
         <AnimatePresence>
@@ -258,9 +258,8 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: '34px' }}
                     exit={{ opacity: 0, height: 0 }}
-                    whileHover={{ backgroundColor: 'var(--accent)', color: '#ffffff' }}
                     whileTap={{ scale: 0.94 }}
-                    className="group flex h-[34px] w-[34px] items-center justify-center text-zinc-600 dark:text-zinc-300 transition-colors cursor-pointer"
+                    className="group flex h-[34px] w-[34px] items-center justify-center text-[var(--muted)] hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] transition-colors cursor-pointer"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-y-0.5">
                       <path d="m18 15-6-6-6 6"/>
@@ -275,7 +274,7 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
 
         {/* 内部 1px 微分割线 */}
         {showBackToTop && (
-          <div className="w-5 h-[1px] bg-black/[0.06] dark:bg-white/10 shrink-0" />
+          <div className="w-5 h-[1px] bg-[var(--line)] shrink-0" />
         )}
 
         {/* 2. 目录 Toggle 按钮 */}
@@ -288,12 +287,11 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                 aria-expanded={open}
                 aria-controls="floating-toc-panel"
                 onClick={() => setOpen(!open)}
-                whileHover={!open ? { backgroundColor: 'var(--accent)', color: '#ffffff' } : undefined}
                 whileTap={{ scale: 0.94 }}
                 className={`group flex h-[34px] w-[34px] items-center justify-center transition-colors cursor-pointer ${
                   open
-                    ? 'bg-[var(--accent)] text-white shadow-xs'
-                    : 'text-zinc-600 dark:text-zinc-300'
+                    ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
+                    : 'text-[var(--muted)] hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)]'
                 }`}
               >
                 {/* 汉堡菜单形变动画 */}

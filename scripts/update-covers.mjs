@@ -35,17 +35,6 @@ function escapeXml(unsafe) {
 
 function generateSvgCover(title, category, index) {
   const scheme = COLOR_SCHEMES[index % COLOR_SCHEMES.length];
-  const safeTitle = escapeXml(title);
-
-  // 折行显示过长标题
-  let line1 = safeTitle;
-  let line2 = "";
-  if (safeTitle.length > 18) {
-    const spaceIdx = safeTitle.lastIndexOf(" ", 18);
-    const splitAt = spaceIdx > 10 ? spaceIdx : 16;
-    line1 = safeTitle.slice(0, splitAt);
-    line2 = safeTitle.slice(splitAt).trim();
-  }
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
   <defs>
@@ -73,30 +62,22 @@ function generateSvgCover(title, category, index) {
   <rect width="100%" height="100%" fill="url(#grid)" />
 
   <!-- 科技半透明发光光束 -->
-  <circle cx="950" cy="150" r="280" fill="${scheme.accent1}" opacity="0.28" filter="url(#glow)" />
-  <circle cx="200" cy="550" r="220" fill="${scheme.accent2}" opacity="0.2" filter="url(#glow)" />
+  <circle cx="950" cy="150" r="340" fill="${scheme.accent1}" opacity="0.35" filter="url(#glow)" />
+  <circle cx="250" cy="500" r="280" fill="${scheme.accent2}" opacity="0.25" filter="url(#glow)" />
 
-  <!-- 背景几何构图图形 -->
-  <g opacity="0.12" transform="translate(680, 80)">
-    <rect x="0" y="0" width="400" height="400" rx="32" fill="none" stroke="${scheme.accent1}" stroke-width="4" transform="rotate(15 200 200)"/>
-    <circle cx="200" cy="200" r="140" fill="none" stroke="${scheme.accent2}" stroke-width="3" stroke-dasharray="12 12" />
-    <circle cx="200" cy="200" r="80" fill="${scheme.accent1}" />
-  </g>
-
-  <!-- 中央主标题文字 -->
-  <g transform="translate(90, 260)">
-    <text font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="52" font-weight="800" fill="${scheme.text}" letter-spacing="-0.5">
-      <tspan x="0" y="0">${line1}</tspan>
-      ${line2 ? `<tspan x="0" y="70">${line2}</tspan>` : ""}
-    </text>
+  <!-- 背景艺术构图几何线条 -->
+  <g opacity="0.18" transform="translate(620, 70)">
+    <rect x="0" y="0" width="440" height="440" rx="36" fill="none" stroke="${scheme.accent1}" stroke-width="4" transform="rotate(15 220 220)"/>
+    <circle cx="220" cy="220" r="160" fill="none" stroke="${scheme.accent2}" stroke-width="3" stroke-dasharray="14 14" />
+    <circle cx="220" cy="220" r="90" fill="${scheme.accent1}" opacity="0.6" />
   </g>
 
   <!-- 底部渐变分割线 -->
-  <rect x="90" y="520" width="1020" height="2" fill="url(#accentGrad)" opacity="0.8" />
+  <rect x="90" y="560" width="1020" height="2" fill="url(#accentGrad)" opacity="0.8" />
 
   <!-- 右下角落款 -->
-  <g transform="translate(1110, 565)">
-    <text text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="600" fill="rgba(255, 255, 255, 0.6)" letter-spacing="2">
+  <g transform="translate(1110, 605)">
+    <text text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="600" fill="rgba(255, 255, 255, 0.45)" letter-spacing="2">
       FLYING THEME · 序栈
     </text>
   </g>

@@ -4,7 +4,7 @@ export const site = {
   description: "用理性梳理日常，用技术温柔时光，不慌不忙，自在生长。",
   url: "https://blog.cot.wiki",
   author: "Kerntau",
-  logo: "/assets/images/avatar.png",
+  logo: "/og-image.jpg",
   siteCreatedAt: "2025-11-10T00:07:03",
   icp: "鄂ICP备2025157857号",
   icpUrl: "https://beian.miit.gov.cn/",
@@ -49,7 +49,7 @@ export const links = [
   {
     title: "序栈",
     href: "https://blog.cot.wiki/",
-    avatar: "/assets/images/avatar.png",
+    avatar: "/og-image.jpg",
     description: "在有序的世界里，寻一处生活的归栈",
     group: "本站",
   },
@@ -67,7 +67,7 @@ export const authors = [
     name: "Kerntau",
     slug: "kerntau",
     bio: "信息安全专业学生，记录网络安全学习、开发实践与技术笔记。",
-    avatar: "/assets/images/avatar.png",
+    avatar: "/og-image.jpg",
     website: "https://github.com/kerntau",
   },
 ];

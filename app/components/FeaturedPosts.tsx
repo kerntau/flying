@@ -111,7 +111,7 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                       <div className="flex flex-wrap items-center gap-2 w-full pt-0.5">
                         <div className="fly-home-carousel-avatars shrink-0 hidden sm:block">
                           <img
-                            src="/assets/images/avatar.png"
+                            src="/og-image.jpg"
                             alt={post.author || "Kerntau"}
                             className="w-9 h-9 rounded-full object-cover border-2 border-[var(--page)] shadow-sm"
                           />

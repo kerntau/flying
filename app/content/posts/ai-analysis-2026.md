@@ -4,7 +4,7 @@ description: GPT-4o/Claude/Gemini vs DeepSeek/通义/文心/Kimi，技术路线�
 pubDate: '2026-02-07'
 updatedDate: '2026-03-08T12:19:25.233Z'
 cover: /assets/images/covers/ai-analysis-2026.svg
-category: artificial-intelligence
+category: 人工智能
 tags:
   - AI分析
   - 深度学习

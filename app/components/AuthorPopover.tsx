@@ -27,14 +27,14 @@ export function AuthorPopover({ name }: AuthorPopoverProps) {
       <Popover.Trigger asChild>
         <button
           type="button"
-          className="fly-author-link inline-flex items-center gap-2 text-xs font-medium text-[var(--muted)] hover:text-[var(--text)] transition-colors focus:outline-none"
+          className="fly-author-link inline-flex items-center gap-2 text-xs font-medium text-[var(--muted)] hover:text-[var(--text)] transition-colors focus:outline-none shrink-0"
         >
           <img
             src={author.avatar || site.logo}
             alt={author.name}
-            className="w-5 h-5 rounded-full object-cover"
+            className="w-6 h-6 rounded-full object-cover border border-[var(--line)] shadow-2xs"
           />
-          <span>{author.name}</span>
+          <span className="hidden sm:inline font-bold">{author.name}</span>
         </button>
       </Popover.Trigger>
       <Popover.Portal>

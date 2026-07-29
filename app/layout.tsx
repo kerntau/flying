@@ -43,6 +43,22 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
+      <head>
+        <link rel="dns-prefetch" href="https://cn-font.claude-code-best.win" />
+        <link rel="preconnect" href="https://cn-font.claude-code-best.win" crossOrigin="" />
+        <link
+          rel="stylesheet"
+          href="https://cn-font.claude-code-best.win/packages/lywkpmydb/dist/LXGWWenKaiScreen/result.css"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cn-font.claude-code-best.win/packages/xuandongkaishu/dist/XuandongKaishu/result.css"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cn-font.claude-code-best.win/packages/hcqyt/dist/ChillRoundFBold/result.css"
+        />
+      </head>
       <body>
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           <UIProvider>

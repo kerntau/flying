@@ -152,10 +152,9 @@ export function ThemeToggle() {
     <Button
       isIconOnly
       variant="ghost"
-      radius="full"
       aria-label={label}
       onClick={handleToggle as any}
-      className="fly-theme-toggle-btn justify-self-end outline-none focus:outline-none min-w-9 w-9 h-9 p-0"
+      className="fly-theme-toggle-btn justify-self-end outline-none focus:outline-none min-w-9 w-9 h-9 p-0 rounded-full"
     >
       <div className="fly-theme-toggle-icon" key={currentTheme}>
         {icon}

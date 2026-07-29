@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 
 interface PostCopyrightCardProps {
   title: string;
@@ -19,9 +20,6 @@ export function PostCopyrightCard({ title, author = 'Kerntau', pubDate, slug }: 
 
   const copyUrl = () => {
     if (!postUrl) return;
-    navigator.clipboard.writeText(postUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
     navigator.clipboard.writeText(postUrl).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);

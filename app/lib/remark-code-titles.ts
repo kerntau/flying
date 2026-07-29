@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')

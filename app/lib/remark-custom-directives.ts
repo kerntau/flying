@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { visit } from 'unist-util-visit';
 
 export function remarkCustomDirectives() {

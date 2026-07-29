@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import rehypePrettyCode from 'rehype-pretty-code';
 import { visit } from 'unist-util-visit';
 

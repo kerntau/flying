@@ -4,7 +4,7 @@ import type { GitCommit } from "./types";
 /**
  * 从当前项目的 git 仓库中提取最近的提交日志记录
  */
-export function getGitCommits(maxCount: number = 40): GitCommit[] {
+export function getGitCommits(maxCount: number = 60): GitCommit[] {
   try {
     // 使用自定义分隔符 %x1f 和 %x1e
     const format = "%H%x1f%h%x1f%an%x1f%ad%x1f%s%x1f%b%x1e";
@@ -18,11 +18,16 @@ export function getGitCommits(maxCount: number = 40): GitCommit[] {
         .split("\x1f")
         .map((s) => s.trim());
 
-      // 解析 Conventional Commits 类型 (e.g., feat, fix, refactor, style, docs)
+      // 解析 Conventional Commits 类型与作用域 (e.g., feat(pet): xxx -> type: feat, scope: pet)
       let type = "chore";
-      const match = subject.match(/^([a-zA-Z]+)(?:\([^\)]+\))?:/);
+      let scope: string | undefined = undefined;
+      let cleanSubject = subject;
+
+      const match = subject.match(/^([a-zA-Z]+)(?:\(([^\)]+)\))?:\s*(.*)/);
       if (match) {
         type = match[1].toLowerCase();
+        scope = match[2] ? match[2].trim() : undefined;
+        cleanSubject = match[3] ? match[3].trim() : subject;
       }
 
       return {
@@ -31,8 +36,10 @@ export function getGitCommits(maxCount: number = 40): GitCommit[] {
         author,
         date: date || new Date().toISOString(),
         subject,
+        cleanSubject,
         body,
         type,
+        scope,
       };
     });
   } catch (error) {
@@ -44,8 +51,10 @@ export function getGitCommits(maxCount: number = 40): GitCommit[] {
         author: "Kerntau",
         date: new Date().toISOString(),
         subject: "feat(moments): 引入 Git Commit 提交记录与日志流水线",
+        cleanSubject: "引入 Git Commit 提交记录与日志流水线",
         body: "全局集成 GSAP 动画与 Git 日志面板表现层",
         type: "feat",
+        scope: "moments",
       },
     ];
   }

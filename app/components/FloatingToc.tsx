@@ -438,7 +438,7 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                       },
                     },
                   }}
-                  className="relative py-2 space-y-[2px]"
+                  className="relative py-1.5 space-y-0.5"
                 >
                   {tocItems.map((item, index) => {
                     const isActive = activeId === item.targetId;
@@ -449,7 +449,7 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                           hidden: { opacity: 0, x: 10 },
                           visible: { opacity: 1, x: 0 },
                         }}
-                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         className="relative leading-normal"
                       >
                         <a
@@ -461,25 +461,14 @@ export function FloatingToc({ toc }: { toc?: TocHeadingItem[] }) {
                               setOpen(false);
                             }
                           }}
-                          className={`group relative flex items-center rounded-lg px-2.5 py-1.5 transition-all duration-300 ${
+                          className={`group relative flex items-center rounded-lg px-2.5 py-1.5 transition-all duration-200 ${
                             isActive
-                              ? 'bg-[var(--accent)]/10 text-[var(--accent)] font-bold'
-                              : 'font-medium text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]'
+                              ? 'bg-[var(--accent)]/10 text-[var(--accent)] font-extrabold'
+                              : 'font-medium text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]/60'
                           }`}
                         >
-                          {isActive && (
-                            <motion.div
-                              layoutId={`active-toc-indicator-${instanceId}`}
-                              className="absolute left-0 top-1.5 bottom-1.5 w-[3.5px] rounded-r-full bg-[var(--accent)] shadow-[0_0_8px_rgba(59,130,246,0.5)] z-20"
-                              transition={{
-                                type: 'tween',
-                                ease: [0.25, 1, 0.5, 1],
-                                duration: 0.25,
-                              }}
-                            />
-                          )}
                           <span
-                            className={isActive ? 'whitespace-normal break-words' : 'truncate'}
+                            className={isActive ? 'whitespace-normal break-words font-extrabold' : 'truncate'}
                             style={{
                               paddingLeft: `${Math.max(0, item.depth - 2) * 12}px`,
                               fontSize: item.depth === 2 ? '13px' : '12px',

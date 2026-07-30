@@ -100,12 +100,12 @@ export function PostCard({ post }: PostCardProps) {
       {/* 下方正文：文章标题 (统一 2 行固定高度) + 底部置底对齐的日期/标签 */}
       <div className="flex flex-col flex-1 justify-between pt-1.5 sm:pt-2 min-w-0">
         {/* 文章标题 */}
-        <h2 className="text-xs sm:text-sm font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-[1.35] sm:min-h-[2.7em] min-h-0 group-hover:text-[var(--accent)] transition-colors">
+        <h2 className="text-sm sm:text-base font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-[1.35] sm:min-h-[2.7em] min-h-0 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
           <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
         </h2>
 
         {/* 底部元数据：文章标签 + 日期 */}
-        <div className="flex items-center gap-1 text-[10px] sm:text-[11px] text-[var(--mute)] pt-1 sm:pt-1.5 mt-auto whitespace-nowrap overflow-hidden min-w-0">
+        <div className="flex items-center gap-1.5 text-xs text-[var(--muted)] pt-1.5 sm:pt-2 mt-auto whitespace-nowrap overflow-hidden min-w-0 font-medium">
           {post.tags && post.tags.length > 0 && (
             <div className="flex items-center gap-1 overflow-hidden min-w-0 shrink">
               {post.tags.slice(0, 2).map((tag, index) => (

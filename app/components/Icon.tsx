@@ -76,7 +76,23 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
     case "file":
       return <FileText {...iconProps} />;
     case "search":
-      return <Search {...iconProps} />;
+      return (
+        <svg
+          viewBox="0 0 24 24"
+          width={size}
+          height={size}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className={className}
+          {...props}
+        >
+          <circle cx="11" cy="11" r="7.25" />
+          <path d="M16.25 16.25L20 20" />
+        </svg>
+      );
     case "facebook":
       return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" className={className} {...props}>

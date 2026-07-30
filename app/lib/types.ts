@@ -49,6 +49,8 @@ export interface GitCommit {
   author: string;
   date: string;
   subject: string;
+  cleanSubject?: string;
   body?: string;
   type?: string;
+  scope?: string;
 }

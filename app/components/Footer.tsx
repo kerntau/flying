@@ -44,18 +44,18 @@ function SiteUptime() {
 
 export function Footer() {
   return (
-    <footer className="fly-site-footer w-full mt-4 sm:mt-5 border-t border-[var(--line)]/40 text-xs text-[var(--muted)] pb-[calc(1rem+env(safe-area-inset-bottom))] pt-1">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+    <footer className="fly-site-footer w-full mt-4 sm:mt-6 border-t border-[var(--line)]/40 text-xs text-[var(--muted)] pb-[calc(1rem+env(safe-area-inset-bottom))] pt-2">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         {/* 1. 移动端布局 (< 640px) */}
         <div className="flex flex-col items-center gap-2.5 text-center sm:hidden">
-          {/* Row 1: 版权标 (保留品牌专属字体，消除重复角标) */}
+          {/* Row 1: 版权标 */}
           <div className="font-medium text-[var(--text)] inline-flex items-center gap-1.5 text-xs sm:text-sm">
             <span>© {new Date().getFullYear()}</span>
             <span className="fly-brand-text text-sm font-black [&::after]:content-none">{site.title}</span>
           </div>
 
           {/* Row 2: 备案信息 */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-[11px]">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
             {site.icp && (
               <a
                 href={site.icpUrl}
@@ -67,7 +67,7 @@ export function Footer() {
                 <span>{site.icp}</span>
               </a>
             )}
-            {site.icp && site.gongan && <span className="opacity-30 text-[10px]">•</span>}
+            {site.icp && site.gongan && <span className="opacity-30 text-xs">•</span>}
             {site.gongan && (
               <a
                 href={site.gonganUrl}
@@ -87,8 +87,8 @@ export function Footer() {
           </div>
 
           {/* Row 4: 驱动胶囊 & 开源项目 */}
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium text-sky-600 dark:text-sky-400 bg-sky-500/10 border border-sky-500/20 shadow-2xs">
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-xs">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium text-sky-600 dark:text-sky-400 bg-sky-500/10 transition-colors">
               <svg className="w-3.5 h-3.5 fill-current shrink-0 opacity-90" viewBox="0 0 24 24">
                 <path d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 2.2L18.8 8 12 11.8 5.2 8 12 4.2zM5 9.5l6 3.3v6.7l-6-3.3V9.5zm8 10v-6.7l6-3.3v6.7l-6 3.3z" />
               </svg>
@@ -99,7 +99,7 @@ export function Footer() {
               href="https://github.com/kerntau/flying"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-[var(--page-alt)] hover:bg-[var(--line)]/40 text-[var(--text)] transition-all border border-[var(--line)] shadow-2xs group"
+              className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--page-alt)] hover:bg-[var(--page-alt)]/80 text-[var(--muted)] hover:text-[var(--text)] transition-colors group"
             >
               <Icon name="github" size={14} className="opacity-75 group-hover:opacity-100 transition-opacity shrink-0" />
               <span>Theme Flying</span>
@@ -108,7 +108,7 @@ export function Footer() {
         </div>
 
         {/* 2. 桌面端布局 (>= 640px) */}
-        <div className="hidden sm:flex flex-wrap items-center justify-center gap-x-3 gap-y-2.5 text-center">
+        <div className="hidden sm:flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2 text-center text-xs sm:text-[13px]">
           {/* 版权 */}
           <span className="font-medium text-[var(--text)] inline-flex items-center gap-1.5">
             <span>© {new Date().getFullYear()}</span>
@@ -117,8 +117,8 @@ export function Footer() {
 
           {/* ICP 备案 */}
           {site.icp && (
-            <>
-              <span className="text-[var(--muted)]/40 text-[10px] select-none">•</span>
+            <div className="inline-flex items-center gap-2">
+              <span className="text-[var(--muted)]/40 text-xs select-none">•</span>
               <a
                 href={site.icpUrl}
                 target="_blank"
@@ -128,13 +128,13 @@ export function Footer() {
                 <img src="/assets/images/icp-beian.webp" alt="ICP备案" className="w-3.5 h-3.5 object-contain shrink-0 -translate-y-[0.5px]" />
                 <span>{site.icp}</span>
               </a>
-            </>
+            </div>
           )}
 
           {/* 公安网安备案 */}
           {site.gongan && (
-            <>
-              <span className="text-[var(--muted)]/40 text-[10px] select-none">•</span>
+            <div className="inline-flex items-center gap-2">
+              <span className="text-[var(--muted)]/40 text-xs select-none">•</span>
               <a
                 href={site.gonganUrl}
                 target="_blank"
@@ -144,38 +144,44 @@ export function Footer() {
                 <img src="/assets/images/gongan-beian.png" alt="公安备案" className="w-3.5 h-3.5 object-contain shrink-0 -translate-y-[0.5px]" />
                 <span>{site.gongan}</span>
               </a>
-            </>
+            </div>
           )}
 
           {/* 动态运行时间 */}
-          <span className="text-[var(--muted)]/40 text-[10px] select-none">•</span>
-          <SiteUptime />
+          <div className="inline-flex items-center gap-2">
+            <span className="text-[var(--muted)]/40 text-[10px] select-none">•</span>
+            <SiteUptime />
+          </div>
 
           {/* 驱动胶囊 */}
-          <span className="text-[var(--muted)]/40 text-[10px] select-none">•</span>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium text-sky-600 dark:text-sky-400 bg-sky-500/10 border border-sky-500/20 shadow-2xs">
-            <svg className="w-3.5 h-3.5 fill-current shrink-0 opacity-90" viewBox="0 0 24 24">
-              <path d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 2.2L18.8 8 12 11.8 5.2 8 12 4.2zM5 9.5l6 3.3v6.7l-6-3.3V9.5zm8 10v-6.7l6-3.3v6.7l-6 3.3z" />
-            </svg>
-            <span>腾讯云 EdgeOne 驱动</span>
-          </span>
+          <div className="inline-flex items-center gap-2">
+            <span className="text-[var(--muted)]/40 text-[10px] select-none">•</span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium text-sky-600 dark:text-sky-400 bg-sky-500/10 transition-colors">
+              <svg className="w-3.5 h-3.5 fill-current shrink-0 opacity-90" viewBox="0 0 24 24">
+                <path d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 2.2L18.8 8 12 11.8 5.2 8 12 4.2zM5 9.5l6 3.3v6.7l-6-3.3V9.5zm8 10v-6.7l6-3.3v6.7l-6 3.3z" />
+              </svg>
+              <span>腾讯云 EdgeOne 驱动</span>
+            </span>
+          </div>
 
           {/* 开源仓库胶囊 */}
-          <span className="text-[var(--muted)]/40 text-[10px] select-none">•</span>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a
-                href="https://github.com/kerntau/flying"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[var(--page-alt)] hover:bg-[var(--line)]/40 text-[var(--text)] transition-all border border-[var(--line)] shadow-2xs hover:shadow-xs group"
-              >
-                <Icon name="github" size={14} className="opacity-75 group-hover:opacity-100 transition-opacity shrink-0" />
-                <span>Theme Flying</span>
-              </a>
-            </TooltipTrigger>
-            <TooltipContent side="top">查看 Theme Flying GitHub 开源仓库</TooltipContent>
-          </Tooltip>
+          <div className="inline-flex items-center gap-2">
+            <span className="text-[var(--muted)]/40 text-[10px] select-none">•</span>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href="https://github.com/kerntau/flying"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[var(--page-alt)] hover:bg-[var(--page-alt)]/80 text-[var(--muted)] hover:text-[var(--text)] transition-colors group"
+                >
+                  <Icon name="github" size={14} className="opacity-75 group-hover:opacity-100 transition-opacity shrink-0" />
+                  <span>Theme Flying</span>
+                </a>
+              </TooltipTrigger>
+              <TooltipContent side="top">查看 Theme Flying GitHub 开源仓库</TooltipContent>
+            </Tooltip>
+          </div>
         </div>
       </div>
     </footer>

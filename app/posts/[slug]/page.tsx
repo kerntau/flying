@@ -78,28 +78,28 @@ export default async function PostPage({ params }: PostPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* 左侧信息大区 */}
             <div className={`space-y-4 ${post.cover ? "lg:col-span-8" : "lg:col-span-12"}`}>
-              {/* 顶栏一体化精美元数据（放大作者头像 + 分类高亮 Pill + 标签 Pill 物理中轴线 100% 对齐） */}
-              <div className="flex flex-wrap items-center gap-2.5 pt-0.5 select-none leading-none">
+              {/* 顶栏一体化精美元数据（作者头像 + 分类高亮 Pill + 标签 Pill 物理中轴线 100% 对齐） */}
+              <div className="flex flex-wrap items-center gap-2 select-none">
                 <AuthorPopover name={post.author} />
 
-                {/* 分类 Badge Pill */}
+                {/* 分类 Badge */}
                 {post.category && (
                   <Link
                     href={`/categories/${encodeURIComponent(post.category)}/`}
-                    className="inline-flex items-center justify-center h-8 px-3.5 text-xs font-bold rounded-full bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shadow-2xs shrink-0 leading-none"
+                    className="inline-flex items-center justify-center h-7.5 sm:h-8 px-3 text-xs font-bold rounded-lg bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shrink-0 leading-none"
                   >
-                    <span className="translate-y-[0.5px]">{post.category}</span>
+                    <span>{post.category}</span>
                   </Link>
                 )}
 
-                {/* 文章标签 Pill 列表 */}
+                {/* 文章标签列表 */}
                 {post.tags && post.tags.length > 0 && post.tags.map((tag) => (
                   <Link
                     key={tag}
                     href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
-                    className="inline-flex items-center justify-center h-8 px-3.5 rounded-full bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]/80 transition-colors font-medium text-xs border-0 shrink-0 leading-none shadow-2xs"
+                    className="inline-flex items-center justify-center h-7.5 sm:h-8 px-2.5 rounded-lg bg-[var(--page-alt)]/60 text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)] transition-colors font-medium text-xs border-0 shrink-0 leading-none"
                   >
-                    <span className="translate-y-[0.5px]">#{tag}</span>
+                    <span>#{tag}</span>
                   </Link>
                 ))}
               </div>

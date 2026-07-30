@@ -10,6 +10,7 @@ import { site } from "@/data/site";
 import { countWords, estimateReadTime, formatWordCount } from "@/lib/word-count";
 import { Icon } from "./Icon";
 
+import { AuthorPopover } from "./AuthorPopover";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 interface FeaturedPostsProps {
@@ -109,33 +110,28 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                   {/* 左侧 Copy 区域 */}
                   <div className="fly-home-carousel-copy">
                     <div className="flex flex-col items-start gap-3 sm:gap-4 w-full">
-                      {/* 顶部元数据：分类 Badge Pill (移动端仅展示分类，隐藏头像与标签) */}
-                      <div className="flex flex-wrap items-center gap-2 w-full pt-0.5">
-                        <div className="fly-home-carousel-avatars shrink-0 hidden sm:block">
-                          <img
-                            src={site.logo}
-                            alt={post.author || site.author}
-                            className="w-9 h-9 rounded-full object-cover border-2 border-[var(--page)] shadow-sm"
-                          />
-                        </div>
+                      {/* 顶部元数据：作者头像 + 分类 Badge Pill + 标签 Badges 物理中轴线 100% 对齐 */}
+                      <div className="flex flex-wrap items-center gap-2 w-full select-none">
+                        <AuthorPopover name={post.author || site.author} />
 
                         {/* 分类 Badge Pill */}
-                        <div className="fly-home-carousel-terms shrink-0">
-                          <span className="inline-flex items-center px-2 py-0.5 text-[11px] font-bold rounded-md bg-[var(--accent)]/10 text-[var(--accent)] sm:px-2.5 sm:py-1 sm:text-xs sm:rounded-lg">
-                            {post.category || "精选推荐"}
-                          </span>
-                        </div>
+                        <Link
+                          href={`/categories/${encodeURIComponent(post.category || "默认分类")}/`}
+                          className="inline-flex items-center justify-center h-7.5 sm:h-8 px-3 text-xs font-bold rounded-lg bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shrink-0 leading-none"
+                        >
+                          <span>{post.category || "精选推荐"}</span>
+                        </Link>
 
                         {/* 标签 Pills 列表 (移动端隐藏) */}
                         {post.tags && post.tags.length > 0 && (
-                          <div className="hidden sm:flex flex-wrap items-center gap-1.5 shrink-0">
+                          <div className="hidden sm:flex flex-wrap items-center gap-2 shrink-0">
                             {post.tags.slice(0, 3).map((tag) => (
                               <Link
                                 key={tag}
                                 href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
-                                className="inline-flex items-center px-2.5 py-1 rounded-lg bg-[var(--page-alt)] hover:bg-[var(--hover-bg-color)] text-[var(--muted)] hover:text-[var(--text)] text-xs font-medium transition-colors border border-[var(--line)]/50"
+                                className="inline-flex items-center justify-center h-7.5 sm:h-8 px-2.5 rounded-lg bg-[var(--page-alt)]/60 hover:bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] text-xs font-medium transition-colors border-0 shrink-0 leading-none"
                               >
-                                #{tag}
+                                <span>#{tag}</span>
                               </Link>
                             ))}
                           </div>

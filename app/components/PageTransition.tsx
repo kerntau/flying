@@ -7,13 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 interface PageTransitionProps {
   children: React.ReactNode;
 }
-// iOS / Spring Physics 物理弹簧配置
-const springTransition = {
-  type: "spring",
-  stiffness: 260,
-  damping: 28,
-  mass: 0.75,
-} as const;
 
 
 export function PageTransition({ children }: PageTransitionProps) {
@@ -35,15 +28,15 @@ export function PageTransition({ children }: PageTransitionProps) {
     );
   }
 
-  // 降级方案：为不支持原生 View Transitions 的环境提供 Framer Motion iOS 弹簧动画
+  // 降级方案：为不支持原生 View Transitions 的环境提供极速流畅动画
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
-        initial={{ opacity: 0, scale: 0.985, y: 6, filter: "blur(4px)" }}
-        animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-        exit={{ opacity: 0, scale: 0.985, y: -4, filter: "blur(4px)" }}
-        transition={springTransition}
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -4 }}
+        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
         className="w-full flex-1 flex flex-col min-w-0"
       >
         {children}

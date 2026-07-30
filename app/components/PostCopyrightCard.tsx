@@ -55,7 +55,7 @@ export function PostCopyrightCard({ title, author = 'Kerntau', slug }: PostCopyr
                 href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-1.5 py-0.5 rounded-md bg-[var(--page)]/90 hover:bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--accent)] text-[10px] sm:text-[11px] font-mono font-semibold transition-colors border border-[var(--line)]/60 shadow-2xs"
+                className="inline-flex items-center px-2 py-0.5 rounded-md bg-[var(--page-alt)]/80 hover:bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--accent)] text-[10px] sm:text-[11px] font-mono font-semibold transition-colors border-0"
               >
                 CC BY-NC-SA 4.0
               </a>

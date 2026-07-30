@@ -1,6 +1,8 @@
 {
   "name": "theme-flying",
   "version": "1.0.0",
+  "description": "序栈 (Flying) - 基于 Next.js 16 (App Router) + React 19 的极简现代水墨沉浸式博客主题",
+  "homepage": "https://curn.me",
   "private": true,
   "engines": {
     "node": ">=22.12.0"
@@ -20,6 +22,7 @@
     "@radix-ui/react-dialog": "^1.1.23",
     "@radix-ui/react-popover": "^1.1.23",
     "@radix-ui/react-tooltip": "^1.2.16",
+    "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^4.4.0",
@@ -28,6 +31,7 @@
     "gray-matter": "^4.0.3",
     "gsap": "^3.15.0",
     "lucide-react": "^1.27.0",
+    "medium-zoom": "^1.1.0",
     "next": "^16.2.12",
     "next-themes": "^0.4.6",
     "react": "^19.2.8",
@@ -51,6 +55,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^26.1.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",

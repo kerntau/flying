@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import type { Link as LinkItem } from "@/lib/types";
 import { site } from "@/data/site";
-import { ArrowUpRight, Sparkles, Copy, Check, ChevronDown } from "lucide-react";
+import { Sparkles, Copy, Check, ChevronDown } from "lucide-react";
+import { fireConfetti } from "@/lib/confetti";
 
 interface LinksClientProps {
   links: LinkItem[];
@@ -25,6 +26,7 @@ export function LinksClient({ links }: LinksClientProps) {
     const text = `名称：${site.title}\n网址：${site.url}\n图标：${site.url}/logo.png\n描述：${site.subtitle || site.description}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
+    void fireConfetti({ particleCount: 50, spread: 70 });
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -111,29 +113,20 @@ export function LinksClient({ links }: LinksClientProps) {
           <div className="flex items-center gap-2 shrink-0">
             <button
               type="button"
-              onClick={() => setShowDetails(!showDetails)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--page)]/90 hover:bg-[var(--page-alt)] text-xs font-semibold text-[var(--muted)] hover:text-[var(--text)] border-0 shadow-2xs transition-all cursor-pointer"
+              onClick={handleCopySiteInfo}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--page-alt)]/80 hover:bg-[var(--page-alt)] text-xs font-semibold text-[var(--muted)] hover:text-[var(--text)] border-0 transition-all cursor-pointer"
             >
-              <span>本站格式</span>
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showDetails ? "rotate-180 text-[var(--accent)]" : ""}`} />
+              {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+              <span>{copied ? "已复制本站信息" : "复制本站信息"}</span>
             </button>
 
             <button
               type="button"
-              onClick={handleCopySiteInfo}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--page)]/90 hover:bg-[var(--page-alt)] text-xs font-semibold text-[var(--muted)] hover:text-[var(--accent)] border-0 shadow-2xs transition-all cursor-pointer"
+              onClick={() => setShowDetails(!showDetails)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--page-alt)]/80 hover:bg-[var(--page-alt)] text-xs font-semibold text-[var(--muted)] hover:text-[var(--accent)] border-0 transition-all cursor-pointer"
             >
-              {copied ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-500" />
-                  <span className="text-emerald-500 font-bold">已复制</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5 opacity-70" />
-                  <span>一键复制</span>
-                </>
-              )}
+              <span>{showDetails ? "收起格式" : "本站格式"}</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showDetails ? "rotate-180 text-[var(--accent)]" : ""}`} />
             </button>
           </div>
         </div>

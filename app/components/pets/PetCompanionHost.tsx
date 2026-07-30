@@ -21,6 +21,11 @@ export function PetCompanionHost() {
     audio.pause();
   }, []);
 
+  // 如果处于文章详情页 (/posts/...)，自动隐藏桌面宠物
+  if (pathname && pathname.startsWith("/posts/")) {
+    return null;
+  }
+
   return (
     <>
       <audio

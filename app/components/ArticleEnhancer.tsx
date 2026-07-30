@@ -60,12 +60,22 @@ export function ArticleEnhancer() {
       wrapper.appendChild(table);
     }
 
-    // 2. 图片懒加载
+    // 2. 图片懒加载 + medium-zoom 平滑放大
     const images = Array.from(article.querySelectorAll<HTMLImageElement>('img'));
     for (const img of images) {
       if (!img.hasAttribute('loading')) {
         img.setAttribute('loading', 'lazy');
       }
+    }
+
+    if (images.length > 0) {
+      import('medium-zoom').then(({ default: mediumZoom }) => {
+        const zoom = mediumZoom(images, {
+          margin: 24,
+          background: 'var(--page)',
+        });
+        cleanups.push(() => zoom.detach());
+      });
     }
 
     // 3. 标题锚点链接

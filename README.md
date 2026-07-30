@@ -1,20 +1,21 @@
 <div align="center">
 
-# 🪶 Theme Flying · 序栈
+# ✦ Theme Flying · 序栈
 
 <p align="center">
-  <b>极简·现代·沉浸式纯静态 Markdown 博客主题</b>
+  <b>基于 Next.js 16 (App Router) + React 19 的极简现代水墨沉浸式博客主题</b>
 </p>
 
 <p align="center">
   <i>"在有序的世界里，寻一处生活的归栈"</i>
 </p>
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.0-61dafb?style=flat-square&logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-06b6d4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2-61dafb?style=flat-square&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.3-06b6d4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
+[![GSAP](https://img.shields.io/badge/GSAP-3.15-green?style=flat-square&logo=greensock)](https://greensock.com/gsap/)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 
 </div>
 
@@ -22,21 +23,24 @@
 
 ## 📖 简介
 
-**Flying** 是一款专注于**极简设计、无痕交互与极致阅读体验**的现代化静态博客主题。基于 **Next.js 15 App Router**、**React 19** 与 **Tailwind CSS v4** 构建。
+**Flying (序栈)** 是一款追求**极简水墨美学、零无用框线、无缝 SPA 切页与极致沉浸阅读体验**的现代化静态博客与 Showcase 主题。
 
-项目完全摒弃了复杂的后端 API、数据库或第三方账号依赖。文章、动态、照片与站点配置均全量在本地 Git 仓库中维护，支持一键静态导出（`output: "export"`），可无缝部署至 Cloudflare Pages、Vercel、GitHub Pages 或 CDN 边缘存储。
+基于 **Next.js 16 (App Router)**、**React 19** 与 **Tailwind CSS v4** 架构构建。项目全量在本地 Git 仓库中维护（Zero API / Zero DB 依赖），配合自动化内容解析校验管道，一键生成包含 95+ 静态网页的无缝 Web 应用。
 
 ---
 
 ## ✨ 核心特性
 
-- ⚡ **纯粹静态化（Pure Static Export）**：构建时全量预渲染 75+ 静态 HTML 页面，配合零 API 依赖，实现毫秒级页面加载。
-- 🎨 **无痕视觉美学（Borderless & Modern UI）**：全站按钮与交互元素采用无痕设计，无物理框线与高亮粗线，搭配极其柔和的微悬停视觉效果。
-- ✒️ **独家品牌字体整合**：品牌标题单独集成 **霞鹜文楷 屏幕阅读版（LXGW WenKai Screen）**，兼具书法笔触韵味与现代科技质感。
-- 🌓 **丝滑暗色模式（Seamless Theme Transition）**：内置 `next-themes` 与 View Transitions 原生圆弧全屏擦除动画，暗/亮色切换无缝平滑。
-- 🖼️ **全自动本地静态封面生成**：内置自动化 SVG 矢量封面生成脚本（`scripts/update-covers.mjs`），一键为所有 Markdown 文章输出现代渐变封面图，彻底摆脱外部网络图片引用。
-- 🔍 **静态搜索与 RSS 全自动索引**：构建期自动校验文章 YAML Frontmatter 格式、图片完整性与内部链接，全自动生成 `search-index.json` 与 `rss.xml`。
-- 📱 **全设备响应式设计（Responsive Adaption）**：全面适配 Desktop、Tablet 及 Mobile 端，包含移动端抽屉导航（Sheet Drawer）、全屏渐隐交互搜索框（CmdK）与全悬浮目录（Floating TOC）。
+- ⚡ **Next.js 16 & React 19 强劲驱动**：利用最新的 React 19 客户端水合与 Next.js 16 App Router SSG 静态预渲染，极致秒开。
+- 🎨 **极简现代水墨 Design Tokens**：通透胶囊材质，彻底删除厚重底色与黑粗边框。支持浅色模式 (Light) 与深色模式 (Dark) 的柔和无缝切换。
+- 🌀 **原生 View Transitions API 零感切页**：自动接管全站同源跳转，搭配 60fps 平滑淡入淡出，消除 GPU 闪烁，侧边栏保持 100% 绝对稳定。
+- 🔍 **`cmdk` 全字段动态高亮搜索**：支持标题、分类、描述摘要及 `#标签` 多词模糊高亮匹配（`HighlightText`），包含热门搜词建议与匹配数量统计。
+- 🖼️ **`medium-zoom` 沉浸式图片放大**：Markdown 正文图片无缝全屏平滑放大，背景自适应主题色，再次点击或滚动平滑归位。
+- 🎉 **`canvas-confetti` 交互彩蛋粒子**：在复制文章代码或友链信息成功时，异步触发轻量五彩彩蛋粒子极简反馈。
+- 🚀 **Service Worker WebFont 离线加速**：内置 Cache-First 策略 Service Worker，霞鹜文楷、炫动楷书等 WebFont 字体二次访问实现 0ms 瞬间渲染。
+- 📊 **原生 Web Vitals 性能监控**：开发环境自动追踪 Core Web Vitals (LCP, CLS, INP, TTFB) 性能指标。
+- ✒️ **Markdown & GFM 深度定制**：集成 Shiki 4.3 语法高亮、自动 TOC 提取、Callouts 提示框以及水墨滚动表格封装。
+- 🐾 **Pet Companion 桌面伴侣**：首页与全站交互灵动伴侣，在文章详情页自动感知并卸载隐退，提供纯粹阅读环境。
 
 ---
 
@@ -44,12 +48,13 @@
 
 | 模块 | 选用技术 / 依赖包 |
 | :--- | :--- |
-| **Core Framework** | [Next.js 15](https://nextjs.org/) (App Router) + [React 19](https://react.dev/) |
-| **Language** | [TypeScript 5.7](https://www.typescriptlang.org/) |
+| **Core Framework** | [Next.js 16](https://nextjs.org/) (App Router) + [React 19](https://react.dev/) |
+| **Language** | [TypeScript 6.0](https://www.typescriptlang.org/) |
 | **Styling Systems** | [Tailwind CSS v4](https://tailwindcss.com/) + Custom Design Tokens |
 | **UI Components** | [Radix UI Tooltip / Dialog / Popover](https://www.radix-ui.com/) + [cmdk](https://cmdk.pacer.io/) |
-| **Animation & Motion** | [Framer Motion](https://www.framer.com/motion/) + View Transitions API |
-| **Markdown Engine** | [Unified](https://github.com/unifiedjs/unified) + [Remark](https://github.com/remarkjs/remark) + [Rehype](https://github.com/rehypejs/rehype) + [Gray-Matter](https://github.com/jonschlinkert/gray-matter) |
+| **Animation & Motion** | [GSAP 3.15](https://greensock.com/gsap/) + [Framer Motion 12.4](https://www.framer.com/motion/) + View Transitions API |
+| **Image & Micro-interaction** | [medium-zoom](https://github.com/francoischalifour/medium-zoom) + [canvas-confetti](https://github.com/catdad/canvas-confetti) |
+| **Markdown Engine** | [Unified](https://github.com/unifiedjs/unified) + [Shiki 4.3](https://shiki.matsu.io/) + [Rehype Pretty Code](https://rehype-pretty-code.netlify.app/) + [Gray-Matter](https://github.com/jonschlinkert/gray-matter) |
 | **Carousel & Viewing** | [Embla Carousel](https://www.embla-carousel.com/) + [react-zoom-pan-pinch](https://github.com/prcweb/react-zoom-pan-pinch) |
 
 ---
@@ -63,34 +68,29 @@ theme-flying/
 │   ├── archives/         # 归档总览 (/archives)
 │   ├── authors/          # 作者归档 (/authors)
 │   ├── categories/       # 分类目录 (/categories)
-│   ├── components/       # 核心 UI 与 Client Component 组件
-│   │   ├── ui/           # Radix UI 基础无痕原子组件 (Tooltip, Sheet...)
-│   │   ├── AppShell.tsx  # 页面全局外壳组件
-│   │   ├── Sidebar.tsx   # 响应式侧边栏导航
-│   │   └── ...
-│   ├── content/          # 本地纯静态内容源数据
-│   │   ├── posts/        # Markdown 格式文章 (.md)
-│   │   ├── photos/       # 图库 JSON 数据 (.json)
-│   │   └── moments/      # 瞬间与动态 JSON 数据 (.json)
+│   ├── components/       # 核心 UI 组件
+│   │   ├── ui/           # Radix UI 基础无痕原子组件 (Tooltip, Popover...)
+│   │   ├── AppShell.tsx  # 页面全局外壳与 Service Worker 注册
+│   │   ├── ArticleEnhancer.tsx # 正文表格、代码复制及 medium-zoom 增强
+│   │   ├── SearchDialog.tsx   # CMDK 动态高亮搜索弹窗
+│   │   ├── WebVitals.tsx      # 原生 Web Vitals 监控 Hook
+│   │   └── Sidebar.tsx        # 响应式侧边栏导航
+│   ├── content/          # 本地纯静态 Markdown / JSON 源数据
 │   ├── data/             # 站点基础元数据、导航与友链 (site.ts)
-│   ├── lib/              # Markdown 解析器、内容读取服务与 SEO
-│   ├── moments/          # 瞬间动态页面
+│   ├── lib/              # Markdown 解析器、单词估算与 confetti 粒子工具
+│   ├── moments/          # 动态日志页面
 │   ├── photos/           # 静态图库页面
 │   ├── posts/            # 文章详情路由 (/posts/[slug])
 │   ├── tags/             # 标签归档页面
-│   ├── globals.css       # Tailwind CSS v4 样式与主题变量
-│   └── layout.tsx        # 根布局与 TooltipProvider 配置
+│   ├── globals.css       # Tailwind CSS v4 样式与水墨 Design Tokens
+│   └── layout.tsx        # 根布局
 ├── public/
-│   ├── assets/
-│   │   └── images/
-│   │       └── covers/   # 15 篇文章全量本地静态 SVG 封面
-│   ├── favicon.ico       # 站点 Favicon 图标集
-│   ├── og-image.jpg      # Open Graph 高清社交分享卡片图
-│   └── site.webmanifest  # PWA Manifest 文件
+│   ├── assets/           # 本地静态图片与 SVG 封面图库
+│   ├── sw.js             # 字体与 CDN 资源 Cache-First 离线 Service Worker
+│   ├── search-index.json # 构建生成的文章搜索索引数据
+│   └── rss.xml           # 自动构建生成的 RSS 2.0 订阅文件
 ├── scripts/
-│   ├── prepare-static-content.mjs # 静态内容校验、RSS 与搜索索引生成脚本
-│   └── update-covers.mjs          # 自动渲染输出 SVG 矢量封面图脚本
-├── next.config.mjs       # Next.js 静态 Export 配置 (`output: "export"`)
+│   └── prepare-static-content.mjs # 内容格式校验、RSS 与搜索索引全自动生成脚本
 ├── package.json
 └── tsconfig.json
 ```
@@ -109,7 +109,7 @@ pnpm install
 pnpm dev
 ```
 
-### 3. TypeScript 类型检查
+### 3. TypeScript 静态类型检查
 ```bash
 pnpm typecheck
 ```
@@ -119,24 +119,24 @@ pnpm typecheck
 pnpm validate:content
 ```
 
-### 5. 生成生产环境全量静态构建
+### 5. 生产打包与构建
 ```bash
 pnpm build
 ```
-> `pnpm build` 会依次自动触发：`validate:content` 校验 Markdown frontmatter/图片完整性 ➔ 自动生成 `public/search-index.json` 与 `public/rss.xml` ➔ 导出 75+ 全量 HTML 静态网页至 `out/` 目录。
+> `pnpm build` 会依次自动触发：`validate:content` 校验 Markdown frontmatter 与图片完整性 ➔ 自动导出 `public/search-index.json` 与 `public/rss.xml` ➔ 完成 95+ 页面 SSG 全量静态编译。
 
 ---
 
 ## ✍️ 本地内容维护
 
 ### 文章 (Posts)
-在 `app/content/posts/` 目录下直接新建 Markdown 文件（如 `my-first-post.md`），头部填入 Frontmatter 元数据：
+在 `app/content/posts/` 目录下创建 Markdown 文件（如 `my-first-post.md`），头部指定 Frontmatter 元数据：
 
 ```markdown
 ---
 title: "我的第一篇博客文章"
 description: "这里是文章的简短摘要描述"
-pubDate: "2026-07-28"
+pubDate: "2026-07-30"
 category: "技术分享"
 tags:
   - "Next.js"
@@ -148,15 +148,8 @@ cover: "/assets/images/covers/my-first-post.svg"
 这里开始编写 Markdown 正文...
 ```
 
-### 自动化生成/更新封面图
-运行内置的封面渲染脚本：
-```bash
-node scripts/update-covers.mjs
-```
-该脚本会自动读取 `app/content/posts/*.md` 中的标题，全自动为每篇文章输出科技感 SVG 封面图至 `public/assets/images/covers/[slug].svg` 并自动更新 Markdown 中的 Frontmatter `cover` 路径。
-
-### 站点基础元数据
-编辑 `app/data/site.ts` 修改站点标题、副标题、作者信息、ICP 备案号、公安网安备案号、导航菜单与友情链接等。
+### 站点基础配置
+编辑 `app/data/site.ts` 即可修改站点标题、副标题、作者信息、防缓存 QQ 头像路径（`&t=...`）、ICP 备案号、公安备案号、导航菜单与友情链接等。
 
 ---
 

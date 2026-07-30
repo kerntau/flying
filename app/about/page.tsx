@@ -87,7 +87,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="fly-about-page w-full max-w-6xl lg:max-w-[1240px] mx-auto space-y-6 sm:space-y-7 py-2 pb-2 sm:pb-4 transition-all duration-350 select-none">
+    <div className="fly-about-page w-full space-y-6 sm:space-y-7 py-2 pb-2 sm:pb-4 transition-all duration-350 select-none">
       {/* 1. 英雄名片卡片 (Hero Profile Card) */}
       <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-[var(--page-alt)]/40 p-5 sm:p-6 border-0 shadow-2xs space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -123,7 +123,7 @@ export default function AboutPage() {
               href="https://github.com/kerntau"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--page)] hover:bg-[var(--page-alt)] text-xs font-bold text-[var(--text)] hover:text-[var(--accent)] transition-all shadow-2xs cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--page-alt)]/80 hover:bg-[var(--page-alt)] text-xs font-bold text-[var(--muted)] hover:text-[var(--text)] transition-all cursor-pointer"
             >
               <Icon name="github" size={14} className="opacity-80" />
               <span>GitHub</span>

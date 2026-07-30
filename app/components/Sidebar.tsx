@@ -81,7 +81,7 @@ export function Sidebar() {
             <Tooltip key={link.label}>
               <TooltipTrigger asChild>
                 <a
-                  className="fly-social-icon flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--hover-bg-color)] border border-[var(--line)]/50 shadow-2xs hover:shadow-xs transition-all active:scale-95 outline-none"
+                  className="fly-social-icon flex h-8 w-8 items-center justify-center rounded-xl text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)] transition-all duration-200 hover:scale-110 cursor-pointer outline-none"
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noopener" : undefined}

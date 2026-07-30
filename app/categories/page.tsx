@@ -28,7 +28,7 @@ export default function CategoriesPage() {
   });
 
   return (
-    <div className="fly-categories-page w-full max-w-6xl lg:max-w-[1240px] mx-auto space-y-3.5 sm:space-y-4 py-0.5 pb-8 transition-all duration-350 select-none">
+    <div className="fly-categories-page w-full space-y-3.5 sm:space-y-4 py-0.5 pb-8 transition-all duration-350 select-none">
       {/* 顶部 Header */}
       <header className="flex items-center justify-between border-b border-[var(--line)]/20 pb-3">
         {/* 左侧大标题 */}

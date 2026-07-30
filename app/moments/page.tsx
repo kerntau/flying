@@ -15,13 +15,13 @@ export default function MomentsPage() {
   return (
     <div className="fly-moments-page w-full space-y-6">
       {/* 全宽 Header 头部面板 */}
-      <header className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--line)]/20 pb-5 gap-3">
+      <header className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 gap-3">
         <div className="space-y-1">
           <div className="flex items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-[var(--text)]">
               更新日志
             </h1>
-            <span className="px-2.5 py-0.5 text-xs font-mono font-bold rounded-full bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/20 shadow-2xs">
+            <span className="px-2.5 py-0.5 text-xs font-mono font-bold rounded-full bg-[var(--accent)]/10 text-[var(--accent)]">
               {commits.length} Commits
             </span>
           </div>

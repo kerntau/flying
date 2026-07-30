@@ -10,7 +10,7 @@ export default function AuthorsPage() {
   const authors = getAuthors();
 
   return (
-    <div className="fly-authors-page max-w-4xl mx-auto space-y-8">
+    <div className="fly-authors-page w-full space-y-8">
       <header className="border-b border-[var(--line)] pb-6">
         <h1 className="text-3xl font-extrabold text-[var(--text)]">专栏作者</h1>
         <p className="text-sm text-[var(--muted)] mt-1">记录与创作的灵魂，共计 {authors.length} 位作者</p>

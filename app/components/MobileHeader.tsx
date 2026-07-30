@@ -154,7 +154,7 @@ export function MobileHeader() {
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     aria-label={link.label}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--line)]/30 border border-[var(--line)]/40 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                    className="flex h-8 w-8 items-center justify-center rounded-xl text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)] transition-all duration-200 hover:scale-110 cursor-pointer"
                   >
                     <Icon name={link.icon} size={15} />
                   </a>

@@ -35,7 +35,7 @@ export default async function AuthorDetailPage({ params }: AuthorDetailPageProps
   const posts = getAllPosts().filter((p) => p.author.toLowerCase() === author.name.toLowerCase() || p.author.toLowerCase() === author.slug.toLowerCase());
 
   return (
-    <div className="fly-author-detail-page max-w-6xl mx-auto space-y-10">
+    <div className="fly-author-detail-page w-full space-y-10">
       <header className="p-8 rounded-3xl bg-[var(--page-alt)] border border-[var(--line)] space-y-4">
         <Link
           href="/authors/"

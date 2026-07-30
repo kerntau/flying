@@ -21,7 +21,7 @@ export default function TagsPage() {
   const otherTags = tags.filter((t) => t.count < Math.max(2, maxCount * 0.3));
 
   return (
-    <div className="fly-tags-page w-full max-w-6xl lg:max-w-[1240px] mx-auto space-y-5 sm:space-y-6 py-0.5 pb-8 transition-all duration-350 select-none">
+    <div className="fly-tags-page w-full space-y-5 sm:space-y-6 py-0.5 pb-8 transition-all duration-350 select-none">
       {/* 顶部 Header */}
       <header className="flex items-center justify-between border-b border-[var(--line)]/20 pb-3">
         {/* 左侧大标题 */}

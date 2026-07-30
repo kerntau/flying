@@ -200,7 +200,7 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
   return (
     <div
       ref={listContainerRef}
-      className="fly-archives-client w-full max-w-6xl lg:max-w-[1240px] mx-auto space-y-2.5 sm:space-y-4 py-0.5 pb-1 transition-all duration-350 select-none"
+      className="fly-archives-client w-full space-y-2.5 sm:space-y-4 py-0.5 pb-1 transition-all duration-350 select-none"
     >
       {/* 无结果时的 Empty 提示 */}
       {groups.length === 0 && (

@@ -48,7 +48,7 @@ export default async function TagDetailPage({ params }: TagPageProps) {
   }
 
   return (
-    <div className="fly-tag-detail-page w-full max-w-7xl mx-auto space-y-6 sm:space-y-8 transition-all duration-350 select-none">
+    <div className="fly-tag-detail-page w-full space-y-6 sm:space-y-8 transition-all duration-350 select-none">
       {/* 极简通透 Header（完全去除多余 # 符号） */}
       <header className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--line)]/20 pb-3 gap-3">
         {/* 左侧：返回按钮 + 标签大标题 */}

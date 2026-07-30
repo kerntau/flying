@@ -2352,6 +2352,8 @@ body[data-fly-sidebar-collapsed="true"] .fly-sidebar-uptime {
   aspect-ratio: 192 / 208;
   padding: 0;
   border: 0;
+  appearance: none;
+  -webkit-appearance: none;
   background-color: transparent;
   background-repeat: no-repeat;
   background-origin: padding-box;
@@ -2362,10 +2364,27 @@ body[data-fly-sidebar-collapsed="true"] .fly-sidebar-uptime {
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+  --tw-ring-shadow: none;
+  --tw-ring-offset-shadow: none;
+  --tw-shadow: none;
   contain: layout paint style;
   isolation: isolate;
   transform-origin: bottom center;
   will-change: transform, opacity;
+}
+
+.pet-companion:focus,
+.pet-companion:focus-visible,
+.pet-companion:active,
+.pet-companion:hover {
+  outline: none !important;
+  box-shadow: none !important;
+  --tw-ring-shadow: none;
+  --tw-ring-offset-shadow: none;
+  --tw-shadow: none;
 }
 
 .pet-companion.is-dragging { cursor: grabbing; }

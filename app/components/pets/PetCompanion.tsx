@@ -569,11 +569,12 @@ export default function PetCompanion({
         }}
         onBlur={() => setFocused(false)}
         onKeyDown={handleKeyDown}
-        onClick={() => {
+        onClick={(event) => {
           if (suppressClick.current) {
             suppressClick.current = false;
             return;
           }
+          event.currentTarget.blur();
           stopMovement();
           playAction("jumping", 360);
 
@@ -600,13 +601,13 @@ export default function PetCompanion({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -6, scale: 0.9 }}
               transition={{ duration: 0.2 }}
-              className="absolute -top-14 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-2xl bg-white text-slate-900 font-mono text-xs font-bold shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-slate-100 whitespace-nowrap pointer-events-none z-50 flex items-center gap-1.5 select-none"
+              className="absolute -top-14 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-2xl bg-white/95 dark:bg-slate-800/95 text-slate-800 dark:text-slate-100 font-mono text-xs font-bold shadow-sm border border-slate-200/80 dark:border-slate-700/80 whitespace-nowrap pointer-events-none z-50 flex items-center gap-1.5 select-none"
             >
               <span className="shrink-0 w-5 h-5 inline-flex items-center justify-center overflow-hidden">
                 <ThinkingOrb size={20} state={action === "working" ? "working" : "listening"} theme="light" />
               </span>
               <span>{bubbleText || definition.label}</span>
-              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-white rotate-45 border-r border-b border-slate-100" />
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-white dark:bg-slate-800 rotate-45 border-r border-b border-slate-200/80 dark:border-slate-700/80" />
             </motion.div>
           )}
         </AnimatePresence>

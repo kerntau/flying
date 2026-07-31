@@ -6,7 +6,7 @@ import { site } from "@/data/site";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 function SiteUptime() {
-  const [uptime, setUptime] = useState("");
+  const [uptimeData, setUptimeData] = useState<{ days: number; hours: number; mins: number; secs: number } | null>(null);
 
   useEffect(() => {
     const startTimeStr = site.siteCreatedAt || "2025-11-10T00:07:03";
@@ -19,7 +19,7 @@ function SiteUptime() {
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const secs = Math.floor((diff % (1000 * 60)) / 1000);
-      setUptime(`${days} 天 ${hours} 时 ${mins} 分 ${secs} 秒`);
+      setUptimeData({ days, hours, mins, secs });
     };
 
     update();
@@ -27,16 +27,26 @@ function SiteUptime() {
     return () => clearInterval(timer);
   }, []);
 
-  if (!uptime) return null;
+  if (!uptimeData) return null;
 
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs text-[var(--muted)]">
+    <span className="inline-flex items-center gap-1.5 text-xs text-[var(--muted)] select-none">
       <span className="relative flex h-2 w-2 items-center justify-center shrink-0">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
         <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
       </span>
-      <span>
-        已运行 <span className="font-mono text-[var(--text)] font-semibold tabular-nums ml-0.5">{uptime}</span>
+      <span className="inline-flex items-center">
+        <span>已运行</span>
+        <span className="ml-1 inline-flex items-baseline font-mono text-[var(--text)] font-semibold tabular-nums">
+          <span className="px-0.5">{uptimeData.days}</span>
+          <span className="font-sans font-normal text-[var(--muted)] text-[11px] px-0.5">天</span>
+          <span className="px-0.5">{String(uptimeData.hours).padStart(2, "0")}</span>
+          <span className="font-sans font-normal text-[var(--muted)] text-[11px] px-0.5">时</span>
+          <span className="px-0.5">{String(uptimeData.mins).padStart(2, "0")}</span>
+          <span className="font-sans font-normal text-[var(--muted)] text-[11px] px-0.5">分</span>
+          <span className="px-0.5">{String(uptimeData.secs).padStart(2, "0")}</span>
+          <span className="font-sans font-normal text-[var(--muted)] text-[11px] pl-0.5">秒</span>
+        </span>
       </span>
     </span>
   );

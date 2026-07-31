@@ -52,7 +52,7 @@ export function Sidebar() {
                 aria-label={item.label}
               >
                 <span className="fly-menu-icon">
-                  <Icon name={item.icon} size={20} />
+                  <Icon name={item.icon} size={19} strokeWidth={1.85} />
                 </span>
                 <span className="fly-nav-label">{item.label}</span>
               </Link>

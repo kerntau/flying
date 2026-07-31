@@ -4,6 +4,7 @@ import React from "react";
 import {
   Home,
   Archive,
+  Folder,
   FolderTree,
   Hash,
   Image as ImageIcon,
@@ -51,7 +52,7 @@ export function Icon({ name, className = "", size = 18, strokeWidth = 1.75, ...p
       return <Archive {...iconProps} />;
     case "folder":
     case "categories":
-      return <FolderTree {...iconProps} />;
+      return <Folder {...iconProps} />;
     case "hash":
     case "tags":
       return <Hash {...iconProps} />;

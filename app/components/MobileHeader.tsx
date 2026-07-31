@@ -112,7 +112,7 @@ export function MobileHeader() {
                         : "text-[var(--muted)] hover:bg-[var(--page-alt)] hover:text-[var(--text)]"
                     }`}
                   >
-                    <Icon name={item.icon} size={18} className={isActive ? "text-[var(--accent)]" : "opacity-80"} />
+                    <Icon name={item.icon} size={18} strokeWidth={1.85} className={isActive ? "text-[var(--accent)]" : "opacity-80"} />
                     <span>{item.label}</span>
                   </Link>
                 );

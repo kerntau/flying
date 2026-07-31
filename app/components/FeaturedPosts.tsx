@@ -117,7 +117,7 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                         {/* 分类 Badge Pill */}
                         <Link
                           href={`/categories/${encodeURIComponent(post.category || "默认分类")}/`}
-                          className="inline-flex items-center justify-center h-7.5 sm:h-8 px-3 text-xs font-bold rounded-lg bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shrink-0 leading-none"
+                          className="inline-flex items-center justify-center h-6 sm:h-6.5 px-2 text-xs font-bold rounded-md bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shrink-0 leading-none"
                         >
                           <span>{post.category || "精选推荐"}</span>
                         </Link>
@@ -129,7 +129,7 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                               <Link
                                 key={tag}
                                 href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
-                                className="inline-flex items-center justify-center h-7.5 sm:h-8 px-2.5 rounded-lg bg-[var(--page-alt)]/60 hover:bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] text-xs font-medium transition-colors border-0 shrink-0 leading-none"
+                                className="inline-flex items-center justify-center h-6 sm:h-6.5 px-2 rounded-md bg-[var(--page-alt)]/80 hover:bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] text-xs font-medium transition-colors border-0 shrink-0 leading-none"
                               >
                                 <span>#{tag}</span>
                               </Link>

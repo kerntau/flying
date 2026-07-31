@@ -86,7 +86,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 {post.category && (
                   <Link
                     href={`/categories/${encodeURIComponent(post.category)}/`}
-                    className="inline-flex items-center justify-center h-7.5 sm:h-8 px-3 text-xs font-bold rounded-lg bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shrink-0 leading-none"
+                    className="inline-flex items-center justify-center h-6 sm:h-6.5 px-2 text-xs font-bold rounded-md bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors shrink-0 leading-none"
                   >
                     <span>{post.category}</span>
                   </Link>
@@ -97,7 +97,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   <Link
                     key={tag}
                     href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
-                    className="inline-flex items-center justify-center h-7.5 sm:h-8 px-2.5 rounded-lg bg-[var(--page-alt)]/60 text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)] transition-colors font-medium text-xs border-0 shrink-0 leading-none"
+                    className="inline-flex items-center justify-center h-6 sm:h-6.5 px-2 rounded-md bg-[var(--page-alt)]/80 text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)] transition-colors font-medium text-xs border-0 shrink-0 leading-none"
                   >
                     <span>#{tag}</span>
                   </Link>

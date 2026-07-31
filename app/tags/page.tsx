@@ -54,7 +54,7 @@ export default function TagsPage() {
               <Link
                 key={tag.slug}
                 href={`/tags/${encodeURIComponent(tag.slug)}/`}
-                className="group relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[var(--page-alt)]/40 hover:bg-[var(--page-alt)]/80 text-[var(--text)] hover:text-[var(--accent)] transition-all duration-200 shadow-2xs hover:shadow-sm shrink-0"
+                className="group relative inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[var(--page-alt)]/40 hover:bg-[var(--page-alt)]/80 text-[var(--text)] hover:text-[var(--accent)] transition-all duration-200 shadow-2xs hover:shadow-sm shrink-0"
               >
                 <div className="flex items-center gap-1.5">
                   <Hash className="w-3.5 h-3.5 text-[var(--accent)] opacity-70 group-hover:opacity-100 transition-opacity" />

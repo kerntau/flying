@@ -108,7 +108,7 @@ export function Footer() {
         </div>
 
         {/* 2. 桌面端布局 (>= 640px) */}
-        <div className="hidden sm:flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2 text-center text-xs sm:text-[13px]">
+        <div className="hidden sm:flex flex-wrap items-center justify-center gap-x-3 gap-y-2.5 text-center text-xs">
           {/* 版权 */}
           <span className="font-medium text-[var(--text)] inline-flex items-center gap-1.5">
             <span>© {new Date().getFullYear()}</span>

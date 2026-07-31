@@ -85,12 +85,12 @@ export function MomentsClient({ commits }: MomentsClientProps) {
 
     gsap.fromTo(
       items,
-      { opacity: 0, y: 12 },
+      { opacity: 0, y: 10 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.35,
-        stagger: 0.02,
+        duration: 0.22,
+        stagger: 0.01,
         ease: "power2.out",
         clearProps: "transform",
       }

@@ -20,20 +20,20 @@ export function PostCard({ post }: PostCardProps) {
     const coverEl = coverRef.current;
     if (!cardEl || typeof window === "undefined") return;
 
-    // GSAP Hover 监听与弹性物理回弹
+    // GSAP Hover 监听与轻快流畅响应
     const onMouseEnter = () => {
       gsap.to(cardEl, {
-        y: -4,
-        duration: 0.35,
-        ease: "power2.out",
+        y: -3,
+        duration: 0.2,
+        ease: "power3.out",
         overwrite: "auto",
       });
       if (coverEl) {
         gsap.to(coverEl, {
-          scale: 1.03,
+          scale: 1.025,
           boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08)",
-          duration: 0.35,
-          ease: "power2.out",
+          duration: 0.2,
+          ease: "power3.out",
           overwrite: "auto",
         });
       }
@@ -42,16 +42,16 @@ export function PostCard({ post }: PostCardProps) {
     const onMouseLeave = () => {
       gsap.to(cardEl, {
         y: 0,
-        duration: 0.45,
-        ease: "back.out(1.4)",
+        duration: 0.2,
+        ease: "power2.out",
         overwrite: "auto",
       });
       if (coverEl) {
         gsap.to(coverEl, {
           scale: 1,
           boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-          duration: 0.45,
-          ease: "back.out(1.4)",
+          duration: 0.2,
+          ease: "power2.out",
           overwrite: "auto",
         });
       }
@@ -100,7 +100,7 @@ export function PostCard({ post }: PostCardProps) {
       {/* 下方正文：文章标题 (统一 2 行固定高度) + 底部置底对齐的日期/标签 */}
       <div className="flex flex-col flex-1 justify-between pt-1.5 sm:pt-2 min-w-0">
         {/* 文章标题 */}
-        <h2 className="text-xs sm:text-sm font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-[1.35] sm:min-h-[2.7em] min-h-0 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+        <h2 className="text-xs sm:text-sm font-bold tracking-tight text-[var(--text)] line-clamp-2 leading-[1.35] sm:min-h-[2.7em] min-h-0 group-hover:text-[var(--accent)] transition-colors">
           <Link href={`/posts/${post.slug}/`}>{post.title}</Link>
         </h2>
 

@@ -45,18 +45,18 @@ export function PhotosClient({ photos }: PhotosClientProps) {
         {filteredPhotos.map((photo) => (
           <div
             key={photo.slug}
-            className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-[var(--page-alt)] border-0 shadow-2xs hover:shadow-xl transition-all duration-500 cursor-pointer"
+            className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-[var(--page-alt)] border-0 shadow-2xs hover:shadow-xl transition-all duration-200 cursor-pointer"
             onClick={() => setActivePhoto(photo)}
           >
             <img
               src={photo.url}
               alt={photo.title}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+              className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
               loading="lazy"
             />
 
             {/* 悬浮黑色渐变蒙层 */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-between p-5 text-white">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-200 flex flex-col justify-between p-5 text-white">
               <div className="flex justify-end">
                 <span className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
                   <Icon name="search" size={14} />

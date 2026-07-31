@@ -144,15 +144,14 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
 
     gsap.fromTo(
       items,
-      { opacity: 0, y: 18, filter: "blur(4px)" },
+      { opacity: 0, y: 12 },
       {
         opacity: 1,
         y: 0,
-        filter: "blur(0px)",
-        duration: 0.5,
-        stagger: 0.025,
+        duration: 0.25,
+        stagger: 0.012,
         ease: "power2.out",
-        clearProps: "filter,transform",
+        clearProps: "transform",
       }
     );
     isInitialMount.current = false;
@@ -164,30 +163,28 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
 
     if (flipStateRef.current) {
       Flip.from(flipStateRef.current, {
-        duration: 0.45,
+        duration: 0.25,
         ease: "power2.out",
-        stagger: 0.015,
+        stagger: 0.01,
         scale: false,
         onEnter: (elements) =>
           gsap.fromTo(
             elements,
-            { opacity: 0, scale: 0.97, filter: "blur(4px)", y: 8 },
+            { opacity: 0, scale: 0.98, y: 6 },
             {
               opacity: 1,
               scale: 1,
-              filter: "blur(0px)",
               y: 0,
-              duration: 0.35,
+              duration: 0.22,
               ease: "power2.out",
-              clearProps: "filter,scale,transform",
+              clearProps: "scale,transform",
             }
           ),
         onLeave: (elements) =>
           gsap.to(elements, {
             opacity: 0,
-            scale: 0.97,
-            filter: "blur(4px)",
-            duration: 0.2,
+            scale: 0.98,
+            duration: 0.15,
             ease: "power2.in",
           }),
         onComplete: () => {

@@ -2424,22 +2424,18 @@ body[data-fly-sidebar-collapsed="true"] .fly-sidebar-uptime {
 @keyframes fly-view-out {
   0% {
     opacity: 1;
-    transform: translateY(0);
   }
   100% {
     opacity: 0;
-    transform: translateY(-4px);
   }
 }
 
 @keyframes fly-view-in {
   0% {
     opacity: 0;
-    transform: translateY(6px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -2449,11 +2445,11 @@ body[data-fly-sidebar-collapsed="true"] .fly-sidebar-uptime {
 }
 
 ::view-transition-old(page-content) {
-  animation: 160ms cubic-bezier(0.4, 0, 1, 1) both fly-view-out;
+  animation: 140ms cubic-bezier(0.16, 1, 0.3, 1) both fly-view-out;
 }
 
 ::view-transition-new(page-content) {
-  animation: 220ms cubic-bezier(0, 0, 0.2, 1) both fly-view-in;
+  animation: 180ms cubic-bezier(0.16, 1, 0.3, 1) both fly-view-in;
 }
 
 @media (prefers-reduced-motion: reduce) {

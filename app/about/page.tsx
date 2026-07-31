@@ -172,11 +172,11 @@ export default function AboutPage() {
 
           <div className="flex-1 bg-[var(--page-alt)]/40 rounded-2xl p-4.5 sm:p-5 space-y-3 border-0 shadow-2xs flex flex-col justify-center">
             {recentGoals.map((item, idx) => (
-              <div key={idx} className="flex items-center gap-3 text-xs sm:text-sm">
-                <span className="shrink-0 font-mono font-bold text-[var(--accent)] bg-[var(--accent)]/10 px-2 py-0.5 rounded text-[11px] shadow-2xs">
+              <div key={idx} className="flex items-start sm:items-center gap-2.5 sm:gap-3 text-xs sm:text-sm">
+                <span className="shrink-0 font-mono font-bold text-[var(--accent)] bg-[var(--accent)]/10 px-2 py-0.5 rounded text-[11px] shadow-2xs mt-0.5 sm:mt-0">
                   {item.tag}
                 </span>
-                <span className="text-[var(--muted)] font-medium leading-normal truncate">
+                <span className="text-[var(--muted)] font-medium leading-relaxed flex-1 break-words">
                   {item.text}
                 </span>
               </div>
@@ -214,7 +214,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <p className="text-xs text-[var(--muted)] truncate font-medium">
+              <p className="text-xs text-[var(--muted)] line-clamp-2 font-medium leading-relaxed">
                 {item.note}
               </p>
 

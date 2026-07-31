@@ -10,6 +10,13 @@ export const site = {
   icpUrl: "https://beian.miit.gov.cn/",
   gongan: "鄂公网安备 42018502008592号",
   gonganUrl: "https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42018502008592",
+  gitalk: {
+    clientID: "",
+    clientSecret: "",
+    repo: "theme-flying",
+    owner: "kerntau",
+    admin: ["kerntau"],
+  },
 };
 
 export const navigation = [

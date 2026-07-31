@@ -3,11 +3,21 @@
 import React, { useState } from "react";
 import type { Link as LinkItem } from "@/lib/types";
 import { site } from "@/data/site";
-import { Sparkles, Copy, Check, ChevronDown } from "lucide-react";
+import { Sparkles, Copy, Check, ChevronDown, ExternalLink } from "lucide-react";
 import { fireConfetti } from "@/lib/confetti";
+import { GitalkComments } from "@/components/GitalkComments";
 
 interface LinksClientProps {
   links: LinkItem[];
+}
+
+function getDomainHost(href: string): string {
+  try {
+    const url = new URL(href);
+    return url.hostname.replace(/^www\./, "");
+  } catch {
+    return href;
+  }
 }
 
 export function LinksClient({ links }: LinksClientProps) {
@@ -32,7 +42,7 @@ export function LinksClient({ links }: LinksClientProps) {
 
   return (
     <div className="space-y-8">
-      {/* 1. 软胶囊 Tab 组别控制器 (消除纯黑底块) */}
+      {/* 1. 软胶囊 Tab 组别控制器 */}
       {groups.length > 1 && (
         <div className="flex flex-wrap items-center gap-2">
           {groups.map((group) => {
@@ -42,7 +52,7 @@ export function LinksClient({ links }: LinksClientProps) {
                 key={group}
                 type="button"
                 onClick={() => setSelectedGroup(group)}
-                className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-250 cursor-pointer ${
+                className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-200 cursor-pointer ${
                   active
                     ? "bg-[var(--page-alt)] text-[var(--accent)] font-extrabold shadow-2xs"
                     : "text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)]/50 font-medium"
@@ -55,46 +65,54 @@ export function LinksClient({ links }: LinksClientProps) {
         </div>
       )}
 
-      {/* 2. 参照 Github/blog 风格的 4 列居中发光友链卡片网格 */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-        {filteredLinks.map((link) => (
-          <a
-            key={link.title}
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-xl bg-[var(--page-alt)]/35 hover:bg-[var(--page-alt)]/75 transition-all duration-300 hover:-translate-y-0.5 shadow-2xs hover:shadow-sm overflow-hidden text-center"
-          >
-            {/* 悬浮微光发光底晕 */}
-            <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-              <div className="absolute left-1/2 top-4 h-16 w-16 -translate-x-1/2 rounded-full bg-[var(--accent)]/12 blur-xl" />
-            </div>
+      {/* 2. 纯净无框极简友链列表网格 (去掉实体卡片背景框与边框) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-2 sm:gap-y-3 gap-x-6">
+        {filteredLinks.map((link) => {
+          const domainHost = getDomainHost(link.href);
 
-            {/* 圆形头像 */}
-            <div className="relative z-10 w-10 h-10 sm:w-11 sm:h-11 shrink-0 mb-2">
-              <img
-                src={link.avatar}
-                alt={link.title}
-                className="w-full h-full rounded-full object-cover bg-[var(--page)] ring-2 ring-[var(--line)]/20 group-hover:ring-[var(--accent)]/40 group-hover:scale-110 transition-all duration-300"
-              />
-            </div>
+          return (
+            <a
+              key={link.title}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between py-2.5 px-3 -mx-3 rounded-xl hover:bg-[var(--page-alt)]/50 transition-all duration-200"
+            >
+              <div className="flex items-center gap-3 min-w-0 flex-1">
+                {/* 极简圆润头像 */}
+                <img
+                  src={link.avatar}
+                  alt={link.title}
+                  className="w-9 h-9 rounded-full object-cover shrink-0 bg-[var(--page-alt)] border border-[var(--line)]/30 group-hover:scale-105 transition-transform duration-200"
+                />
 
-            {/* 标题 */}
-            <span className="relative z-10 text-[13px] sm:text-sm font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">
-              {link.title}
-            </span>
+                {/* 文本信息 */}
+                <div className="flex flex-col min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="font-bold text-xs sm:text-sm text-[var(--text)] group-hover:text-[var(--accent)] transition-colors truncate">
+                      {link.title}
+                    </span>
+                    <span className="text-[10px] font-mono text-[var(--muted)] opacity-60 truncate shrink-0">
+                      ({domainHost})
+                    </span>
+                  </div>
 
-            {/* 描述 */}
-            {link.description && (
-              <span className="relative z-10 text-[11px] text-[var(--muted)] line-clamp-1 mt-0.5 text-center">
-                {link.description}
-              </span>
-            )}
-          </a>
-        ))}
+                  {link.description && (
+                    <p className="text-xs text-[var(--muted)] truncate mt-0.5 font-normal opacity-85">
+                      {link.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* 右侧外链指示器 */}
+              <ExternalLink className="w-3.5 h-3.5 text-[var(--muted)] opacity-30 group-hover:opacity-100 group-hover:text-[var(--accent)] group-hover:translate-x-0.5 transition-all duration-200 shrink-0 ml-2" />
+            </a>
+          );
+        })}
       </div>
 
-      {/* 3. 底部“申请互换友链”轻量面板 (默认隐藏详细参数代码) */}
+      {/* 3. 底部“申请互换友链”轻量面板 */}
       <section className="bg-[var(--page-alt)]/30 rounded-3xl p-5 sm:p-6 border-0 shadow-2xs mt-10 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
@@ -153,6 +171,9 @@ export function LinksClient({ links }: LinksClientProps) {
           </div>
         )}
       </section>
+
+      {/* 4. Gitalk 留言申请与讨论区 */}
+      <GitalkComments />
     </div>
   );
 }

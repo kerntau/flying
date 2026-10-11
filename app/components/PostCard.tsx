@@ -91,7 +91,7 @@ export function PostCard({ post }: PostCardProps) {
 
         {/* 左下角分类 Pill 标签 */}
         {post.category && (
-          <span className="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 z-10 inline-flex items-center px-1.5 py-0.5 text-[10px] sm:text-[11px] font-bold rounded-md bg-white/90 dark:bg-black/90 text-black dark:text-white shadow-xs backdrop-blur-md">
+          <span className="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 z-10 inline-flex items-center px-1.5 py-0.5 text-[10px] sm:text-[11px] font-bold rounded-md bg-[var(--page-alt)]/95 text-[var(--text)] border border-[var(--line)]/70 shadow-xs backdrop-blur-md">
             {post.category}
           </span>
         )}

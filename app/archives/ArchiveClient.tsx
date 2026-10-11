@@ -411,7 +411,7 @@ export function ArchiveClient({ initialPosts, categories }: ArchiveClientProps) 
                   <div className="flex-1 min-w-0 pr-1 sm:pr-2 flex items-center gap-1.5 sm:gap-2.5">
                     {/* 分类 Tag */}
                     {post.category && (
-                      <span className="shrink-0 hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] sm:text-[11px] font-bold rounded-md bg-[var(--accent)]/10 text-[var(--accent)] leading-none shadow-2xs group-hover:bg-[var(--accent)]/20 transition-colors">
+                      <span className="shrink-0 hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] sm:text-[11px] font-bold rounded-md bg-[var(--page-alt)] text-[var(--text)] leading-none shadow-2xs border border-[var(--line)]/60 group-hover:text-[var(--accent)] transition-colors">
                         {post.category}
                       </span>
                     )}

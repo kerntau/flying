@@ -1,32 +1,72 @@
-# Theme Flying · 序栈
+<div align="center">
 
-基于 Next.js App Router、React 19 和 Tailwind CSS 的极简水墨博客主题。项目将 Markdown 内容、文章搜索、RSS 和静态资源全部保存在本地仓库，适合部署为静态或 Node.js 站点。
+# THEME FLYING // 序栈
 
-## 特性
+**Next.js 驱动的极简现代水墨博客主题**<br>
+*An immersive, local-first blog theme for thoughtful publishing.*
 
-- Next.js 16 App Router + React 19
-- Light/Dark 主题与温润水墨设计 tokens
-- View Transitions 页面切换
-- cmdk 全文搜索、图片灯箱与代码复制
-- Markdown/GFM、Shiki 高亮、Callouts、KaTeX
-- RSS、搜索索引和 Service Worker
-- 文章、归档、分类、标签、图库与 moments 页面
-- 内容校验和静态产物验证脚本
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=111111)](https://react.dev)
+[![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![License](https://img.shields.io/badge/License-MIT-555555?style=for-the-badge)](LICENSE)
 
-## 技术栈
+</div>
 
-Next.js 16 · TypeScript 6 · Tailwind CSS v4 · Radix UI · HeroUI · Framer Motion · GSAP · Unified/Shiki。
+---
 
-## 开发
+## 01. THE PURPOSE // 项目本源
+
+Flying 是一个把 Markdown 内容、搜索索引、RSS 和阅读交互组合在一起的本地优先博客主题。项目支持静态导出，也可用 Node.js 运行。
+
+[Repository](https://github.com/kerntau/flying)
+
+## 02. CORE ARCHITECTURE // 核心架构
+
+~~~mermaid
+graph LR
+  MD[Markdown content] --> V[Content validation]
+  V --> IDX[RSS and search index]
+  IDX --> N[Next.js App Router]
+  N --> HTML[Static export or Node server]
+  N --> UX[Search, zoom, theme, transitions]
+~~~
+
+scripts/prepare-static-content.mjs 在构建前校验 frontmatter 和资源，再生成索引与 RSS；Next.js 负责路由、页面和静态产物。
+
+## 03. TECHNICAL MATRIX // 技术矩阵
+
+| 领域 | 选型 | 作用 |
+| --- | --- | --- |
+| 框架 | Next.js 16、React 19 | 页面路由与渲染 |
+| 样式 | Tailwind CSS v4、Design Tokens | 水墨主题与响应式 |
+| 内容 | Gray Matter、Unified、Shiki | Markdown 解析和高亮 |
+| 交互 | cmdk、medium-zoom、Framer Motion、GSAP | 搜索、图片和动画 |
+| 输出 | RSS、Service Worker、静态导出 | 订阅、缓存与部署 |
+
+## 04. REPOSITORY TOPOLOGY // 源码拓扑
+
+~~~text
+app/content/                 # Markdown 文章
+app/data/site.ts             # 站点与友链数据
+app/components/              # Shell、Sidebar、Search、Article Enhancer
+app/posts、app/archives/     # 文章与归档路由
+public/assets/               # 图片、字体和静态资源
+scripts/prepare-static-content.mjs
+next.config.mjs              # 静态输出配置
+~~~
+
+## 05. CLONE & QUICK START // 极速开始
 
 需要 Node.js 22.12+ 与 pnpm。
 
 ~~~bash
+git clone https://github.com/kerntau/flying.git
+cd flying
 pnpm install
 pnpm dev
 ~~~
 
-常用检查和构建命令：
+## 06. DEPLOYMENT & VERIFICATION // 部署与验证
 
 ~~~bash
 pnpm validate:content
@@ -36,29 +76,22 @@ pnpm verify:static
 pnpm start
 ~~~
 
-pnpm build 会先校验 Markdown frontmatter 与图片，再生成 RSS/搜索索引并执行 Next.js 构建。
+next.config.mjs 已配置静态输出和未优化图片；可将构建结果部署到静态托管，也可使用 pnpm start 运行 Node 服务。发布前验证文章、搜索、RSS、主题切换、图片放大和移动端导航。
 
-## 内容维护
+## 07. ENGINEERING CONTRACT // 工程契约
 
-- 文章：app/content/posts/ 下的 Markdown 文件
-- 站点配置：app/data/site.ts
-- 公共资源：public/assets/
-- 内容处理：scripts/prepare-static-content.mjs
+- 新文章必须包含可解析的 frontmatter 和本地封面资源。
+- 构建脚本生成的 RSS/索引属于产物，修改源内容后重新生成。
+- 远程字体或头像变更需评估隐私、可用性和缓存策略。
+- 动画需尊重 prefers-reduced-motion。
 
-文章 frontmatter 示例：
+## 08. ROADMAP // 演进路线
 
-~~~yaml
----
-title: "我的第一篇文章"
-description: "文章摘要"
-pubDate: "2026-07-30"
-category: "技术分享"
-tags: ["Next.js", "前端工程"]
-author: "Kerntau"
-cover: "/assets/images/covers/example.svg"
----
-~~~
+- [x] 内容校验、RSS、搜索索引和静态验证
+- [x] 深浅主题、View Transitions、图片灯箱
+- [ ] 更细的无障碍审计与键盘导航
+- [ ] 可选的内容预览与草稿工作流
 
-## 许可证
+## 09. LICENSE // 许可证
 
-代码以仓库中的 LICENSE 为准；文章和图片等内容请遵循各自的版权声明。
+代码遵循 [MIT](LICENSE)。

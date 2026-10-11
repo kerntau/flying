@@ -1,8 +1,16 @@
-@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css');
 @import "tailwindcss";
 
+/* MiSans is bundled locally under the MiSans font license. */
+@font-face {
+  font-family: "MiSans";
+  src: url("/assets/fonts/MiSans-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 .fly-brand-text {
-  font-family: "XuandongKaishu", "LXGW WenKai Screen", cursive, sans-serif !important;
+  font-family: var(--font-sans) !important;
   font-weight: 900 !important;
   font-size: 1.35rem !important;
   line-height: 1.2 !important;
@@ -25,9 +33,8 @@
 }
 
 :root {
-  --font-lxgw-bright: "LXGW WenKai Screen";
-  --font-sans: "Microsoft YaHei", "微软雅黑", system-ui, -apple-system, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans: "MiSans", sans-serif;
+  --font-mono: "MiSans", sans-serif;
   --fly-responsive-gutter: clamp(16px, calc(11.25px + 1.25vw), 30px);
   --sidebar-width: 176px;
   --sidebar-collapsed-width: 64px;
@@ -89,7 +96,14 @@ body {
   font-feature-settings: "liga" 1, "calt" 1, "cv02", "cv03", "cv04", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-synthesis: style;
+  font-synthesis: weight style;
+}
+
+/* Keep utility font classes on the same MiSans family as the rest of the UI. */
+.font-sans,
+.font-mono,
+.font-serif {
+  font-family: var(--font-sans) !important;
 }
 
 [data-theme="dark"],

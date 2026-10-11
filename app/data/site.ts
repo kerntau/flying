@@ -2,7 +2,7 @@ export const site = {
   title: "序栈",
   subtitle: "在有序的世界里，寻一处生活的归栈",
   description: "用理性梳理日常，用技术温柔时光，不慌不忙，自在生长。",
-  url: "https://curn.me",
+  url: "https://github.com/kerntau/flying",
   author: "Kerntau",
   logo: "https://q1.qlogo.cn/g?b=qq&nk=1722288011&s=640&t=20260730",
   siteCreatedAt: "2025-11-10T00:07:03",
@@ -56,7 +56,7 @@ export const socialLinks = [
 export const links = [
   {
     title: "序栈",
-    href: "https://curn.me/",
+    href: "https://github.com/kerntau/flying/",
     avatar: "https://q1.qlogo.cn/g?b=qq&nk=1722288011&s=640&t=20260730",
     description: "在有序的世界里，寻一处生活的归栈",
     group: "本站",

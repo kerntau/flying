@@ -1,9 +1,7 @@
 {
   "name": "theme-flying",
   "version": "1.0.0",
-  "description": "序栈 (Flying) - 基于 Next.js 16 (App Router) + React 19 的极简现代水墨沉浸式博客主题",
-  "homepage": "https://curn.me",
-  "private": true,
+  "description": "序栈 (Flying) - 基于 Next.js 16 (App Router) + React 19 的极简现代水墨沉浸式博客主题",  "private": true,
   "engines": {
     "node": ">=22.12.0"
   },

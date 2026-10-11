@@ -77,20 +77,6 @@ pnpm verify:static
 
 next.config.mjs 已配置静态输出和未优化图片；next.config.mjs 使用静态输出，部署时托管生成的静态目录；如改为服务器模式，再启用 pnpm start。发布前验证文章、搜索、RSS、主题切换、图片放大和移动端导航。
 
-## 07. ENGINEERING CONTRACT // 工程契约
-
-- 新文章必须包含可解析的 frontmatter 和本地封面资源。
-- 构建脚本生成的 RSS/索引属于产物，修改源内容后重新生成。
-- 远程字体或头像变更需评估隐私、可用性和缓存策略。
-- 动画需尊重 prefers-reduced-motion。
-
-## 08. ROADMAP // 演进路线
-
-- [x] 内容校验、RSS、搜索索引和静态验证
-- [x] 深浅主题、View Transitions、图片灯箱
-- [ ] 更细的无障碍审计与键盘导航
-- [ ] 可选的内容预览与草稿工作流
-
-## 09. LICENSE // 许可证
+## 07. LICENSE // 许可证
 
 package.json 声明代码使用 MIT；仓库当前未附 LICENSE 文件。

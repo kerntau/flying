@@ -96,7 +96,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 {post.tags && post.tags.length > 0 && post.tags.map((tag) => (
                   <Link
                     key={tag}
-                    href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
+                    href={`/tags/${encodeURIComponent(tag)}/`}
                     className="inline-flex items-center justify-center h-6 sm:h-6.5 px-2 rounded-md bg-[var(--page-alt)]/80 text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--page-alt)] transition-colors font-medium text-xs border-0 shrink-0 leading-none"
                   >
                     <span>#{tag}</span>

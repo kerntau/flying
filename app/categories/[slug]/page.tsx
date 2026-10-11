@@ -1,29 +1,22 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { getAllCategories, getAllPosts } from "@/lib/content";
 import { PostCard } from "@/components/PostCard";
-import { Icon } from "@/components/Icon";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import { Folder } from "lucide-react";
 
 interface CategoryPageProps {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
   const categories = getAllCategories();
-  const paramsSet = new Set<string>();
-
-  categories.forEach((cat) => {
-    paramsSet.add(cat.slug);
-    paramsSet.add(encodeURIComponent(cat.slug));
-  });
-
-  return Array.from(paramsSet).map((slug) => ({ slug }));
+  const params = categories.map((category) => ({ slug: category.slug }));
+  return process.env.NODE_ENV === "development"
+    ? [...params, ...categories.map((category) => ({ slug: encodeURIComponent(category.slug) }))]
+    : params;
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
@@ -31,7 +24,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const category = decodeURIComponent(slug);
   return pageMetadata({
     title: `分类: ${category}`,
-    description: `深度阅读分类 ${category} 下的专业文章。`,
+    description: `浏览 ${category} 分类下的技术文章。`,
     path: `/categories/${slug}/`,
   });
 }
@@ -39,49 +32,27 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 export default async function CategoryDetailPage({ params }: CategoryPageProps) {
   const { slug } = await params;
   const decodedSlug = decodeURIComponent(slug);
-  const posts = getAllPosts().filter(
-    (p) => p.category === slug || p.category === decodedSlug
-  );
+  const posts = getAllPosts().filter((post) => post.category === slug || post.category === decodedSlug);
 
-  if (posts.length === 0) {
-    notFound();
-  }
+  if (posts.length === 0) notFound();
 
   return (
-    <div className="fly-category-detail-page w-full space-y-6 sm:space-y-8 transition-all duration-350 select-none">
-      {/* 极简通透 Header（彻底取消突兀边框大盒子） */}
-      <header className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--line)]/20 pb-3 gap-3">
-        {/* 左侧：返回按钮 + 分类大标题 */}
-        <div className="flex items-center gap-3">
-          <Link
-            href="/categories/"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--muted)] hover:text-[var(--accent)] transition-colors px-2.5 py-1 rounded-lg bg-[var(--page-alt)]/60 hover:bg-[var(--page-alt)] border-0 shrink-0"
-          >
-            <Icon name="arrow-left" size={13} />
-            <span>分类</span>
+    <div className="fly-category-detail-page w-full space-y-6 pb-8 sm:space-y-8">
+      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-[var(--line)] pb-5">
+        <div className="min-w-0">
+          <Link href="/categories/" className="mb-3 inline-flex items-center gap-1 text-xs text-[var(--muted)] transition-colors hover:text-[var(--accent)]">
+            <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.8} />
+            返回分类
           </Link>
-          <span className="text-[var(--line)] opacity-30 text-xs">/</span>
-          <div className="flex items-center gap-2">
-            <Folder className="w-5 h-5 text-blue-500 opacity-80" />
-            <h1 className="text-xl sm:text-2xl font-black tracking-tight text-[var(--text)]">
-              {decodedSlug}
-            </h1>
-          </div>
+          <h1 className="truncate text-2xl font-extrabold tracking-tight text-[var(--text)] sm:text-3xl">{decodedSlug}</h1>
         </div>
-
-        {/* 右侧：精选文章篇数统计 */}
-        <div className="flex items-center gap-2 text-xs font-mono font-medium text-[var(--muted)]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] opacity-70 animate-pulse" />
-          <span>共收录 {posts.length} 篇主题文章</span>
-        </div>
+        <span className="shrink-0 text-xs font-mono text-[var(--muted)]">{posts.length} 篇文章</span>
       </header>
 
-      {/* 5 列卡片网格 (与首页保持 100% 视觉与移动端适配一致) */}
-      <section className="space-y-4">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4.5">
-          {posts.map((post) => (
-            <PostCard key={post.slug} post={post} />
-          ))}
+      <section aria-labelledby="category-posts-title">
+        <h2 id="category-posts-title" className="sr-only">{decodedSlug} 的文章</h2>
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {posts.map((post) => <PostCard key={post.slug} post={post} />)}
         </div>
       </section>
     </div>

@@ -7,6 +7,8 @@ const contentRoot = join(root, "app", "content");
 const outputRoot = join(root, "out");
 const siteUrl = "https://curn.me";
 const baseRoutes = ["/", "/about/", "/archives/", "/authors/", "/categories/", "/links/", "/moments/", "/photos/", "/tags/"];
+const normalize = (route) => route.endsWith("/") ? route : `${route}/`;
+const normalizeRoute = (route) => normalize(decodeURIComponent(route));
 
 async function exists(filename) {
   try {
@@ -62,9 +64,10 @@ const expectedRoutes = new Set([
 const outputPages = await collectOutputPages(outputRoot);
 const actualRoutes = new Map(outputPages.map((filename) => {
   const directory = relative(outputRoot, dirname(filename)).replaceAll("\\", "/");
-  return [directory ? `/${directory}/` : "/", filename];
+  return [normalizeRoute(directory ? `/${directory}/` : "/"), filename];
 }));
 actualRoutes.delete("/404/");
+actualRoutes.delete("/_not-found/");
 
 const missingRoutes = [...expectedRoutes].filter((route) => !actualRoutes.has(route));
 const unexpectedRoutes = [...actualRoutes.keys()].filter((route) => !expectedRoutes.has(route));
@@ -88,10 +91,11 @@ for (const [route, filename] of actualRoutes) {
     if (!href.startsWith("/") || href.startsWith("//") || href.startsWith("/_next/")) continue;
     const pathname = decodeURIComponent(href.split(/[?#]/, 1)[0]);
     const relativePath = pathname.replace(/^\/+/, "");
-    const target = pathname.endsWith("/")
-      ? join(outputRoot, relativePath, "index.html")
-      : join(outputRoot, relativePath);
-    if (!(await exists(target))) failures.push(`${route}: broken internal href ${href}`);
+    const encodedRelativePath = encodeURI(relativePath);
+    const targets = pathname.endsWith("/")
+      ? [join(outputRoot, relativePath, "index.html"), join(outputRoot, encodedRelativePath, "index.html")]
+      : [join(outputRoot, relativePath), join(outputRoot, encodedRelativePath)];
+    if (!(await Promise.all(targets.map(exists))).some(Boolean)) failures.push(`${route}: broken internal href ${href}`);
   }
 }
 

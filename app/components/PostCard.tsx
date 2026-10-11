@@ -111,7 +111,7 @@ export function PostCard({ post }: PostCardProps) {
               {post.tags.slice(0, 2).map((tag, index) => (
                 <Link
                   key={tag}
-                  href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
+                  href={`/tags/${encodeURIComponent(tag)}/`}
                   className={`items-center px-1 py-0.5 rounded-md bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] transition-colors font-medium max-w-[80px] sm:max-w-[100px] truncate shrink ${
                     index === 0 ? "inline-flex" : "hidden sm:inline-flex"
                   }`}

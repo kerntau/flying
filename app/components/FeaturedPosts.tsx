@@ -128,7 +128,7 @@ export function FeaturedPosts({ posts }: FeaturedPostsProps) {
                             {post.tags.slice(0, 3).map((tag) => (
                               <Link
                                 key={tag}
-                                href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}
+                                href={`/tags/${encodeURIComponent(tag)}/`}
                                 className="inline-flex items-center justify-center h-6 sm:h-6.5 px-2 rounded-md bg-[var(--page-alt)]/80 hover:bg-[var(--page-alt)] text-[var(--muted)] hover:text-[var(--text)] text-xs font-medium transition-colors border-0 shrink-0 leading-none"
                               >
                                 <span>#{tag}</span>

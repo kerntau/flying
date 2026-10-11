@@ -73,10 +73,9 @@ pnpm validate:content
 pnpm typecheck
 pnpm build
 pnpm verify:static
-pnpm start
 ~~~
 
-next.config.mjs 已配置静态输出和未优化图片；可将构建结果部署到静态托管，也可使用 pnpm start 运行 Node 服务。发布前验证文章、搜索、RSS、主题切换、图片放大和移动端导航。
+next.config.mjs 已配置静态输出和未优化图片；next.config.mjs 使用静态输出，部署时托管生成的静态目录；如改为服务器模式，再启用 pnpm start。发布前验证文章、搜索、RSS、主题切换、图片放大和移动端导航。
 
 ## 07. ENGINEERING CONTRACT // 工程契约
 

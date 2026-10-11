@@ -8,7 +8,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=111111)](https://react.dev)
 [![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![License](https://img.shields.io/badge/License-MIT-555555?style=for-the-badge)](LICENSE)
+![License](https://img.shields.io/badge/License-MIT-555555?style=for-the-badge)
 
 </div>
 
@@ -94,4 +94,4 @@ next.config.mjs 已配置静态输出和未优化图片；可将构建结果部�
 
 ## 09. LICENSE // 许可证
 
-代码遵循 [MIT](LICENSE)。
+package.json 声明代码使用 MIT；仓库当前未附 LICENSE 文件。
